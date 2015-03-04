@@ -38,13 +38,13 @@ def mainMenu():
     addSubMenu('daz','Steun dazsport bezoek dazsports.org')
     addSubMenu('stv','Steun stvstreams bezoek stvstreams.com')
     addSubMenu('13stream','13stream')
-    addSubMenu('bvls','Steun bvls2013 bezoek bvls13.com')
+    addSubMenu('bvls','Steun bvls2013 bezoek bvls2013.com')
 	#if newFeatures == "true":
         #addSubMenu('hdstreams','HD Streams - [COLOR red]Unsupported[/COLOR]')
     addDummyItem('')
     addDummyItem('[COLOR green]Online Stream[/COLOR]')
     addDummyItem('[COLOR red]Offline Stream[/COLOR]')
-    addDummyItem('[COLOR blue]Luister ook naar paradiseradio.org[/COLOR]')
+    addDummyItem('[COLOR yellow]Luister ook naar paradiseradio.org[/COLOR]')
     xbmcplugin.endOfDirectory(addon_handle)
 
 def build_url(query):
