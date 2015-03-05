@@ -1,6 +1,4 @@
 import sys, urllib2, urllib
-#import janlul, dazsports, ads, stv, sopcast
-#import stream, bitly
 import xbmcgui
 import xbmcplugin, xbmcaddon
 import urlparse
@@ -39,8 +37,7 @@ def mainMenu():
     addSubMenu('stv','Steun stvstreams bezoek stvstreams.com')
     addSubMenu('13stream','13stream')
     addSubMenu('bvls','Steun bvls2013 bezoek bvls2013.com')
-	#if newFeatures == "true":
-        #addSubMenu('hdstreams','HD Streams - [COLOR red]Unsupported[/COLOR]')
+    addSubMenu('sportx','Sport-X')
     addDummyItem('')
     addDummyItem('[COLOR green]Online Stream[/COLOR]')
     addDummyItem('[COLOR red]Offline Stream[/COLOR]')
@@ -102,8 +99,8 @@ else:
         bvls.addStreams()
     elif site == '13stream':
         sopcast.add13Stream()
-    elif site == 'hdstreams':
-        sopcast.addStreams()
+    elif site == 'sportx': #sport-x.net
+        sportx.addStreams()
     else:
         mainMenu()
 
