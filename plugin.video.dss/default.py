@@ -37,7 +37,8 @@ def mainMenu():
     addSubMenu('stv','Steun stvstreams bezoek stvstreams.com')
     addSubMenu('13stream','13stream')
     addSubMenu('bvls','Steun bvls2013 bezoek bvls2013.com')
-    addSubMenu('sportx','Sport-X')
+    if newFeatures == "true":
+        addSubMenu('sportx','Footdirect24.com')
     addDummyItem('')
     addDummyItem('[COLOR green]Online Stream[/COLOR]')
     addDummyItem('[COLOR red]Offline Stream[/COLOR]')

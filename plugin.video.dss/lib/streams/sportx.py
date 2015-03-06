@@ -1,51 +1,54 @@
 from ..utils import bitly, xbmcutil
 from . import veetle
+import urllib2, re
 
-sourceSite='http://www.sport-x.net/'
+sourceSite='http://footdirect24.com'
 
 def addStreams():
-    pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van streams...')
+    #xbmcutil.addMenuItem('DAZ Sports 1', 'micast://')
+    #xbmcutil.addMenuItem('DAZ Sports 2', 'micast://')
+    print("IP OF MICAST = " + getMicastIp())
+    ipAddress = getMicastIp()
+    print('micastip='+ipAddress)
+    
+    addMicast(ipAddress, 'footdirect24-streams 1', 'sat78', 'sportx1', 'sportx1')
+    addMicast(ipAddress, 'footdirect24-streams 3', 'sporttv4', 'sportx3', 'sportx3')
+    addMicast(ipAddress, 'footdirect24-streams 4', 'live5', 'sportx4', 'sportx4')
+    addMicast(ipAddress, 'footdirect24-streams 5', 'my6', 'sportx5', 'sportx5')
+    addMicast(ipAddress, 'footdirect24-streams 6', 'sporttv22', 'sportx6', 'sportx6')
+    addMicast(ipAddress, 'footdirect24-streams 7', 'my88', 'sportx7', 'sportx7')
+    addMicast(ipAddress, 'footdirect24-streams 8', 'my99', 'sportx8', 'sportx8')
 
-
-    xbmcutil.updateProgressBar(pBar, 9, 'Sportx - Stream 1')
-    tmp = bitly.getLink('sportx1', sourceSite)
-    veetle.addChannel('sportx - Stream 1', tmp, 'sportx')
-
-    xbmcutil.updateProgressBar(pBar, 18, 'Sportx - Stream 2')
-    tmp = bitly.getLink('sportx2', sourceSite)
-    veetle.addChannel('sportx - Stream 2', tmp, 'sportx')
-
-    xbmcutil.updateProgressBar(pBar, 27, 'Sportx - Stream 3')
-    tmp = bitly.getLink('sportx3', sourceSite)
-    veetle.addChannel('sportx - Stream 3', tmp, 'sportx')
-
-    xbmcutil.updateProgressBar(pBar, 36, 'Sportx - Stream 4')
-    tmp = bitly.getLink('sportx4', sourceSite)
-    veetle.addChannel('sportx - Stream 4', tmp, 'sportx')
-
-    xbmcutil.updateProgressBar(pBar, 45, 'Sportx - Stream 5')
-    tmp = bitly.getLink('sportx5', sourceSite)
-    veetle.addChannel('sportx - Stream 5', tmp, 'sportx')
-
-    xbmcutil.updateProgressBar(pBar, 54, 'Sportx - Stream 6')
-    tmp = bitly.getLink('sportx6', sourceSite)
-    veetle.addChannel('sportx - Stream 6', tmp, 'sportx')
-
-    xbmcutil.updateProgressBar(pBar, 63, 'Sport-x - Stream 7')
-    tmp = bitly.getLink('sportx7', sourceSite)
-    veetle.addChannel('sportx - Stream 7', tmp, 'sportx')
-
-    xbmcutil.updateProgressBar(pBar, 72, 'Sport-x - Stream 8')
-    tmp = bitly.getLink('sportx8', sourceSite)
-    veetle.addChannel('sportx - Stream 8', tmp, 'sportx')
-
-    xbmcutil.updateProgressBar(pBar, 81, 'Sportx - Stream 9')
-    tmp = bitly.getLink('sportx9', sourceSite)
-    veetle.addChannel('sportx - Stream 9', tmp, 'sportx')
-
-    xbmcutil.updateProgressBar(pBar, 90, 'Sportx - Stream 10')
-    tmp = bitly.getLink('sportx10', sourceSite)
-    veetle.addChannel('sportx - Stream 10', tmp, 'sportx')
-
-    xbmcutil.updateProgressBar(pBar, 100,'Gereed!')
+    
     xbmcutil.endOfList()
+
+def addMicast(ipAddress, displayName, micastId, icon=None, fanart=None):
+    rtmp_url = 'rtmp://'+ipAddress+':443/liveedge/ playpath='+micastId+' swfUrl=http://turbocast.tv/images/player.swf live=1 pageUrl=http://micast.tv/chn2.php?ch='+micastId
+    xbmcutil.addMenuItem(displayName, rtmp_url, 'true', icon, fanart)
+
+def getMicastIp():
+    strContent = getPage('http://micast.tv/chn2.php')
+    strDec = getDecString(strContent)
+    strIp = getPage('http://connexa.org/decode_micast.php?decoded='+strDec)
+    return strIp
+
+def getPage(page):
+    url = page
+    try:
+        #headers = {'User-agent' : 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0'}
+        req = urllib2.Request(url ,None)
+        response = urllib2.urlopen(req, timeout=xbmcutil.getTimeout())
+        data = response.read()
+        response.close()
+        return data
+    except :
+        return ''
+        print('We failed to open '+url)
+
+def getDecString(content):
+    try:
+        find_dec = re.compile("dec\(\"(.*?)\"\)" , re.DOTALL)
+        decoded = find_dec.search(content).group(1)
+        return decoded
+    except:
+        return ''
