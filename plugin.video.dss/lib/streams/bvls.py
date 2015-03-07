@@ -1,5 +1,6 @@
 from ..utils import bitly, xbmcutil
 from . import veetle
+import re
 
 sourceSite='http://www.bvls2013.com/'
 
@@ -8,44 +9,51 @@ def addStreams():
 
 
     xbmcutil.updateProgressBar(pBar, 9, 'BVLS - Stream 1')
-    tmp = bitly.getLink('bvls1', sourceSite)
+    tmp = findStream('stream1')
     veetle.addChannel('BVLS - Stream 1', tmp, 'bvls')
 
     xbmcutil.updateProgressBar(pBar, 18, 'BVLS - Stream 2')
-    tmp = bitly.getLink('bvls2', sourceSite)
+    tmp = findStream('stream2')
     veetle.addChannel('BVLS - Stream 2', tmp, 'bvls')
 
     xbmcutil.updateProgressBar(pBar, 27, 'BVLS - Stream 3')
-    tmp = bitly.getLink('bvls3', sourceSite)
+    tmp = findStream('stream3')
     veetle.addChannel('BVLS - Stream 3', tmp, 'bvls')
 
     xbmcutil.updateProgressBar(pBar, 36, 'BVLS - Stream 4')
-    tmp = bitly.getLink('bvls4', sourceSite)
+    tmp = findStream('stream4')
     veetle.addChannel('BVLS - Stream 4', tmp, 'bvls')
 
     xbmcutil.updateProgressBar(pBar, 45, 'BVLS - Stream 5')
-    tmp = bitly.getLink('bvls5', sourceSite)
+    tmp = findStream('stream5')
     veetle.addChannel('BVLS - Stream 5', tmp, 'bvls')
 
     xbmcutil.updateProgressBar(pBar, 54, 'BVLS - Stream 6')
-    tmp = bitly.getLink('bvls6', sourceSite)
+    tmp = findStream('stream6')
     veetle.addChannel('BVLS - Stream 6', tmp, 'bvls')
 
     xbmcutil.updateProgressBar(pBar, 63, 'BVLS - Stream 7')
-    tmp = bitly.getLink('bvls7', sourceSite)
+    tmp = findStream('stream7')
     veetle.addChannel('BVLS - Stream 7', tmp, 'bvls')
 
     xbmcutil.updateProgressBar(pBar, 72, 'BVLS - Stream 8')
-    tmp = bitly.getLink('bvls8', sourceSite)
+    tmp = findStream('stream8')
     veetle.addChannel('BVLS - Stream 8', tmp, 'bvls')
 
     xbmcutil.updateProgressBar(pBar, 81, 'BVLS - Stream 9')
-    tmp = bitly.getLink('bvls9', sourceSite)
+    tmp = findStream('stream9')
     veetle.addChannel('BVLS - Stream 9', tmp, 'bvls')
 
     xbmcutil.updateProgressBar(pBar, 90, 'BVLS - Stream 10')
-    tmp = bitly.getLink('bvls10', sourceSite)
+    tmp = findStream('stream10')
     veetle.addChannel('BVLS - Stream 10', tmp, 'bvls')
 
     xbmcutil.updateProgressBar(pBar, 100,'Gereed!')
     xbmcutil.endOfList()
+
+def findStream(stream):
+    page = bitly.getPage(sourceSite + '/' + stream + '.html', sourceSite, bitly.getUserAgent())
+    match=re.compile('src="(.+?)" id="myfr"').findall(page)[0]
+    frameHtml = bitly.getPage(match,sourceSite, bitly.getUserAgent())
+    base64 = bitly.getBaseEncodedString(frameHtml)
+    return bitly.getStreamUrl(base64)
