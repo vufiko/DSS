@@ -39,6 +39,7 @@ def mainMenu():
     addSubMenu('stv','Steun stvstreams bezoek stvstreams.com')
     addSubMenu('13stream','13stream')
     addSubMenu('bvls','Steun bvls2013 bezoek bvls2013.com')
+    addSubMenu('sotd','Stream of the Day')
     if newFeatures == "true":
         addSubMenu('sportx','Footdirect24.com')
     addDummyItem('')
@@ -101,6 +102,8 @@ else:
         stv.addStreams()
     elif site == 'ctv':
         ctv.addStreams()
+    elif site == 'sotd': #sports-streams.com
+        sotd.addStreams()
     elif site == 'bvls': #bvls2013.com
         bvls.addStreams()
     elif site == '13stream':
