@@ -3,6 +3,7 @@ import xbmcgui
 import xbmcplugin, xbmcaddon
 import urlparse
 import paths
+import agenda
 
 import socket, sys
 
@@ -32,6 +33,7 @@ def addSubMenu(internal, readable):
     xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li, isFolder=True)
 
 def mainMenu():
+    addSubMenu('agenda','[COLOR yellow]Wedstrijd Schema[/COLOR]')
     addSubMenu('janlul','Steun Janlul.com SMS "donate stream" naar 7733')
     addSubMenu('daz','Steun dazsport bezoek dazsports.org')
     addSubMenu('stv','Steun stvstreams bezoek stvstreams.com')
@@ -66,6 +68,7 @@ playUrl = args.get('play', None)
 p2pMode = args.get('mode', None)
 streamName = args.get('streamName', None)
 
+
 if argSite is None:
     if playUrl is None :
         mainMenu()
@@ -88,7 +91,9 @@ if argSite is None:
 else:
     site = argSite[0]
     pDialog.create('Dutch Sports Streams', 'Laden van streams...')
-    if site == 'janlul': #Janlul.com
+    if site == 'agenda':
+        agenda.showList()
+    elif site == 'janlul': #Janlul.com
         janlul.addStreams()
     elif site == 'daz': #DazSports.org
         dazsports.addStreams()
@@ -102,7 +107,7 @@ else:
         sopcast.add13Stream()
     elif site == 'sportx': #sport-x.net
         sportx.addStreams()
-    else:
-        mainMenu()
+    
+    
 
     xbmcplugin.endOfDirectory(addon_handle)

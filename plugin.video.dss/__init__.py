@@ -1,1 +1,1 @@
-__all__ = ["default","paths","tvguide"]
+__all__ = ["default","paths"]
