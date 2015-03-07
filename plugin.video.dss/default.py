@@ -34,14 +34,14 @@ def addSubMenu(internal, readable):
 
 def mainMenu():
     addSubMenu('agenda','[COLOR yellow]Wedstrijd Schema[/COLOR]')
-    addSubMenu('janlul','Steun Janlul.com SMS "donate stream" naar 7733')
-    addSubMenu('daz','Steun dazsport bezoek dazsports.org')
-    addSubMenu('stv','Steun stvstreams bezoek stvstreams.com')
+    addSubMenu('janlul','Janlul')
+    addSubMenu('daz','DAZ Sports')
+    addSubMenu('stv','STV Streams')
     addSubMenu('13stream','13stream')
-    addSubMenu('bvls','Steun bvls2013 bezoek bvls2013.com')
+    addSubMenu('bvls','BVLS2013')
     addSubMenu('sotd','Stream of the Day')
     if newFeatures == "true":
-        addSubMenu('sportx','Footdirect24.com')
+        addSubMenu('sportx','Footdirect24')
     addDummyItem('')
     addDummyItem('[COLOR green]Online Stream[/COLOR]')
     addDummyItem('[COLOR red]Offline Stream[/COLOR]')
