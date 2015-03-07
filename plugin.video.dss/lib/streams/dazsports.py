@@ -10,7 +10,7 @@ def addStreams():
     #xbmcutil.addMenuItem('DAZ Sports 2', 'micast://')
     print("IP OF MICAST = " + getMicastIp())
     ipAddress = getMicastIp()
-    addMicast(ipAddress, 'DAZ Sports 3', 'dazsports3stR', 'daz', 'daz')
+    #addMicast(ipAddress, 'DAZ Sports 3', 'dazsports3stR', 'daz', 'daz')
     #addMicast(ipAddress, 'DAZ Sports 4', 'daz2I2S', 'daz', 'daz')
     #addMicast(ipAddress, 'DAZ Sports 5', 'daz1yZ1', 'daz', 'daz')
     

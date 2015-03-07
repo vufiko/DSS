@@ -1,34 +1,42 @@
 from ..utils import bitly, xbmcutil
 from . import veetle
+import re
 
-sourceSite = 'http://www.janlul.com'
+sourceSite = 'http://janlul.com/channel'
 
 def addStreams():
-    pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van streams...')
+    pBar = xbmcutil.createProgressBar('Steun Janlul SMS "donate stream" naar 7733', 'Laden van streams...')
 
     xbmcutil.updateProgressBar(pBar, 16, 'JanLul 1')
-    jl_stream1 = bitly.getLink('janlul1', sourceSite)
-    veetle.addChannel('JanLul.com - Stream 1', jl_stream1, 'janlul')
+    tmp = findStream('jl1')
+    veetle.addChannel('JanLul.com - Stream 1', tmp, 'janlul')
 
     xbmcutil.updateProgressBar(pBar, 32, 'JanLul 2')
-    jl_stream2 = bitly.getLink('janlul2', sourceSite)
-    veetle.addChannel('JanLul.com - Stream 2', jl_stream2, 'janlul')
+    tmp = findStream('jl2')
+    veetle.addChannel('JanLul.com - Stream 2', tmp, 'janlul')
 
     xbmcutil.updateProgressBar(pBar, 48, 'JanLul 3')
-    jl_stream3 = bitly.getLink('janlul3', sourceSite)
-    veetle.addChannel('JanLul.com - Stream 3', jl_stream3, 'janlul')
+    tmp = findStream('jl3')
+    veetle.addChannel('JanLul.com - Stream 3', tmp, 'janlul')
 
     xbmcutil.updateProgressBar(pBar, 64, 'JanLul 4')
-    jl_stream4 = bitly.getLink('janlul4', sourceSite)
-    veetle.addChannel('JanLul.com - Stream 4', jl_stream4, 'janlul')
+    tmp = findStream('jl4')
+    veetle.addChannel('JanLul.com - Stream 4', tmp, 'janlul')
 
     xbmcutil.updateProgressBar(pBar, 80, 'JanLul 5')
-    jl_stream5 = bitly.getLink('janlul5', sourceSite)
-    veetle.addChannel('JanLul.com - Stream 5', jl_stream5, 'janlul')
+    tmp = findStream('jl5')
+    veetle.addChannel('JanLul.com - Stream 5', tmp, 'janlul')
 
     xbmcutil.updateProgressBar(pBar, 96, 'JanLul 6')
-    jl_stream6 = bitly.getLink('janlul6', sourceSite)
-    veetle.addChannel('JanLul.com - Stream 6', jl_stream6, 'janlul')
+    tmp = findStream('jl6')
+    veetle.addChannel('JanLul.com - Stream 6', tmp, 'janlul')
 
     xbmcutil.updateProgressBar(pBar, 100,'Gereed!')
     xbmcutil.endOfList()
+
+def findStream(stream):
+    page = bitly.getPage(sourceSite + '/' + stream + '.html', sourceSite, bitly.getUserAgent())
+    match=re.compile('src="(.+?)" name="iframe_name"').findall(page)[0]
+    frameHtml = bitly.getPage(match,sourceSite, bitly.getUserAgent())
+    base64 = bitly.getBaseEncodedString(frameHtml)
+    return bitly.getStreamUrl(base64)
