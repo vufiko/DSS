@@ -250,6 +250,19 @@ Addons Included
 	</extension>
 </addon>
 
+<addon id="repository.BlazeRepo" name="Blazetamer's Repository" version="3.0" provider-name="Blazetamer">
+<extension point="xbmc.addon.repository" name="Blaztamer's Addon Repository">
+<info compressed="false">http://offshoregit.com/Blazetamer/repo/raw/master/addons.xml</info>
+<checksum>http://offshoregit.com/Blazetamer/repo/raw/master/addons.xml.md5</checksum>
+<datadir zip="true">http://offshoregit.com/Blazetamer/repo/raw/master/zips</datadir>
+</extension>
+<extension point="xbmc.addon.metadata">
+<summary>Install all of Blazetamer's Addons</summary>
+<description>Download and install addons from Blazetamer.......For Official Support Visit TVADDONS.AG</description>
+<platform>all</platform>
+</extension>
+</addon>
+
 <addon id="repository.googlecode.kozz-addons" name="Kozz Add-ons" version="2.1.0" provider-name="Kozz">
   <requires>
     <import addon="xbmc.addon" version="12.0.0"/>
@@ -406,4 +419,27 @@ Alle tilleg i denne kilden har gått gjennom grunnleggende testing, hvis du finn
 		<platform>all</platform>
 	</extension>
 </addon>
+
+<addon id="net.rieter.xot.repository"
+        name="XBMC Online TV (formerly XOT-Uzg.v3) Add-ons"
+        version="1.0.4"
+        provider-name="Bas Rieter">
+
+    <extension  point="xbmc.addon.repository"
+                name="Official XBMC Online TV Add-on Repository">
+        <info compressed="true">http://www.rieter.net/net.rieter.xot.repository/addons.xml</info>		
+        <checksum>http://www.rieter.net/net.rieter.xot.repository/addons.xml.md5</checksum>
+        <datadir zip="true">http://www.rieter.net/net.rieter.xot.repository</datadir>
+    </extension>
+
+    <extension point="xbmc.addon.metadata">
+        <summary>Install XBMC Online TV from Rieter.NET</summary>
+        <description>This repository allows you to install the most recent version of XBMC Online TV script and plugin. They are now included in a single download.</description>
+        <disclaimer />
+        <platform>all</platform>
+        <nofanart>true</nofanart>
+    </extension>
+</addon>
+
+
 </addons>
