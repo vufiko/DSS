@@ -1,0 +1,6 @@
+[B]v2.1.9[/B]
+- buitenlandse sport verwijder 
+- autoupdate verbeterd
+
+[B]v2.1.8[/B]
+-automatisch zoeken naar janlul verwijderd werdt te traag wanneer site traag werd
