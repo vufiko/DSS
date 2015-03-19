@@ -10,6 +10,10 @@ def addStreams():
     #xbmcutil.addMenuItem('DAZ Sports 2', 'micast://')
     print("IP OF MICAST = " + getMicastIp())
     ipAddress = getMicastIp()
+    #Micast ip decoder tested
+    #addMicast(ipAddress, 'Sports 1', 'esportestv29D2', 'daz', 'daz')
+    #addMicast(ipAddress, 'Sports 2', 'esportestv3FSr', 'daz', 'daz')
+    #addMicast(ipAddress, 'Sports 3', 'sporttv1', 'daz', 'daz')
     #addMicast(ipAddress, 'DAZ Sports 3', 'dazsports3stR', 'daz', 'daz')
     #addMicast(ipAddress, 'DAZ Sports 4', 'daz2I2S', 'daz', 'daz')
     #addMicast(ipAddress, 'DAZ Sports 5', 'daz1yZ1', 'daz', 'daz')
@@ -28,10 +32,14 @@ def addMicast(ipAddress, displayName, micastId, icon=None, fanart=None):
     xbmcutil.addMenuItem(displayName, rtmp_url, 'true', icon, fanart)
 
 def getMicastIp():
-    strContent = getPage('http://micast.tv/chn2.php')
+    strContent = getPage('http://micast.tv/chn.php')
     strDec = getDecString(strContent)
-    strIp = getPage('http://connexa.org/decode_micast.php?decoded='+strDec)
+    print(strDec)
+    strIp = GetIP(strDec)
     return strIp
+	
+def GetIP(xcoded):
+    return ''.join([chr(ord(c) ^ 123) for c in xcoded])
 
 def getPage(page):
     url = page

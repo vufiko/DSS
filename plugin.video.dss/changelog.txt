@@ -1,3 +1,8 @@
+[B}V2.2.1[/B]
+-micast.tv ip decoder veranderd van php naar python
+- In volgende versie moeten bronnen automatische gevonde worden zonde exterene xml file
+
+
 [B]v2.1.9[/B]
 - buitenlandse sport verwijder 
 - autoupdate verbeterd

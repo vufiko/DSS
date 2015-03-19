@@ -40,12 +40,12 @@ def mainMenu():
     addSubMenu('13stream','13stream')
     addSubMenu('bvls','BVLS2013')
     addSubMenu('sotd','Stream of the Day')
-    #if newFeatures == "true":
-        #addSubMenu('sportx','Footdirect24')
+    if newFeatures == "true":
+        addSubMenu('spst','Sport-Streams')
     addDummyItem('')
     addDummyItem('[COLOR green]Online Stream[/COLOR]')
     addDummyItem('[COLOR red]Offline Stream[/COLOR]')
-    addDummyItem('[COLOR yellow]Luister ook naar paradiseradio.org[/COLOR]')
+    addDummyItem('[COLOR blue]facebook.com/DutchSportStreams[/COLOR]')
     xbmcplugin.endOfDirectory(addon_handle)
 
 def build_url(query):
@@ -102,14 +102,14 @@ else:
         stv.addStreams()
     elif site == 'ctv':
         ctv.addStreams()
-    elif site == 'sotd': #sports-streams.com
+    elif site == 'sotd': #streamoftheday.com
         sotd.addStreams()
     elif site == 'bvls': #bvls2013.com
         bvls.addStreams()
     elif site == '13stream':
         sopcast.add13Stream()
-    elif site == 'sportx': #sport-x.net
-        sportx.addStreams()
+    elif site == 'spst': #sports-streams.com
+        spst.addStreams()
     
     
 

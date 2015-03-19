@@ -1,7 +1,7 @@
 import urllib2, re, base64, xmlreader, ua
 import xbmcutil
 
-# basesite = 'http://connexa.org/'
+
 
 def getSourceUrl(name):
     #return basesite + name

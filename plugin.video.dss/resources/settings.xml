@@ -3,7 +3,7 @@
     <category label="Algemeen">
 		<setting label="URL Reactie timeout [sec]" id="reqTimeout" type="number" default="10" />
 	</category>
-    <category label="International">
-        <setting label="International" id="newFeatures" type="bool" default="false" />
+    <category label="newFeatures">
+        <setting label="newFeatures" id="newFeatures" type="bool" default="false" />
     </category>
 </settings>

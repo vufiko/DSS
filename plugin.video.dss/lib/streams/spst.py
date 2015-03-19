@@ -1,6 +1,6 @@
 from ..utils import bitly, xbmcutil
-from . import veetle
-import urllib2
+from . import veetle, sopcast
+import urllib2, re
 
 def addStreams():
     pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van streams...')
@@ -8,8 +8,8 @@ def addStreams():
     xbmcutil.updateProgressBar(pBar, 16, 'Sports-streams 1')
     spst1 = bitly.getLink('spst1', 'http://www.bvls2013.com/')
     veetle.addChannel('Sports-streams - Stream 1', spst1, 'spst')
+    print("IP OF MICAST = " + getMicastIp())
     ipAddress = getMicastIp()
-    print('micastip='+ipAddress)
     addMicast(ipAddress, 'Sports-streams 2', 'sports2pI6', 'spst', 'spst')
     addMicast(ipAddress, 'Sports-streams 3', 'sports4WfN', 'spst', 'spst')
 
@@ -24,15 +24,17 @@ def getMicastIp():
     strContent = getPage('http://micast.tv/chn.php')
     strDec = getDecString(strContent)
     print(strDec)
-    strIp = getPage('http://connexa.org/decode_micast.php?decoded='+strDec)
+    strIp = GetIP(strDec)
     return strIp
+	
+def GetIP(xcoded):
+    return ''.join([chr(ord(c) ^ 123) for c in xcoded])
 
 def getPage(page):
     url = page
     try:
         #headers = {'User-agent' : 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0'}
-        header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8','Accept-Language': 'nl,en-US;q=0.7,en;q=0.3','Accept-Encoding': 'deflate', 'Connection': 'keep-alive'}
-        req = urllib2.Request(url ,None, headers)
+        req = urllib2.Request(url ,None)
         response = urllib2.urlopen(req, timeout=xbmcutil.getTimeout())
         data = response.read()
         response.close()
