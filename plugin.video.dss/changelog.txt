@@ -1,4 +1,9 @@
 [B}V2.2.1[/B]
+- Dazsport 3 is terug
+
+
+
+[B}V2.2.1[/B]
 -micast.tv ip decoder veranderd van php naar python
 - In volgende versie moeten bronnen automatische gevonde worden zonde exterene xml file
 

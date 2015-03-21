@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.video.dss" name="Dutch Sports Streams" version="2.2.1" provider-name="The New DSS">
+<addon id="plugin.video.dss" name="Dutch Sports Streams" version="2.2.2" provider-name="The New DSS">
 	<requires>
 		<import addon="plugin.video.veetle" version="0.3.1" optional="false"/>
 		<import addon="plugin.video.p2p-streams" version="1.1" optional="false"/>
