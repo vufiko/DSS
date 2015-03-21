@@ -20,7 +20,7 @@ def addStreams():
     
     xbmcutil.updateProgressBar(pBar, 49, 'DazSports 3')
     daz_stream3 = bitly.getLink('daz3', sourceSite)
-    veetle.addChannel('DazSports - Stream 4', daz_stream2, 'daz')
+    veetle.addChannel('DazSports - Stream 3', daz_stream3, 'daz')
 
     xbmcutil.updateProgressBar(pBar, 49, 'DazSports 4')
     daz_stream4 = bitly.getLink('daz4', sourceSite)
