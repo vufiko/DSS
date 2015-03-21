@@ -14,10 +14,14 @@ def addStreams():
     #addMicast(ipAddress, 'Sports 1', 'esportestv29D2', 'daz', 'daz')
     #addMicast(ipAddress, 'Sports 2', 'esportestv3FSr', 'daz', 'daz')
     #addMicast(ipAddress, 'Sports 3', 'sporttv1', 'daz', 'daz')
-    addMicast(ipAddress, 'DAZ Sports 3', 'dazsports3stR', 'daz', 'daz')
+    #addMicast(ipAddress, 'DAZ Sports 3', 'dazsports3stR', 'daz', 'daz')
     #addMicast(ipAddress, 'DAZ Sports 4', 'daz2I2S', 'daz', 'daz')
     #addMicast(ipAddress, 'DAZ Sports 5', 'daz1yZ1', 'daz', 'daz')
     
+    xbmcutil.updateProgressBar(pBar, 49, 'DazSports 3')
+    daz_stream3 = bitly.getLink('daz3', sourceSite)
+    veetle.addChannel('DazSports - Stream 4', daz_stream2, 'daz')
+
     xbmcutil.updateProgressBar(pBar, 49, 'DazSports 4')
     daz_stream4 = bitly.getLink('daz4', sourceSite)
     veetle.addChannel('DazSports - Stream 4', daz_stream4, 'daz')
