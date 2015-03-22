@@ -100,8 +100,6 @@ else:
         dazsports.addStreams()
     elif site == 'stv': #STV-Streams.com
         stv.addStreams()
-    elif site == 'ctv':
-        ctv.addStreams()
     elif site == 'sotd': #streamoftheday.com
         sotd.addStreams()
     elif site == 'bvls': #bvls2013.com

@@ -8,25 +8,28 @@ def addStreams():
     pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van streams...')
 
     xbmcutil.updateProgressBar(pBar, 32, 'Stream of the Day - Stream 1')
-    sotd_stream1 = getLink('sotd1', sourceSite)
-    veetle.addChannel('Stream of the Day - Stream  1', sotd_stream1, 'sotd')
+    tmp = getLink('index')
+    veetle.addChannel('Stream of the Day - Stream  1', tmp, 'sotd')
 
     xbmcutil.updateProgressBar(pBar, 64, 'Stream of the Day - Stream 2')
-    sotd_stream2 = getLink('sotd2', sourceSite)
-    veetle.addChannel('Stream of the Day - Stream 2', sotd_stream2, 'sotd')
+    tmp = getLink('stream2')
+    veetle.addChannel('Stream of the Day - Stream 2', tmp, 'sotd')
 
-    xbmcutil.updateProgressBar(pBar, 98, 'Stream of the Day - Stream 3')
-    sotd_stream3 = getLink('sotd3', sourceSite)
-    veetle.addChannel('Stream of the Day - Stream 3', sotd_stream3, 'sotd')
+    xbmcutil.updateProgressBar(pBar, 80, 'Stream of the Day - Stream 3')
+    tmp = getLink('stream3')
+    veetle.addChannel('Stream of the Day - Stream 3', tmp, 'sotd')
+
+    xbmcutil.updateProgressBar(pBar, 98, 'Stream of the Day - Stream 4')
+    tmp = getLink('stream4')
+    veetle.addChannel('Stream of the Day - Stream 4', tmp, 'sotd')
 
     xbmcutil.updateProgressBar(pBar, 100,'Gereed!')
     xbmcutil.endOfList()
 
-def getLink(streamName, referer=None) :
-    userAgent = bitly.getUserAgent()
-    pageContent = bitly.getPage(bitly.getSourceUrl(streamName), referer, userAgent)
+def getLink(streamName) :
+    pageContent = bitly.getPage(sourceSite + '/' + streamName + '.html', sourceSite, bitly.getUserAgent())
     veetleId = findVeetleId(pageContent)
-    iframeSource = bitly.getPage("http://www.streamoftheday.com/streamx.php?id="+veetleId, referer, userAgent)
+    iframeSource = bitly.getPage("http://www.streamoftheday.com/streamx.php?id="+veetleId, bitly.getUserAgent())
     base64 = bitly.getBaseEncodedString(iframeSource)
     return bitly.getStreamUrl(base64)
 

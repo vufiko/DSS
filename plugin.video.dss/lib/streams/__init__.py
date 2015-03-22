@@ -1,1 +1,1 @@
-__all__ = ["ads","bvls","ctv","dazsports","dscplus","janlul","sportx","lmmg","mdhzk", "spst", "sopcast","stv","veetle","sotd"]
+__all__ = ["bvls","dazsports","janlul","spst","sopcast","stv","veetle","sotd"]
