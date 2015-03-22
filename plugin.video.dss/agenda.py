@@ -46,11 +46,14 @@ def getLinkByName(streamname) :
         site = 'janlul'
     elif compare == 'daz' :
         site = 'daz'
+    elif compare == 'dsp' :
+        site = 'daz'
     elif compare == 'stv' :
         site = 'stv'
     elif compare == 'bvl' :
         site = 'bvls'
+    elif compare == 'str' :
+        site = 'sotd'
     else :
-        site = 'unknown'
-    url = 'plugin://plugin.video.dss/?site='+site
+        site = 'tvguide'
     return site

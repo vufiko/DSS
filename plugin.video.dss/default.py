@@ -35,7 +35,7 @@ def addSubMenu(internal, readable):
 def mainMenu():
     addSubMenu('agenda','[COLOR yellow]Wedstrijd Schema[/COLOR]')
     addSubMenu('janlul','Janlul')
-    addSubMenu('daz','DAZ Sports')
+    addSubMenu('daz','DazSports Streams')
     addSubMenu('stv','STV Streams')
     addSubMenu('13stream','13stream')
     addSubMenu('bvls','BVLS2013')
@@ -85,8 +85,10 @@ if argSite is None:
         #li = xbmcgui.ListItem('Credits')
         #li.setProperty('IsPlayable','true')
         #xbmc.PlayList(1).add(credits, li)
-        li = xbmcgui.ListItem(str(streamName[0]))
+        iconimg = os.path.join(paths.rootDir, 'icon.png')
+        li = xbmcgui.ListItem('Dutch Sports Streams - '+str(streamName[0]), iconImage=iconimg, thumbnailImage=iconimg)
         li.setProperty('IsPlayable', 'true')
+        li.setProperty('fanart_image', os.path.join(paths.rootDir, 'fanart.jpg'))
         xbmc.PlayList(1).add(str(playUrl[0]), li)
         xbmc.Player().play(pl)
 else:
@@ -108,7 +110,8 @@ else:
         sopcast.add13Stream()
     elif site == 'spst': #sports-streams.com
         spst.addStreams()
-    
+    else:
+        mainMenu()
     
 
     xbmcplugin.endOfDirectory(addon_handle)
