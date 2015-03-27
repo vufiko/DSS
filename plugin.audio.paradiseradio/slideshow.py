@@ -33,7 +33,7 @@ def Start():
 
 def Restart():
     if not xbmc.Player().isPlayingAudio():
-        xbmc.executebuiltin("XBMC.Notification("Paradise Radio","No music playing - Exiting",5000,"+ICON+")")      
+        xbmc.executebuiltin("XBMC.Notification("+GETSTRING(30000)+","+GETSTRING(30001)+",5000,"+ICON+")")      
         Reset()
         return
 
@@ -128,12 +128,12 @@ def Initialise():
 
     #print "Initialising slideshow for %s" % artist
 
-    xbmc.executebuiltin("XBMC.Notification("Paradise Radio","Searching for" "+artist.replace(',', '')+",5000,"+ICON+")")        
+    xbmc.executebuiltin("XBMC.Notification("+GETSTRING(30000)+","+GETSTRING(30004)+" "+artist.replace(',', '')+",5000,"+ICON+")")        
 
     images = GetImages(artist)
 
     if not ShowImages(images):
-        xbmc.executebuiltin("XBMC.Notification("Paradise Radio","No images found for" "+artist+",5000,"+ICON+")")
+        xbmc.executebuiltin("XBMC.Notification("+GETSTRING(30000)+","+GETSTRING(30002)+" "+artist+",5000,"+ICON+")")
         Reset()
 
         
@@ -197,7 +197,7 @@ def TestModule(module, artist):
     images = []
 
     print '*************************************************'
-    print 'Slideshow TEST'
+    print 'RAM FM Slideshow TEST'
     print 'Search %s for %s' % (module, artist)
 
     images = GetModuleImages(module, artist)

@@ -1,7 +1,3 @@
-#
-
-#
-
 import urllib
 import geturllib
 import os
