@@ -20,7 +20,27 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.dss" name="Dutch Sports Streams" version="2.2.7" provider-name="The New DSS">
+<addon id="plugin.audio.radiowestland" name="Radio Westland" version="0.0.1" provider-name="Patrick De Lange">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>audio</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Radio Westland</summary>
+    <description lang="en">Radio Westland</description>
+    <platform>all</platform>
+    <language>en</language>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <forum></forum>
+    <website>http://www.radiowestland.com</website>
+    <source></source>
+    <email></email>
+  </extension>
+</addon>
+
+<addon id="plugin.video.dss" name="Dutch Sports Streams" version="2.2.8" provider-name="The New DSS">
 	<requires>
 		<import addon="plugin.video.veetle" version="0.3.1" optional="false"/>
 		<import addon="plugin.video.p2p-streams" version="1.1" optional="false"/>
@@ -65,27 +85,6 @@
     <forum>http://forum.kodi.tv/showthread.php?tid=201894</forum>
     <source>https://github.com/enen92/P2P-Streams-Kodi | https://github.com/enen92/P2P-Streams-Kodi--Modules-</source>
     <website>https://code.google.com/p/p2p-strm/</website>
-    <platform>all</platform>
-  </extension>
-</addon>
-
-<addon
-  id="plugin.video.SportsDevil"
-  version="1.8.8.0"
-  name="SportsDevil"
-  provider-name="MaxMustermann">
-  <requires>
-   <import addon="xbmc.python" version="2.1.0"/>
-   <import addon="script.common.plugin.cache" version="0.9.1"/>
-  </requires>
-  <extension
-    point="xbmc.python.pluginsource"
-    library="default.py">
-   <provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>Play videos of different sports streaming sites</summary>
-    <description>Play videos of different sports streaming sites</description>
     <platform>all</platform>
   </extension>
 </addon>
