@@ -1,0 +1,2 @@
+def GetImages(artist):
+    return []
