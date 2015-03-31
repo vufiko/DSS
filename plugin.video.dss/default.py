@@ -5,7 +5,7 @@ import urlparse
 import paths
 import agenda
 
-import socket, sys
+import socket, sys, os
 
 from lib.streams import *
 from lib.utils import *
