@@ -5,7 +5,7 @@ from . import veetle
 sourceSite = 'http://janlul.com'
 
 def addStreams():
-    pBar = xbmcutil.createProgressBar('Steun Janlul SMS "donate stream" naar 7733', 'Laden van streams...')
+    pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van streams...')
 
     xbmcutil.updateProgressBar(pBar, 16, 'JanLul 1')
     # jl_stream1 = bitly.getLink('janlul1', sourceSite)

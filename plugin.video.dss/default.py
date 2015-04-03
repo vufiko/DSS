@@ -40,8 +40,8 @@ def mainMenu():
     addSubMenu('13stream','13stream')
     addSubMenu('bvls','BVLS2013')
     addSubMenu('sotd','Stream of the Day')
-    if newFeatures == "true":
-        addSubMenu('spst','Sport-Streams')
+    addDummyItem('')
+    addSubMenu('spst','DSS Radio Streams')
     addDummyItem('')
     addDummyItem('[COLOR green]Online Stream[/COLOR]')
     addDummyItem('[COLOR red]Offline Stream[/COLOR]')
