@@ -1,10 +1,13 @@
 import urllib2, re, base64, xmlreader, ua
 import xbmcutil
 
-
+def getResponse(url, referer=None, ua=None) :
+    if getPage(url, referer, ua) == "":
+        return False
+    else :
+        return True
 
 def getSourceUrl(name):
-    #return basesite + name
     url = xmlreader.getUrlByName(name)
     return url
 
