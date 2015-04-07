@@ -2,34 +2,34 @@ from ..utils import bitly, xbmcutil
 from . import veetle, sopcast
 import re
 
-sourceSite='http://stvstreams.com/'
+
+sourceSite = 'http://stvstreams.com'
 	
 def addStreams():
     pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van streams...')
 
     xbmcutil.updateProgressBar(pBar, 12, 'STV Streams - Veetle')
-    stvveetle = bitly.getLink('stv-veetle', sourceSite)
-    veetle.addChannel('STV Streams - Veetle', stvveetle, 'stv')
+    addStream('stvveetle', 'STV Streams - Veetle')
 
     xbmcutil.updateProgressBar(pBar, 24, 'STV Streams - Veetle Extra')
-    stvveetleextra = bitly.getLink('stv-veetle-extra', sourceSite)
-    veetle.addChannel('STV Streams - Veetle Extra', stvveetleextra, 'stv')
+    addStream('stvveetleextra', 'TV Streams - Veetle Extra')
+    
 
     xbmcutil.updateProgressBar(pBar, 36, 'STV Streams - Flash 1')
-    stv1 = bitly.getLink('stv-1', sourceSite)
-    veetle.addChannel('STV Streams - Flash 1', stv1, 'stv')
+    addStream('stvflash1', 'STV Streams - Flash 1')
+    
 
     xbmcutil.updateProgressBar(pBar, 48, 'STV Streams - Flash 2')
-    stv2 = bitly.getLink('stv-2', sourceSite)
-    veetle.addChannel('STV Streams - Flash 2', stv2, 'stv')
+    addStream('stvflash2', 'STV Streams - Flash 2')
+
 
     xbmcutil.updateProgressBar(pBar, 56, 'STV Streams - Flash 5')
-    stv5 = bitly.getLink('stv-5', sourceSite)
-    veetle.addChannel('STV Streams - Flash 5', stv5, 'stv')
+    addStream('stvflash5', 'STV Streams - Flash 5')
+    
 
     xbmcutil.updateProgressBar(pBar, 64, 'STV Streams - Flash 6')
-    stv6 = bitly.getLink('stv-6', sourceSite)
-    veetle.addChannel('STV Streams - Flash 6', stv6, 'stv')
+    addStream('stvflash6', 'STV Streams - Flash 6')
+    
 
     
     xbmcutil.updateProgressBar(pBar, 84, 'STV Streams - ACE HD')
@@ -42,4 +42,47 @@ def addStreams():
     
     xbmcutil.updateProgressBar(pBar, 100,'Gereed!')
     xbmcutil.endOfList()
+
+
+def addStream(stream, display) :
+    streamUrl = findStream(stream) 
+    if streamUrl[-4:] == '.flv' :
+        print('Veetle')
+        veetle.addChannel(display, streamUrl, 'stv')
+    else :
+        print('M3U')
+        if bitly.getResponse(streamUrl) :
+            color = 'green'
+        else :
+            streamUrl = ''
+            color = 'red'
+        xbmcutil.addMenuItem('[COLOR '+color+']'+display+'[/COLOR]', streamUrl, 'true', 'stv','stv')
+
+    
+def findStream(page) :
+    page1 = resolveIframe(sourceSite + '/streams/' + page +'.html')
+    frameHtml = bitly.getPage(page1, sourceSite, bitly.getUserAgent())
+    b64coded = bitly.getBaseEncodedString(frameHtml)
+    print b64coded
+    streamUrl = bitly.getStreamUrl(b64coded)
+    print streamUrl
+    return streamUrl
+    
+def resolveIframe(page) :
+    try :
+        if(page[:4] != 'http') :
+            page = sourceSite + '/' + page
+        userAgent = bitly.getUserAgent()
+        pagecontent = bitly.getPage(page, sourceSite, userAgent)
+        regIframe = re.compile('iframe\ src\=\"(.*?)\"\ allowfullscreen\=\"true\"', re.DOTALL)
+        iframesrc = regIframe.search(pagecontent).group(1)
+        return iframesrc
+    except :
+        return page
+
+
+    
+    
+
+    
 

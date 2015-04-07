@@ -40,7 +40,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.dss" name="Dutch Sports Streams" version="2.3.4" provider-name="The New DSS">
+<addon id="plugin.video.dss" name="Dutch Sports Streams" version="2.3.5" provider-name="The New DSS">
 	<requires>
 		<import addon="plugin.video.veetle" version="0.3.1" optional="false"/>
 		<import addon="plugin.video.p2p-streams" version="1.1" optional="false"/>
