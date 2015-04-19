@@ -12,7 +12,7 @@ def addStreams():
     addStream('stvveetle', 'STV Streams - Veetle')
 
     xbmcutil.updateProgressBar(pBar, 24, 'STV Streams - Veetle Extra')
-    addStream('stvveetleextra', 'TV Streams - Veetle Extra')
+    addStream('stvveetleextra', 'STV Streams - Veetle Extra')
     
 
     xbmcutil.updateProgressBar(pBar, 36, 'STV Streams - Flash 1')
