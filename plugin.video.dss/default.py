@@ -45,7 +45,6 @@ def mainMenu():
     addDummyItem('')
     addDummyItem('[COLOR green]Online Stream[/COLOR]')
     addDummyItem('[COLOR red]Offline Stream[/COLOR]')
-    addDummyItem('[COLOR blue]facebook.com/DutchSportStreams[/COLOR]')
     xbmcplugin.endOfDirectory(addon_handle)
 
 def build_url(query):
