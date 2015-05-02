@@ -40,6 +40,8 @@ def mainMenu():
     addSubMenu('13stream','13stream')
     addSubMenu('bvls','BVLS2013')
     addSubMenu('sotd','Stream of the Day')
+    if newFeatures == "true":
+        addSubMenu('bdds','poleposition')
     addDummyItem('')
     addSubMenu('spst','DSS Radio Streams')
     addDummyItem('')
@@ -105,6 +107,8 @@ else:
         sotd.addStreams()
     elif site == 'bvls': #bvls2013.com
         bvls.addStreams()
+    elif site == 'bdds': #polepositionv2.nl
+        bdds.addStreams()
     elif site == '13stream':
         sopcast.add13Stream()
     elif site == 'spst': #sports-streams.com

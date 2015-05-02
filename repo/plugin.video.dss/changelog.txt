@@ -1,3 +1,9 @@
+[B]V2.3.8[/B]
+- polposition toegevoegd in test omgeving
+
+[B]V2.3.7[/B]
+- update bvls
+
 [B]V2.3.6[/B]
 - update janlul auto search.
 - jan lul remove stream 7/8
