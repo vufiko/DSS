@@ -1,3 +1,8 @@
+[B]V2.3.9[/B]
+- polposition toegevoegd in hoofdmenu
+- Wedstrijdschema aangepast voor laden poleposition
+
+
 [B]V2.3.8[/B]
 - polposition toegevoegd in test omgeving
 

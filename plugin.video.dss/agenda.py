@@ -46,6 +46,8 @@ def getLinkByName(streamname) :
         site = 'janlul'
     elif compare == 'daz' :
         site = 'daz'
+    elif compare == 'pol' :
+        site = 'bdds'
     elif compare == 'dsp' :
         site = 'daz'
     elif compare == 'stv' :

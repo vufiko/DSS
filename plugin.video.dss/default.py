@@ -40,8 +40,8 @@ def mainMenu():
     addSubMenu('13stream','13stream')
     addSubMenu('bvls','BVLS2013')
     addSubMenu('sotd','Stream of the Day')
-    if newFeatures == "true":
-        addSubMenu('bdds','poleposition')
+    #if newFeatures == "true":
+    addSubMenu('bdds','Polepositionv2')
     addDummyItem('')
     addSubMenu('spst','DSS Radio Streams')
     addDummyItem('')
