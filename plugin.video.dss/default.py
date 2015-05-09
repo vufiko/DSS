@@ -34,7 +34,7 @@ def addSubMenu(internal, readable):
 
 def mainMenu():
     addSubMenu('agenda','[COLOR yellow]Wedstrijd Schema[/COLOR]')
-    addSubMenu('janlul','Janlul')
+    #addSubMenu('janlul','Janlul')
     addSubMenu('daz','DazSports Streams')
     addSubMenu('stv','STV Streams')
     addSubMenu('13stream','13stream')
