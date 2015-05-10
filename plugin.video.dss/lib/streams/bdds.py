@@ -2,48 +2,50 @@ from ..utils import bitly, xbmcutil
 from . import veetle
 import re
 
-sourceSite='http://polepositionv2.nl'
+sourceSite = 'http://www.polepositionv2.nl'
 
-def addStreams():
-    pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van streams...')
+def addStreams() :
+    pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van Streams...')
 
+    xbmcutil.updateProgressBar(pBar, 49, 'Poleposition - Stream 1')
+    addStream('ijs1', 'Poleposition - Stream 1')
 
-    xbmcutil.updateProgressBar(pBar, 33, 'poleposition - Stream 1')
-    addStream('BDDS1A', 'poleposition - Stream 1')
-    
-    xbmcutil.updateProgressBar(pBar, 66, 'poleposition - Stream 2')
-    addStream('BDDS2A', 'poleposition - Stream 2')
+    xbmcutil.updateProgressBar(pBar, 98, 'Poleposition - Stream 2')
+    addStream('ijs2', 'Poleposition - Stream 2')
 
-    xbmcutil.updateProgressBar(pBar, 100,'Gereed!')
     xbmcutil.endOfList()
-
-
-
 
 
 def addStream(stream, display) :
     streamUrl = findStream(stream) 
     if streamUrl[-4:] == '.flv' :
-        print('Veetle')
-        veetle.addChannel(display, streamUrl, 'BVLS')
+        veetle.addChannel(display, streamUrl, 'Poleposition')
     else :
-        print('M3U')
-        if (xbmcutil.getResponse(streamUrl)) :
+        if bitly.getResponse(streamUrl) :
             color = 'green'
         else :
             streamUrl = ''
             color = 'red'
-        xbmcutil.addMenuItem('[COLOR '+color+']'+display+'[/COLOR]', streamUrl, 'true', 'BVLS','BVLS')
+        xbmcutil.addMenuItem('[COLOR '+color+']'+display+'[/COLOR]', streamUrl, 'true', 'pole','pole')
 
 
 def findStream(page) :
-    page1 = (sourceSite + '/' + page +'.php')
-    print page1
-    frameHtml = bitly.getPage(page1, sourceSite, bitly.getUserAgent())
-    b64coded = bitly.getBaseEncodedString(frameHtml)
-    print b64coded
+    ua = bitly.getUserAgent()
+    page1 = resolveIframe(sourceSite + '/' + page +'.html')
+    page2 = resolveIframe(page1)
+    page2content = bitly.getPage(page2, sourceSite, ua)
+    b64coded = bitly.getBaseEncodedString(page2content)
     streamUrl = bitly.getStreamUrl(b64coded)
-    print streamUrl
     return streamUrl
     
-
+def resolveIframe(page) :
+    try :
+        if(page[:4] != 'http') :
+            page = sourceSite + '/' + page
+        userAgent = bitly.getUserAgent()
+        pagecontent = bitly.getPage(page, sourceSite, userAgent)
+        regIframe = re.compile('iframe src="(.*)" name="iframe_name"')
+        iframesrc = regIframe.search(pagecontent).group(1)
+        return iframesrc
+    except :
+        return page

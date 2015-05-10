@@ -31,12 +31,21 @@ def addStream(stream, display) :
 
 
 def findStream(page) :
-    ua = bitly.getUserAgent()
-    page1 = resolveIframe(sourceSite + '/' + page +'.php')
-    pagecontent = bitly.getPage(sourceSite + '/' + page1, sourceSite, ua)
-    b64coded = bitly.getBaseEncodedString(pagecontent)
-    streamUrl = bitly.getStreamUrl(b64coded)
-    return streamUrl
+    try :
+        ua = bitly.getUserAgent()
+        page1 = resolveIframe(sourceSite + '/' + page +'.php')
+        pagecontent = bitly.getPage(sourceSite + '/' + page1, sourceSite, ua)
+        b64coded = bitly.getBaseEncodedString(pagecontent)
+        b64streamUrl = bitly.getStreamUrl(b64coded)
+        if(b64streamUrl[:4] == 'http') :
+            return b64streamUrl
+        else :
+            pagecontent = bitly.getPage(sourceSite + '/' + page1, sourceSite, ua)
+            findFile = re.compile('file(.*?):(.*?)\"(.*?)\",', re.DOTALL)
+            streamUrl = findFile.search(pagecontent).group(3)
+            return streamUrl
+    except :
+        return ''
     
 def resolveIframe(page) :
     try :
