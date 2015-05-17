@@ -41,7 +41,7 @@ def mainMenu():
     addSubMenu('bvls','BVLS2013')
     addSubMenu('sotd','Stream of the Day')
     #if newFeatures == "true":
-    #addSubMenu('bdds','Polepositionv2')
+    addSubMenu('bdds','Poleposition')
     addDummyItem('')
     addSubMenu('spst','DSS Radio Streams')
     addDummyItem('')

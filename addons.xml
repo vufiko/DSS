@@ -1,46 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.audio.paradiseradio" name="Paradise Radio" version="0.0.2" provider-name="Patrick De Lange">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>audio</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en">Paradise Radio</summary>
-    <description lang="en">Paradise Radio More Music</description>
-    <platform>all</platform>
-    <language>en</language>
-    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-    <forum></forum>
-    <website>http://www.paradiseradio.org</website>
-    <source></source>
-    <email></email>
-  </extension>
-</addon>
-
-<addon id="plugin.audio.radiowestland" name="Radio Westland" version="0.0.2" provider-name="Patrick De Lange">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>audio</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en">Radio Westland</summary>
-    <description lang="en">Radio Westland</description>
-    <platform>all</platform>
-    <language>en</language>
-    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-    <forum></forum>
-    <website>http://www.radiowestland.com</website>
-    <source></source>
-    <email></email>
-  </extension>
-</addon>
-
-<addon id="plugin.video.dss" name="Dutch Sports Streams" version="2.4.5" provider-name="DSS">
+<addon id="plugin.video.dss" name="Dutch Sports Streams" version="2.4.6" provider-name="DSS">
 	<requires>
 		<import addon="plugin.video.veetle" version="0.3.1" optional="false"/>
 		<import addon="plugin.video.p2p-streams" version="1.1" optional="false"/>
@@ -104,19 +64,6 @@
         <disclaimer lang="en">Does not work for 'HD' streams which require a software download.</disclaimer>
         <platform>all</platform>
     </extension>
-</addon>
-
-<addon id="repository.clubtv.nl" name="Club TV Repository" version="1.0.1" provider-name="vDia Internet Applications">
-	<extension point="xbmc.addon.repository" name="Club TV Repository">
-		<info compressed="true">http://clubtv.dooremolen.com/addons/addons.xml</info>
-		<checksum>http://clubtv.dooremolen.com/addons/addons.xml.md5</checksum>
-		<datadir zip="true">http://clubtv.dooremolen.com/addons</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Officiele Youtube kanalen van de voetbalclubs uit de Eredivisie</summary>
-		<description>Download and install addons voor de Officiele Youtube kanalen van de voetbalclubs uit de Eredivisie</description>
-		<platform>all</platform>
-	</extension>
 </addon>
 
 <addon id="repository.dss" name="Dutch Sport Streams" version="1.1" provider-name="Beta-Team">

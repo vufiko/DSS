@@ -25,6 +25,17 @@ def addStreams() :
     xbmcutil.updateProgressBar(pBar, 90, 'JanLul.com - stream 6')
     addStream('jl6', 'JanLul.com - Stream 6')
 
+    xbmcutil.updateProgressBar(pBar, 90, 'JanLul.com - stream 7')
+    addStream('jl7', 'JanLul.com - Stream 7')
+
+    xbmcutil.updateProgressBar(pBar, 90, 'JanLul.com - stream 8')
+    addStream('jl8', 'JanLul.com - Stream 8')
+
+    xbmcutil.updateProgressBar(pBar, 90, 'JanLul.com - stream 9')
+    addStream('jl9', 'JanLul.com - Stream 9')
+
+    xbmcutil.updateProgressBar(pBar, 90, 'JanLul.com - stream 10')
+    addStream('jl10', 'JanLul.com - Stream 10')
 
     xbmcutil.endOfList()
 

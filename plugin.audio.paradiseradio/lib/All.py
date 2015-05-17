@@ -1,2 +1,0 @@
-def GetImages(artist):
-    return []
