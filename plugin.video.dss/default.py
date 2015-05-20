@@ -34,7 +34,10 @@ def addSubMenu(internal, readable):
 
 def mainMenu():
     addSubMenu('agenda','[COLOR yellow]Wedstrijd Schema[/COLOR]')
-    addSubMenu('janlul','Janlul')
+    if newFeatures == "true":
+        addSubMenu('beta','Janlul')
+    else:
+        addSubMenu('janlul','Janlul')
     addSubMenu('daz','DazSports Streams')
     addSubMenu('stv','STV Streams')
     addSubMenu('13stream','13stream')
@@ -99,6 +102,8 @@ else:
         agenda.showList()
     elif site == 'janlul': #Janlul.com
         janlul.addStreams()
+    elif site == 'beta': #Janlul.com
+        beta.addStreams()
     elif site == 'daz': #DazSports.org
         dazsports.addStreams()
     elif site == 'stv': #STV-Streams.com

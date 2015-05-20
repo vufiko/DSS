@@ -2,40 +2,33 @@ from ..utils import bitly, xbmcutil
 from . import veetle
 import re
 
-sourceSite = 'http://www.janlul.com'
+sourceSite = 'http://www.janlul.com/'
 
 def addStreams() :
     pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van Streams...')
 
+
     xbmcutil.updateProgressBar(pBar, 15, 'JanLul.com - stream 1')
-    addStream('jl1', 'JanLul.com - Stream 1')
+    addStream('stream1', 'JanLul.com - Stream 1')
 
     xbmcutil.updateProgressBar(pBar, 30, 'JanLul.com - stream 2')
-    addStream('jl2', 'JanLul.com - Stream 2')
+    addStream('stream2', 'JanLul.com - Stream 2')
 
     xbmcutil.updateProgressBar(pBar, 45, 'JanLul.com - stream 3')
-    addStream('jl3', 'JanLul.com - Stream 3')
+    addStream('stream3', 'JanLul.com - Stream 3')
 
     xbmcutil.updateProgressBar(pBar, 60, 'JanLul.com - stream 4')
-    addStream('jl4', 'JanLul.com - Stream 4')
+    addStream('stream4', 'JanLul.com - Stream 4')
 
     xbmcutil.updateProgressBar(pBar, 75, 'JanLul.com - stream 5')
-    addStream('jl5', 'JanLul.com - Stream 5')
+    addStream('stream5', 'JanLul.com - Stream 5')
 
     xbmcutil.updateProgressBar(pBar, 90, 'JanLul.com - stream 6')
-    addStream('jl6', 'JanLul.com - Stream 6')
-
-    xbmcutil.updateProgressBar(pBar, 90, 'JanLul.com - stream 7')
-    addStream('jl7', 'JanLul.com - Stream 7')
+    addStream('stream6', 'JanLul.com - Stream 6')
 
     xbmcutil.updateProgressBar(pBar, 90, 'JanLul.com - stream 8')
-    addStream('jl8', 'JanLul.com - Stream 8')
+    addStream('stream8', 'JanLul.com - Stream 8')
 
-    xbmcutil.updateProgressBar(pBar, 90, 'JanLul.com - stream 9')
-    addStream('jl9', 'JanLul.com - Stream 9')
-
-    xbmcutil.updateProgressBar(pBar, 90, 'JanLul.com - stream 10')
-    addStream('jl10', 'JanLul.com - Stream 10')
 
     xbmcutil.endOfList()
 
@@ -56,7 +49,10 @@ def addStream(stream, display) :
 
 
 def findStream(page) :
-    page2 = resolveIframe(sourceSite + '/channel/' + page +'.html')
+    page1 = resolveIframe(sourceSite + page +'.php')
+    print page1
+    page2 = resolveIframe2(page1)
+    print page1
     page2content = bitly.getPage(page2, sourceSite, bitly.getUserAgent())
     b64coded = bitly.getBaseEncodedString(page2content)
     streamUrl = bitly.getStreamUrl(b64coded)
@@ -67,11 +63,22 @@ def resolveIframe(page) :
         if(page[:4] != 'http') :
             page = sourceSite + '/' + page
         pagecontent = bitly.getPage(page, sourceSite, bitly.getUserAgent())
-        regIframe = re.compile('iframe\ src\=\"(.*?)\"\ name\=\"iframe_name\"', re.DOTALL)
+        regIframe = re.compile('embed\ src\=\"(.*?)\"\ name\=\"iframe_name\"', re.DOTALL)
         iframesrc = regIframe.search(pagecontent).group(1)
         return iframesrc
     except :
         return page
+
+def resolveIframe2(pagex) :
+    try :
+        if(pagex[:4] != 'http') :
+            pagex = sourceSite + '/' + pagex
+        pagecontent = bitly.getPage(pagex, sourceSite, bitly.getUserAgent())
+        regIframe = re.compile('iframe\ src\=\"(.*?)\"\ name\=\"iframe_name\"', re.DOTALL)
+        iframesrc = regIframe.search(pagecontent).group(1)
+        return iframesrc
+    except :
+        return pagex
 
 
     xbmcutil.updateProgressBar(pBar, 100,'Gereed!')
