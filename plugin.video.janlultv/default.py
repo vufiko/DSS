@@ -29,7 +29,12 @@ def menu():
     addLink('janlul 7 TV','janlul7',2,icon,fanart)
     addLink('janlul 8 TV','janlul8',2,icon,fanart)
     addLink('janlul 9 TV','janlul9',2,icon,fanart)
-    addLink('janlul 10 TV','janlul10',2,icon,fanart)   
+    addLink('janlul 10 TV','janlul10',2,icon,fanart)
+    addLink('janlul 11 TV','janlul11',2,icon,fanart)
+    addLink('janlul 12 TV','janlul12',2,icon,fanart)
+    addLink('janlul 13 TV','janlul13',2,icon,fanart)
+    addLink('janlul 14 TV','janlul14',2,icon,fanart)
+    addLink('janlul 15 TV','janlul15',2,icon,fanart) 
     
 
 
