@@ -44,7 +44,13 @@ def JanLulSched(url):
     for timestr, name, stream in match:
         name = timestr + " == " + name + " (" + stream + ")"
         addLink(name,'url','mode',icon,fanart)
-    
+    datestr=re.compile('<title>(.+?)</title>').findall(link)[0]
+    datestr = "[B][COLOR gold]"+datestr+"[/COLOR][/B]"
+    addLink(datestr,'url','mode',icon,fanart)
+    match=re.compile('class="even">(.+?)</td>.+?<td class="even">(.+?)</td>.+?<td class="even">(.+?)</td',re.DOTALL).findall(link)
+    for timestr, name, stream in match:
+        name = timestr + " == " + name + " (" + stream + ")"
+        addLink(name,'url','mode',icon,fanart)
 
 
 
