@@ -19,7 +19,7 @@ fanart = xbmc.translatePath(os.path.join('special://home/addons/' + AddonID , 'f
 icon = xbmc.translatePath(os.path.join('special://home/addons/' + AddonID, 'icon.png'))
     
 def menu():
-    addDir('Janlul Schedule','http://irc.pcstream.net/admin/data_flat.php?iphone=1',1,icon,fanart)
+    addDir('Janlul Schedule','http://www.ikkijkonline.nl/api/j7F5GfnZ8uJ76Fp2/stream_guide/janlul',1,icon,fanart)
     addLink('janlul 1 TV','janlul1',2,icon,fanart)
     addLink('janlul 2 TV','janlul2',2,icon,fanart)
     addLink('janlul 3 TV','janlul3',2,icon,fanart)
@@ -40,18 +40,11 @@ def menu():
 
 def JanLulSched(url):
     link = Get_url(url)
-    match=re.compile('class="odd">(.+?)</td>.+?<td class="odd">(.+?)</td>.+?<td class="odd">(.+?)</td',re.DOTALL).findall(link)
+    match=re.compile('<tr><td>(.+?)</td><td>(.+?)</td><td>(.+?)</td></tr>',re.DOTALL).findall(link)
     for timestr, name, stream in match:
         name = timestr + " == " + name + " (" + stream + ")"
         addLink(name,'url','mode',icon,fanart)
-    datestr=re.compile('<title>(.+?)</title>').findall(link)[0]
-    datestr = "[B][COLOR gold]"+datestr+"[/COLOR][/B]"
-    addLink(datestr,'url','mode',icon,fanart)
-    match=re.compile('class="even">(.+?)</td>.+?<td class="even">(.+?)</td>.+?<td class="even">(.+?)</td',re.DOTALL).findall(link)
-    for timestr, name, stream in match:
-        name = timestr + " == " + name + " (" + stream + ")"
-        addLink(name,'url','mode',icon,fanart)
-
+    
 
 
    
