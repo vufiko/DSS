@@ -43,7 +43,7 @@ def JanLulSched(url):
     match=re.compile('<tr><td>(.+?)</td><td>(.+?)</td><td>(.+?)</td></tr>',re.DOTALL).findall(link)
     for timestr, name, stream in match:
         name = timestr + " == " + name + " (" + stream + ")"
-        strUrl = 'plugin://plugin.video.wisselz/none'
+        strUrl = 'plugin://plugin.video.janlultv/none'
         intern = getLinkByName(stream)
         addLink(name,intern,99,icon,fanart)
         print addLink
