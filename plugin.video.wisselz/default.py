@@ -17,7 +17,8 @@ fanart = xbmc.translatePath(os.path.join('special://home/addons/' + AddonID , 'f
 icon = xbmc.translatePath(os.path.join('special://home/addons/' + AddonID, 'icon.png'))
     
 def menu():
-    addDir('Select a Stream','http://www.wisselz.com',99999999,icon,fanart)
+    addDir('Select a Veetle Stream','http://www.wisselz.com',99999999,icon,fanart)
+    addDir('Sport Programma Overzicht Vandaag','http://www.ikkijkonline.nl',99999997,icon,fanart)
      
     
 
@@ -30,6 +31,17 @@ def WisselzSched(url):
         strUrl = 'plugin://plugin.video.wisselz/none'
         intern = getLinkByName(stream)
         addLink(name,intern,intern,icon,fanart)
+
+def WisselzProgramma(url):
+    link = Get_url(url)
+    match=re.compile('<td width=\'60\'>(.+?)</td><td>(.+?)</td><td width=\'80\'><a href=\'/streams/(.+?)\'>',re.DOTALL).findall(link)
+    for tijd, name, stream in match:
+        name = tijd + " - " + name + " (Stream" + stream +")"
+        strUrl = 'plugin://plugin.video.wisselz/none'
+        intern = getLinkByName(stream)
+        addLink(name,intern,intern,icon,fanart)
+
+
 
 
 
@@ -174,6 +186,7 @@ print "Mode: "+str(mode);print "URL: "+str(url);print "Name: "+str(name);print "
 
 if mode==None or url==None or len(url)<1:menu()
 elif mode==99999999:WisselzSched(url)
+elif mode==99999997:WisselzProgramma(url)
 elif mode== mode :GetWisselzStream(name,url)
 
 
