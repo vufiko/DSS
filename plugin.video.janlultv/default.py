@@ -19,22 +19,22 @@ fanart = xbmc.translatePath(os.path.join('special://home/addons/' + AddonID , 'f
 icon = xbmc.translatePath(os.path.join('special://home/addons/' + AddonID, 'icon.png'))
     
 def menu():
-    addDir('Janlul Schedule','http://www.ikkijkonline.nl/api/j7F5GfnZ8uJ76Fp2/stream_guide/janlul',1,icon,fanart)
-    addLink('janlul 1 TV','janlul1',2,icon,fanart)
-    addLink('janlul 2 TV','janlul2',2,icon,fanart)
-    addLink('janlul 3 TV','janlul3',2,icon,fanart)
-    addLink('janlul 4 TV','janlul4',2,icon,fanart)
-    addLink('janlul 5 TV','janlul5',2,icon,fanart)
-    addLink('janlul 6 TV','janlul6',2,icon,fanart)
-    addLink('janlul 7 TV','janlul7',2,icon,fanart)
-    addLink('janlul 8 TV','janlul8',2,icon,fanart)
-    addLink('janlul 9 TV','janlul9',2,icon,fanart)
-    addLink('janlul 10 TV','janlul10',2,icon,fanart)
-    addLink('janlul 11 TV','janlul11',2,icon,fanart)
-    addLink('janlul 12 TV','janlul12',2,icon,fanart)
-    addLink('janlul 13 TV','janlul13',2,icon,fanart)
-    addLink('janlul 14 TV','janlul14',2,icon,fanart)
-    addLink('janlul 15 TV','janlul15',2,icon,fanart) 
+    addDir('Janlul Schedule','http://www.ikkijkonline.nl/api/j7F5GfnZ8uJ76Fp2/stream_guide/janlul',98,icon,fanart)
+    addLink('janlul 1 TV','janlul1',99,icon,fanart)
+    addLink('janlul 2 TV','janlul2',99,icon,fanart)
+    addLink('janlul 3 TV','janlul3',99,icon,fanart)
+    addLink('janlul 4 TV','janlul4',99,icon,fanart)
+    addLink('janlul 5 TV','janlul5',99,icon,fanart)
+    addLink('janlul 6 TV','janlul6',99,icon,fanart)
+    addLink('janlul 7 TV','janlul7',99,icon,fanart)
+    addLink('janlul 8 TV','janlul8',99,icon,fanart)
+    addLink('janlul 9 TV','janlul9',99,icon,fanart)
+    addLink('janlul 10 TV','janlul10',99,icon,fanart)
+    addLink('janlul 11 TV','janlul11',99,icon,fanart)
+    addLink('janlul 12 TV','janlul12',99,icon,fanart)
+    addLink('janlul 13 TV','janlul13',99,icon,fanart)
+    addLink('janlul 14 TV','janlul14',99,icon,fanart)
+    addLink('janlul 15 TV','janlul15',99,icon,fanart) 
     
 
 
@@ -43,7 +43,47 @@ def JanLulSched(url):
     match=re.compile('<tr><td>(.+?)</td><td>(.+?)</td><td>(.+?)</td></tr>',re.DOTALL).findall(link)
     for timestr, name, stream in match:
         name = timestr + " == " + name + " (" + stream + ")"
-        addLink(name,'url','mode',icon,fanart)
+        strUrl = 'plugin://plugin.video.wisselz/none'
+        intern = getLinkByName(stream)
+        addLink(name,intern,99,icon,fanart)
+        print addLink
+
+
+
+
+def getLinkByName(stream) :
+    compare = stream
+    if compare == 'Janlul 1' :
+        site = 'janlul1'
+    elif compare == 'Janlul 2' :
+        site = 'janlul2'
+    elif compare == 'Janlul 3' :
+        site = 'janlul3'
+    elif compare == 'Janlul 4' :
+        site = 'janlul4'
+    elif compare == 'Janlul 5' :
+        site = 'janlul5'
+    elif compare == 'Janlul 6' :
+        site = 'janlul6'
+    elif compare == 'Janlul 7' :
+        site = 'janlul7'
+    elif compare == 'Janlul 8' :
+        site = 'janlul8'
+    elif compare == 'Janlul 9' :
+        site = 'janlul9'
+    elif compare == 'Janlul 10' :
+        site = 'janlul10'
+    elif compare == 'Janlul 11' :
+        site = 'janlul11'
+    elif compare == 'Janlul 12' :
+        site = 'janlul12'
+    elif compare == 'Janlul 13' :
+        site = 'janlul13'
+    elif compare == 'Janlul 14' :
+        site = 'janlul14'
+    elif compare == 'Janlul 15' :
+        site = 'janlul15'
+    return site
     
 
 
@@ -167,9 +207,11 @@ except:pass
 print "Mode: "+str(mode);print "URL: "+str(url);print "Name: "+str(name);print "IconImage: "+str(iconimage)
 
 if mode==None or url==None or len(url)<1:menu()
-elif mode==1:JanLulSched(url)
-elif mode==2:GetJanlulStream(name,url)
+elif mode==98:JanLulSched(url)
+elif mode==99:GetJanlulStream(name,url)
 
-elif mode==100:Play(name,url)
+
+
+
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
