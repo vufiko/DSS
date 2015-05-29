@@ -8,11 +8,11 @@ def addStreams():
     pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van streams...')
 
 
-    xbmcutil.updateProgressBar(pBar, 9, 'BVLS - Stream 1')
-    addStream('stream1', 'BVLS - Stream 1')
+    #xbmcutil.updateProgressBar(pBar, 9, 'BVLS - Stream 1')
+    #addStream('stream1', 'BVLS - Stream 1')
     
-    xbmcutil.updateProgressBar(pBar, 18, 'BVLS - Stream 2')
-    addStream('stream2', 'BVLS - Stream 2')
+    #xbmcutil.updateProgressBar(pBar, 18, 'BVLS - Stream 2')
+    #addStream('stream2', 'BVLS - Stream 2')
 
     xbmcutil.updateProgressBar(pBar, 27, 'BVLS - Stream 3')
     addStream('stream3', 'BVLS - Stream 3')
@@ -68,12 +68,13 @@ def findStream(page) :
     b64coded = bitly.getBaseEncodedString(frameHtml)
     print b64coded
     streamUrl = bitly.getStreamUrl(b64coded)
-    print streamUrl
     return streamUrl
     
 def resolveIframe(page) :
     pagecontent = bitly.getPage(page, sourceSite, bitly.getUserAgent())
-    regIframe = re.compile('id\=\"iframe\" allowfullscreen\=\"true\" src\=\"(.*?)\"\ ', re.DOTALL)
-    iframesrc = regIframe.search(pagecontent).group(1)
-    return iframesrc
+    print pagecontent
+    match = re.compile('id\=\"iframe\" allowfullscreen\=\"true\" src\=\"(.*?)\"\ ', re.DOTALL)
+    for name in match:
+        iframesrc = name
+        return iframesrc
     return page

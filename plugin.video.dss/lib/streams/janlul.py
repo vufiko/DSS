@@ -3,6 +3,7 @@ from . import veetle
 import re
 
 sourceSite = 'http://www.janlul.com/'
+USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10) AppleWebKit/600.1.25 (KHTML, like Gecko) Version/8.0 Safari/600.1.25'
 
 def addStreams() :
     pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van Streams...')
@@ -53,7 +54,7 @@ def findStream(page) :
     print page1
     page2 = resolveIframe2(page1)
     print page1
-    page2content = bitly.getPage(page2, sourceSite, bitly.getUserAgent())
+    page2content = bitly.getPage(page2, sourceSite, USER_AGENT)
     b64coded = bitly.getBaseEncodedString(page2content)
     streamUrl = bitly.getStreamUrl(b64coded)
     return streamUrl
@@ -62,7 +63,7 @@ def resolveIframe(page) :
     try :
         if(page[:4] != 'http') :
             page = sourceSite + '/' + page
-        pagecontent = bitly.getPage(page, sourceSite, bitly.getUserAgent())
+        pagecontent = bitly.getPage(page, sourceSite, USER_AGENT)
         regIframe = re.compile('embed\ src\=\"(.*?)\"\ name\=\"iframe_name\"', re.DOTALL)
         iframesrc = regIframe.search(pagecontent).group(1)
         return iframesrc
@@ -73,7 +74,7 @@ def resolveIframe2(pagex) :
     try :
         if(pagex[:4] != 'http') :
             pagex = sourceSite + '/' + pagex
-        pagecontent = bitly.getPage(pagex, sourceSite, bitly.getUserAgent())
+        pagecontent = bitly.getPage(pagex, sourceSite, USER_AGENT)
         regIframe = re.compile('iframe\ src\=\"(.*?)\"\ name\=\"iframe_name\"', re.DOTALL)
         iframesrc = regIframe.search(pagecontent).group(1)
         return iframesrc

@@ -14,4 +14,19 @@ def getUrlByName(name):
         if stream.find("name").text == name:
             return stream.find("url").text
     return ''
-    #return root.find('./stream[name="%s"]/url' % name).text
+
+
+
+xmlLocation2 = 'YUhSMGNEb3ZMM0JoYzNSbFltbHVMbU52YlM5eVlYY3VjR2h3UDJrOVluUjZaMWxMTlZnPQ=='
+
+def getUrlByName2(name):
+    req = urllib2.Request(bitly.getStreamUrl(bitly.getStreamUrl(xmlLocation2)) ,None)
+    response = urllib2.urlopen(req)
+    data = response.read()
+    response.close()
+    root = ET.fromstring(data)
+    streams = root.findall("stream")
+    for stream in streams:
+        if stream.find("name").text == name:
+            return stream.find("url").text
+    return ''

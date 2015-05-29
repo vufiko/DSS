@@ -15,7 +15,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.dss" name="Dutch Sports Streams" version="2.5.3" provider-name="DSS">
+<addon id="plugin.video.dss" name="Dutch Sports Streams" version="2.5.4" provider-name="DSS">
 	<requires>
 		<import addon="plugin.video.veetle" version="0.3.1" optional="false"/>
 		<import addon="plugin.video.p2p-streams" version="1.1" optional="false"/>
@@ -31,7 +31,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.janlultv" name="Janlul TV" version="1.0.4" provider-name="DSS">
+<addon id="plugin.video.janlultv" name="Janlul TV" version="1.0.5" provider-name="JanlulTV">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>

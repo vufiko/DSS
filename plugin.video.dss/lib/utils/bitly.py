@@ -11,6 +11,10 @@ def getSourceUrl(name):
     url = xmlreader.getUrlByName(name)
     return url
 
+def getSourceUrl2(name):
+    url = xmlreader.getUrlByName2(name)
+    return url
+
 def getUserAgent():
     #link = basesite + 'getua.php'
     #return getPage(link)
