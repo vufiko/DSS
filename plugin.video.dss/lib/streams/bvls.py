@@ -4,15 +4,17 @@ import re
 
 sourceSite='http://bvls2013.com'
 
+USER_AGENT = 'Mozilla/5.0 (Mozilla/5.0 (Linux; U; Android 4.2.2; nl-nl; GT-P5110 Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
+
 def addStreams():
     pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van streams...')
 
 
-    #xbmcutil.updateProgressBar(pBar, 9, 'BVLS - Stream 1')
-    #addStream('stream1', 'BVLS - Stream 1')
+    xbmcutil.updateProgressBar(pBar, 9, 'BVLS - Stream 1')
+    addStream('stream1', 'BVLS - Stream 1')
     
-    #xbmcutil.updateProgressBar(pBar, 18, 'BVLS - Stream 2')
-    #addStream('stream2', 'BVLS - Stream 2')
+    xbmcutil.updateProgressBar(pBar, 18, 'BVLS - Stream 2')
+    addStream('stream2', 'BVLS - Stream 2')
 
     xbmcutil.updateProgressBar(pBar, 27, 'BVLS - Stream 3')
     addStream('stream3', 'BVLS - Stream 3')
@@ -64,17 +66,15 @@ def findStream(page) :
     page1 = resolveIframe(sourceSite + '/' + page +'.html')
     if(page1[:4] != 'http') :
         page1 = sourceSite + '/' + page1
-    frameHtml = bitly.getPage(page1, sourceSite, bitly.getUserAgent())
+    frameHtml = bitly.getPage(page1, sourceSite, USER_AGENT)
     b64coded = bitly.getBaseEncodedString(frameHtml)
-    print b64coded
     streamUrl = bitly.getStreamUrl(b64coded)
     return streamUrl
     
 def resolveIframe(page) :
-    pagecontent = bitly.getPage(page, sourceSite, bitly.getUserAgent())
-    print pagecontent
-    match = re.compile('id\=\"iframe\" allowfullscreen\=\"true\" src\=\"(.*?)\"\ ', re.DOTALL)
+    pagecontent = bitly.getPage(page, page, USER_AGENT)
+    match=re.compile('src="(.+?)" id="myfr"').findall(pagecontent)
     for name in match:
-        iframesrc = name
-        return iframesrc
+        name = name
+        return name
     return page
