@@ -4,7 +4,7 @@ import re
 
 sourceSite='http://bvls2013.com'
 
-USER_AGENT = 'Mozilla/5.0 (Mozilla/5.0 (Linux; U; Android 4.2.2; nl-nl; GT-P5110 Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30'
+USER_AGENT = 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)'
 
 def addStreams():
     pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van streams...')
@@ -66,7 +66,7 @@ def findStream(page) :
     page1 = resolveIframe(sourceSite + '/' + page +'.html')
     if(page1[:4] != 'http') :
         page1 = sourceSite + '/' + page1
-    frameHtml = bitly.getPage(page1, sourceSite, USER_AGENT)
+    frameHtml = bitly.getPage(page1, page1, USER_AGENT)
     b64coded = bitly.getBaseEncodedString(frameHtml)
     streamUrl = bitly.getStreamUrl(b64coded)
     return streamUrl
