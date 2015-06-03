@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.cloudtv" name="Cloud TV" version="1.0" provider-name="DSS and More">
+<addon id="plugin.video.cloudtv" name="Cloud TV" version="1.1" provider-name="DSS and More">
 <requires>
     <import addon="xbmc.python" version="2.1.0" />
 </requires>
