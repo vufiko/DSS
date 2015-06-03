@@ -31,6 +31,7 @@ def categorie():
     addDir('Kultuur', 'plugin://plugin.video.cloudtv/?xcat7x',icon)
     addDir('Entertainment', 'plugin://plugin.video.cloudtv/?xcat8x',icon)
     addDir('Ongesoorteerd', 'plugin://plugin.video.cloudtv/?xcat2x',icon)
+    addDir('Ongesoorteerd 2', 'plugin://plugin.video.cloudtv/?xcat9x',icon)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))    
 
 
@@ -113,6 +114,8 @@ def main():
         url = "http://pastebin.com/raw.php?i=n1s2VMXd"
     elif 'xcat8' in mode: 
         url = "http://pastebin.com/raw.php?i=n1s2VMXd"
+    elif 'xcat9' in mode: 
+        url = "http://pastebin.com/raw.php?i=nvDYYJ5x"
     else:
         categorie()
         sys.exit(0)

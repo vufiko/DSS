@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.video.cloudtv" name="Cloud TV" version="1.2" provider-name="DSS and More">
+<addon id="plugin.video.cloudtv" name="Cloud TV" version="1.3" provider-name="CloudTV">
 <requires>
     <import addon="xbmc.python" version="2.1.0" />
 </requires>
@@ -9,7 +9,7 @@
 	</extension>
 	<extension  point="xbmc.addon.metadata">
 		<summary lang="nl">Cloud Tv op uw XBMC / Kodi.</summary>
-		<description lang="nl">Met deze plugin is het mogelijk om streams van Cloud TV te kijken.[CR]Team Dutch Sport more Streams.</description>
+		<description lang="nl">Met deze plugin is het mogelijk om streams van Cloud TV te kijken.[CR]Een Catogorie beheren laat het weten via facebook.</description>
 		<platform>all</platform>
 		<website></website>
 	</extension>
