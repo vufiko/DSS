@@ -23,10 +23,14 @@ icon = xbmc.translatePath(os.path.join('special://home/addons/' + AddonID, 'icon
 
      
 def categorie():
-    addDir('CloudTV Regionaal', 'plugin://plugin.video.cloudtv/?xcat3x',icon)
+    addDir('Lokaal/Regionaal', 'plugin://plugin.video.cloudtv/?xcat3x',icon)
     addDir('Sport', 'plugin://plugin.video.cloudtv/?xcat4x',icon)
-    addDir('CloudTV Music Streams', 'plugin://plugin.video.cloudtv/?xcat1x',icon)
-    addDir('CloudTV 1', 'plugin://plugin.video.cloudtv/?xcat2x',icon)
+    addDir('Muziek', 'plugin://plugin.video.cloudtv/?xcat1x',icon)
+    addDir('Film', 'plugin://plugin.video.cloudtv/?xcat5x',icon)
+    addDir('Jeugd', 'plugin://plugin.video.cloudtv/?xcat6x',icon)
+    addDir('Kultuur', 'plugin://plugin.video.cloudtv/?xcat7x',icon)
+    addDir('Entertainment', 'plugin://plugin.video.cloudtv/?xcat8x',icon)
+    addDir('Ongesoorteerd', 'plugin://plugin.video.cloudtv/?xcat2x',icon)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))    
 
 
@@ -101,6 +105,14 @@ def main():
         url = "http://pastebin.com/raw.php?i=U2vNXe4s"
     elif 'xcat4' in mode: 
         url = "http://pastebin.com/raw.php?i=tLWLYU0Y"
+    elif 'xcat5' in mode: 
+        url = "http://pastebin.com/raw.php?i=n1s2VMXd"
+    elif 'xcat6' in mode: 
+        url = "http://pastebin.com/raw.php?i=n1s2VMXd"
+    elif 'xcat7' in mode: 
+        url = "http://pastebin.com/raw.php?i=n1s2VMXd"
+    elif 'xcat8' in mode: 
+        url = "http://pastebin.com/raw.php?i=n1s2VMXd"
     else:
         categorie()
         sys.exit(0)
