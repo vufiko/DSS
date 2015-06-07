@@ -1,3 +1,6 @@
+[B]V2.5.7[/B]
+-upadte pole
+
 [B]V2.3.9[/B]
 - polposition toegevoegd in hoofdmenu
 - Wedstrijdschema aangepast voor laden poleposition

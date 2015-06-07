@@ -7,11 +7,20 @@ sourceSite = 'http://www.polepositionv2.nl'
 def addStreams() :
     pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van Streams...')
 
-    xbmcutil.updateProgressBar(pBar, 49, 'Poleposition - Stream 1')
+    xbmcutil.updateProgressBar(pBar, 15, 'Poleposition - Stream 1')
     addStream('ijs1', 'Poleposition - Stream 1')
 
-    xbmcutil.updateProgressBar(pBar, 98, 'Poleposition - Stream 2')
+    xbmcutil.updateProgressBar(pBar, 30, 'Poleposition - Stream 2')
     addStream('ijs2', 'Poleposition - Stream 2')
+
+    xbmcutil.updateProgressBar(pBar, 45, 'Poleposition - Stream 3')
+    addStream('ijs3', 'Poleposition - Stream 3')
+
+    xbmcutil.updateProgressBar(pBar, 60, 'Poleposition - Stream 4')
+    addStream('ijs4', 'Poleposition - Stream 4')
+
+    xbmcutil.updateProgressBar(pBar, 75, 'Poleposition - Stream 5')
+    addStream('ijs5', 'Poleposition - Stream 5')
 
     xbmcutil.endOfList()
 
