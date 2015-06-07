@@ -31,10 +31,9 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.janlultv" name="Janlul TV" version="1.0.7" provider-name="JanlulTV">
+<addon id="plugin.video.janlultv" name="Janlul TV" version="1.0.8" provider-name="JanlulTV">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="plugin.video.veetle" version="0.3.1" optional="false"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>video</provides>
