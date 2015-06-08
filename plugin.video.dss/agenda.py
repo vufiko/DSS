@@ -1,7 +1,8 @@
 import urllib2, xbmcgui, xbmcplugin, urllib, sys
 import xml.etree.ElementTree as ET
-from lib.utils import xbmcutil
 from datetime import datetime
+
+from lib.utils import *
 
 base_url = sys.argv[0]
 addon_handle = int(sys.argv[1])
