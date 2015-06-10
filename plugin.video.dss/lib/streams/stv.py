@@ -61,7 +61,8 @@ def addStream(stream, display) :
     
 def findStream(page) :
     page1 = resolveIframe(sourceSite + '/streams/' + page +'.html')
-    frameHtml = bitly.getPage(page1, sourceSite, bitly.getUserAgent())
+    page2 = resolveIframe(page1)
+    frameHtml = bitly.getPage(page2, sourceSite, bitly.getUserAgent())
     b64coded = bitly.getBaseEncodedString(frameHtml)
     print b64coded
     streamUrl = bitly.getStreamUrl(b64coded)
