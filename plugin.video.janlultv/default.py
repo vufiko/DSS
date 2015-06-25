@@ -75,7 +75,14 @@ def getLinkByName(stream) :
     return site
     
 def GetJanlulStream(name,stream):
-    url = getUrlByName(stream)
+    streamUrl = getUrlByName(stream)
+    print streamUrl
+    if streamUrl[-4:] == '.m3u' :
+       getUrl = re.compile("http://veetle.com/index.php/hls/streamMbrFast/(.*?)/stream.m3u", re.DOTALL)
+       streamId = getUrl.search(streamUrl).group(1)
+       url = 'http://veetle.com/index.php/hls/streamMbrFast/'+streamId + '/stream.m3u8'
+    else :
+        url = streamUrl
     playlist = xbmc.PlayList(1)
     xbmc.executebuiltin('XBMC.Notification('+name+' , Loading Stream !! ,5000,'+icon+')')
     playlist.clear()
