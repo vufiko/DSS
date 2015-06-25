@@ -13,7 +13,7 @@ fanart = xbmc.translatePath(os.path.join('special://home/addons/' + AddonID , 'f
 icon = xbmc.translatePath(os.path.join('special://home/addons/' + AddonID, 'icon.png'))
     
 def menu():
-    addDir('Janlul Schedule','http://www.ikkijkonline.nl/api/j7F5GfnZ8uJ76Fp2/stream_guide/janlul',98,icon,fanart)
+    addDir('Uitzendschema JL','http://www.ikkijkonline.nl/api/j7F5GfnZ8uJ76Fp2/stream_guide/janlul',98,icon,fanart)
     addLink('janlul 1 TV','janlul1',99,icon,fanart)
     addLink('janlul 2 TV','janlul2',99,icon,fanart)
     addLink('janlul 3 TV','janlul3',99,icon,fanart)
