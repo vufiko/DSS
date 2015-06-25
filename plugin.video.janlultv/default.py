@@ -2,17 +2,11 @@ import urllib,urllib2,sys,re,xbmcplugin,xbmcgui,xbmcaddon,xbmc,os,json,base64
 import urlparse
 import random
 import xml.etree.ElementTree as ET
-
 import socket, sys, os
-
-
 
 base_url = sys.argv[0]
 addon_handle = int(sys.argv[1])
 args = urlparse.parse_qs(sys.argv[2][1:])
-
-sourceSite = 'http://www.janlul.com/'
-xmlLocation = 'YUhSMGNEb3ZMM0JoYzNSbFltbHVMbU52YlM5eVlYY3VjR2h3UDJrOVUzQjVSbGwyT1drPQ=='
 
 AddonID ='plugin.video.janlultv'
 fanart = xbmc.translatePath(os.path.join('special://home/addons/' + AddonID , 'fanart.jpg'))
@@ -36,8 +30,6 @@ def menu():
     addLink('janlul 14 TV','janlul14',99,icon,fanart)
     addLink('janlul 15 TV','janlul15',99,icon,fanart) 
     
-
-
 def JanLulSched(url):
     link = Get_url(url)
     match=re.compile('<tr><td>(.+?)</td><td>(.+?)</td><td>(.+?)</td></tr>',re.DOTALL).findall(link)
@@ -47,9 +39,6 @@ def JanLulSched(url):
         intern = getLinkByName(stream)
         addLink(name,intern,99,icon,fanart)
         print addLink
-
-
-
 
 def getLinkByName(stream) :
     compare = stream
@@ -85,19 +74,8 @@ def getLinkByName(stream) :
         site = 'janlul15'
     return site
     
-
-
-   
-
 def GetJanlulStream(name,stream):
-    streamUrl = findStream(stream)
-    print streamUrl
-    if streamUrl[-4:] == '.m3u' :
-       getUrl = re.compile("http://veetle.com/index.php/hls/streamMbrFast/(.*?)/stream.m3u", re.DOTALL)
-       streamId = getUrl.search(streamUrl).group(1)
-       url = 'http://veetle.com/index.php/hls/streamMbrFast/'+streamId + '/stream.m3u8'
-    else :
-        url = streamUrl
+    url = getUrlByName(stream)
     playlist = xbmc.PlayList(1)
     xbmc.executebuiltin('XBMC.Notification('+name+' , Loading Stream !! ,5000,'+icon+')')
     playlist.clear()
@@ -109,16 +87,6 @@ def GetJanlulStream(name,stream):
     xbmcPlayer = xbmc.Player(xbmc.PLAYER_CORE_AUTO)
     xbmcPlayer.play(playlist)
 
-
-def findStream(page) :
-    page1 = getSourceUrl(page)
-    page1content = Get_url(page1)
-    streamUrl = page1content
-    #if streamUrl[-4:] == '.m3u' :
-    #    streamUrl = streamUrl + '8'
-    return streamUrl
-
-
 def Get_url(url):
     req = urllib2.Request(url)
     req.add_header('User-Agent', 'Mozilla/5.0 (Linux; U; Android 4.2.2; nl-nl; GT-P5110 Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30')
@@ -126,7 +94,7 @@ def Get_url(url):
     link=response.read()
     response.close()
     return link
-    
+   
 def Play(name,url):  
     ok=True
     liz=xbmcgui.ListItem(name, iconImage=icon,thumbnailImage=icon); liz.setInfo( type="Video", infoLabels={ "Title": name } )
@@ -152,14 +120,7 @@ def addDir(name,url,mode,iconimage,fanart,description=''):
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
         return ok
 
-
-
-
-def getSourceUrl(name):
-    url = getUrlByName(name)
-    return url
-
-
+xmlLocation = 'YUhSMGNEb3ZMMkpwZEd4NUxtTnZiUzlxWVc1c2RXeDBkZz09'
 
 def getUrlByName(name):
     req = urllib2.Request(getStreamUrl(getStreamUrl(xmlLocation)) ,None)
@@ -173,11 +134,8 @@ def getUrlByName(name):
             return stream.find("url").text
     return ''
 
-
 def getStreamUrl(baseEncoded):
     return base64.b64decode(baseEncoded)
-
-
 
 def get_params():
         param=[]
@@ -216,9 +174,5 @@ print "Mode: "+str(mode);print "URL: "+str(url);print "Name: "+str(name);print "
 if mode==None or url==None or len(url)<1:menu()
 elif mode==98:JanLulSched(url)
 elif mode==99:GetJanlulStream(name,url)
-
-
-
-
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
