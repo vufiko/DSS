@@ -37,13 +37,10 @@ def mainMenu():
     addSubMenu('janlul','Janlul')
     addSubMenu('daz','DazSports Streams')
     addSubMenu('stv','STV Streams')
-    addSubMenu('13stream','13stream')
     addSubMenu('bvls','BVLS2013')
     addSubMenu('sotd','Stream of the Day')
-    #if newFeatures == "true":
     addSubMenu('bdds','Poleposition')
     addDummyItem('')
-    #addSubMenu('spst','DSS Radio Streams')
     addDummyItem('')
     addDummyItem('[COLOR green]Online Stream[/COLOR]')
     addDummyItem('[COLOR red]Offline Stream[/COLOR]')
@@ -109,10 +106,6 @@ else:
         bvls.addStreams()
     elif site == 'bdds': #polepositionv2.nl
         bdds.addStreams()
-    elif site == '13stream':
-        sopcast.add13Stream()
-    elif site == 'spst': #sports-streams.com
-        spst.addStreams()
     else:
         mainMenu()
     

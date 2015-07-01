@@ -1,10 +1,12 @@
+import urllib,urllib2,sys,re,xbmcplugin,xbmcgui,xbmcaddon,xbmc,os,json,base64
 from ..utils import bitly, xbmcutil
+import urlparse
+import random
+import xml.etree.ElementTree as ET
 from . import veetle
 import re
 
-sourceSite='http://bvls2013.com'
-
-USER_AGENT = 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)'
+xmlLocation = 'YUhSMGNEb3ZMMlIxZEdOb2MzQnZjblJ6ZEhKbFlXMXpMbU52YlM5NGJXd3ZZblpzY3pJd01UTXVlRzFz'
 
 def addStreams():
     pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van streams...')
@@ -48,7 +50,7 @@ def addStreams():
 
 
 def addStream(stream, display) :
-    streamUrl = findStream(stream) 
+    streamUrl = getUrlByName(stream) 
     if streamUrl[-4:] == '.flv' :
         print('Veetle')
         veetle.addChannel(display, streamUrl, 'BVLS')
@@ -62,19 +64,17 @@ def addStream(stream, display) :
         xbmcutil.addMenuItem('[COLOR '+color+']'+display+'[/COLOR]', streamUrl, 'true', 'BVLS','BVLS')
 
 
-def findStream(page) :
-    page1 = resolveIframe(sourceSite + '/' + page +'.html')
-    if(page1[:4] != 'http') :
-        page1 = sourceSite + '/' + page1
-    frameHtml = bitly.getPage(page1, page1, USER_AGENT)
-    b64coded = bitly.getBaseEncodedString(frameHtml)
-    streamUrl = bitly.getStreamUrl(b64coded)
-    return streamUrl
-    
-def resolveIframe(page) :
-    pagecontent = bitly.getPage(page, page, USER_AGENT)
-    match=re.compile('src="(.+?)" id="myfr"').findall(pagecontent)
-    for name in match:
-        name = name
-        return name
-    return page
+def getUrlByName(name):
+    req = urllib2.Request(getStreamUrl(getStreamUrl(xmlLocation)) ,None)
+    response = urllib2.urlopen(req)
+    data = response.read()
+    response.close()
+    root = ET.fromstring(data)
+    streams = root.findall("stream")
+    for stream in streams:
+        if stream.find("name").text == name:
+            return stream.find("url").text
+    return ''
+
+def getStreamUrl(baseEncoded):
+    return base64.b64decode(baseEncoded)
