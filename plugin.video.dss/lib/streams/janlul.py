@@ -14,23 +14,23 @@ def addStreams() :
     pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van Streams...')
 
 
-    xbmcutil.updateProgressBar(pBar, 15, 'JanLul.com - stream 1')
-    addStream('janlul1', 'JanLul.com - Stream 1')
+    xbmcutil.updateProgressBar(pBar, 15, 'appstreams.nl - stream 1')
+    addStream('janlul1', 'appstreams.nl - Stream 1')
 
-    xbmcutil.updateProgressBar(pBar, 30, 'JanLul.com - stream 2')
-    addStream('janlul2', 'JanLul.com - Stream 2')
+    xbmcutil.updateProgressBar(pBar, 30, 'appstreams.nl - stream 2')
+    addStream('janlul2', 'appstreams.nl - Stream 2')
 
-    xbmcutil.updateProgressBar(pBar, 45, 'JanLul.com - stream 3')
-    addStream('janlul3', 'JanLul.com - Stream 3')
+    xbmcutil.updateProgressBar(pBar, 45, 'appstreams.nl - stream 3')
+    addStream('janlul3', 'appstreams.nl - Stream 3')
 
-    xbmcutil.updateProgressBar(pBar, 60, 'JanLul.com - stream 4')
-    addStream('janlul4', 'JanLul.com - Stream 4')
+    xbmcutil.updateProgressBar(pBar, 60, 'appstreams.nl - stream 4')
+    addStream('janlul4', 'appstreams.nl - Stream 4')
 
-    xbmcutil.updateProgressBar(pBar, 75, 'JanLul.com - stream 5')
-    addStream('janlul5', 'JanLul.com - Stream 5')
+    xbmcutil.updateProgressBar(pBar, 75, 'appstreams.nl - stream 5')
+    addStream('janlul5', 'appstreams.nl - Stream 5')
 
-    xbmcutil.updateProgressBar(pBar, 90, 'JanLul.com - stream 6')
-    addStream('janlul6', 'JanLul.com - Stream 6')
+    xbmcutil.updateProgressBar(pBar, 90, 'appstreams.nl - stream 6')
+    addStream('janlul6', 'appstreams.nl - Stream 6')
 
 
 

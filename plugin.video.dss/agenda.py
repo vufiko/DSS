@@ -42,20 +42,22 @@ def build_url(query):
     return base_url + '?' + urllib.urlencode(query) 
 
 def getLinkByName(streamname) :
-    compare = streamname[0:3].lower()
-    if compare == 'jan' :
+    compare = streamname[0:3]
+    if compare == 'str' :
         site = 'janlul'
     elif compare == 'daz' :
         site = 'daz'
-    elif compare == 'pol' :
+    elif compare == 'Pol' :
         site = 'bdds'
-    elif compare == 'dsp' :
+    elif compare == 'Dsp' :
         site = 'daz'
     elif compare == 'stv' :
         site = 'stv'
+    elif compare == 'Stv' :
+        site = 'stv'
     elif compare == 'bvl' :
         site = 'bvls'
-    elif compare == 'str' :
+    elif compare == 'Str' :
         site = 'sotd'
     else :
         site = 'tvguide'

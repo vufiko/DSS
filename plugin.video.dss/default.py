@@ -34,12 +34,13 @@ def addSubMenu(internal, readable):
 
 def mainMenu():
     addSubMenu('agenda','[COLOR yellow]Wedstrijd Schema[/COLOR]')
-    addSubMenu('janlul','Janlul')
+    addSubMenu('janlul','appstreams')
     addSubMenu('daz','DazSports Streams')
     addSubMenu('stv','STV Streams')
     addSubMenu('bvls','BVLS2013')
     addSubMenu('sotd','Stream of the Day')
     addSubMenu('bdds','Poleposition')
+    addSubMenu('laatmij','Laatmijmaargaan')
     addDummyItem('')
     addDummyItem('')
     addDummyItem('[COLOR green]Online Stream[/COLOR]')
@@ -106,6 +107,8 @@ else:
         bvls.addStreams()
     elif site == 'bdds': #polepositionv2.nl
         bdds.addStreams()
+    elif site == 'laatmij': #laatmijmaargaan.nl
+        laatmij.addStreams()
     else:
         mainMenu()
     
