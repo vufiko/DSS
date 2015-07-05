@@ -15,7 +15,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.dss" name="Dutch Sports Streams" version="3.0.1" provider-name="Dutch Cloud Tv">
+<addon id="plugin.video.dss" name="Dutch Sports Streams" version="3.0.2" provider-name="Dutch Cloud Tv">
 	<requires>
 		<import addon="plugin.video.veetle" version="0.3.1" optional="false"/>
 	</requires>
