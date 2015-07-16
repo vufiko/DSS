@@ -34,13 +34,10 @@ def addSubMenu(internal, readable):
 
 def mainMenu():
     #addSubMenu('agenda','[COLOR yellow]Wedstrijd Schema[/COLOR]')
-    #addSubMenu('janlul','appstreams')
-    #addSubMenu('daz','DazSports Streams')
     addSubMenu('stv','STV Streams')
     addSubMenu('bvls','BVLS2013')
     addSubMenu('sotd','Stream of the Day')
-    #addSubMenu('bdds','Poleposition')
-    #addSubMenu('laatmij','Laatmijmaargaan')
+    addSubMenu('sport1','Sport 1')
     addDummyItem('')
     addDummyItem('')
     addDummyItem('[COLOR green]Online Stream[/COLOR]')
@@ -95,20 +92,14 @@ else:
     pDialog.create('Dutch Sports Streams', 'Laden van streams...')
     if site == 'agenda':
         agenda.showList()
-    elif site == 'janlul': #Janlul.com
-        janlul.addStreams()
-    elif site == 'daz': #DazSports.org
-        dazsports.addStreams()
+    elif site == 'sport1': #sport1
+        sport1.addStreams()
     elif site == 'stv': #STV-Streams.com
         stv.addStreams()
     elif site == 'sotd': #streamoftheday.com
         sotd.addStreams()
     elif site == 'bvls': #bvls2013.com
         bvls.addStreams()
-    elif site == 'bdds': #polepositionv2.nl
-        bdds.addStreams()
-    elif site == 'laatmij': #laatmijmaargaan.nl
-        laatmij.addStreams()
     else:
         mainMenu()
     
