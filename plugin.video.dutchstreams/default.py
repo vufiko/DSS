@@ -3,7 +3,7 @@ import base64
 import xbmc,xbmcaddon,xbmcgui,xbmcplugin,urllib,urllib2,os,re,sys,urlresolver,random
 from resources.libs.common_addon import Addon
 
-addon_id        = 'plugin.video.dutchstreams'
+addon_id        = 'plugin.video.dutchstream'
 selfAddon       = xbmcaddon.Addon(id=addon_id)
 addon           = Addon(addon_id, sys.argv)
 fanart          = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id , 'fanart.jpg'))
@@ -20,8 +20,6 @@ def Index():
 	match=re.compile('name="(.+?)".+?url="(.+?)".+?img="(.+?)"',re.DOTALL).findall(link)
 	for name,url,iconimage in match:
 		if not 'XXX' in name:
-			iconimage = iconimage.replace(' ','%20')
-			url = url.replace(' ','%20')
 			addDir(name,url,1,iconimage,fanart)
 		if 'XXX' in name:
 			if adultopt == 'true':
@@ -34,15 +32,10 @@ def Index():
 					if (keyb.isConfirmed()):
 					    passw = keyb.getText()
 					    selfAddon.setSetting('password',passw)      
-					iconimage = iconimage.replace(' ','%20')
-					url = url.replace(' ','%20')
 					addDir(name,url,1,iconimage,fanart)
 			if adultopt == 'true':
 				if adultpass <> '':
-					iconimage = iconimage.replace(' ','%20')
-					url = url.replace(' ','%20')
 					addDir(name,url,1,iconimage,fanart)
-	#addLink('Twitter Feed','url',2,'http://www.dutchsportstreams.com/nltv/images/twitter.jpg',fanart)
 	xbmc.executebuiltin('Container.SetViewMode(500)')
       
 def GetChans(url):
@@ -78,8 +71,6 @@ def CatIndex(url):
 	link=open_url(url)	
 	match=re.compile('name="(.+?)".+?url="(.+?)".+?img="(.+?)"',re.DOTALL).findall(link)
 	for name,url,iconimage in match:
-		iconimage = iconimage.replace(' ','%20')
-		url = url.replace(' ','%20')
 		addDir(name,url,1,iconimage,fanart)
 	xbmc.executebuiltin('Container.SetViewMode(50)')
 
@@ -129,38 +120,7 @@ def PLAYLINK(url,name):
 			except:
 			    pass
 	    
-def TWITTER():
-	text = ''
-	twit = 'https://script.google.com/macros/s/AKfycbyBcUa5TlEQudk6Y_0o0ZubnmhGL_-b7Up8kQt11xgVwz3ErTo/exec?588677963413065728'
-	link = open_url(twit)
-	link = link.replace('/n','')
-	link = link.decode('utf-8').encode('utf-8').replace('&#39;','\'').replace('&#10;',' - ').replace('&#x2026;','')
-	for status, dte in match:
-	    try:
-			    status = status.decode('ascii', 'ignore')
-	    except:
-			    status = status.decode('utf-8','ignore')
-	    dte = dte[:-15]
-	    status = status.replace('&amp;','')
-	    dte = '[COLOR blue][B]'+dte+'[/B][/COLOR]'
-	    text = text+dte+'\n'+status+'\n'+'\n'
-	showText('[COLOR blue][B]@uk_turk[/B][/COLOR]', text)
 
-def showText(heading, text):
-    id = 10147
-    xbmc.executebuiltin('ActivateWindow(%d)' % id)
-    xbmc.sleep(100)
-    win = xbmcgui.Window(id)
-    retry = 50
-    while (retry > 0):
-	try:
-	    xbmc.sleep(10)
-	    retry -= 1
-	    win.getControl(1).setLabel(heading)
-	    win.getControl(5).setText(text)
-	    return
-	except:
-	    pass
 				     
 def open_url(url):
 	url += '?%d=%d' % (random.randint(1, 10000), random.randint(1, 10000))
@@ -224,9 +184,6 @@ print "Site: "+str(site); print "Mode: "+str(mode); print "URL: "+str(url); prin
  
 if mode==None or url==None or len(url)<1: Index()
 elif mode==1:GetChans(url)
-elif mode==2:TWITTER()
 elif mode==3:PLAYLINK(url,name)
-
-
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
