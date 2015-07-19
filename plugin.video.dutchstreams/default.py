@@ -3,7 +3,7 @@ import base64
 import xbmc,xbmcaddon,xbmcgui,xbmcplugin,urllib,urllib2,os,re,sys,urlresolver,random
 from resources.libs.common_addon import Addon
 
-addon_id        = 'plugin.video.dutchstream'
+addon_id        = 'plugin.video.dutchstreams'
 selfAddon       = xbmcaddon.Addon(id=addon_id)
 addon           = Addon(addon_id, sys.argv)
 fanart          = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id , 'fanart.jpg'))
