@@ -8,7 +8,7 @@ selfAddon       = xbmcaddon.Addon(id=addon_id)
 addon           = Addon(addon_id, sys.argv)
 fanart          = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id , 'fanart.jpg'))
 icon            = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id, 'icon.png'))
-baseurl         = 'http://www.dutchsportstreams.com/nltv/index.txt'
+baseurl         = selfAddon.getSetting('sUrl')
 adultopt        = selfAddon.getSetting('adult')
 adultpass       = selfAddon.getSetting('password')
 iconimage       = addon.queries.get('iconimage', '')
