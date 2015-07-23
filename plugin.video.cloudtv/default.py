@@ -3,8 +3,8 @@ import urlparse
 import random
 import socket, sys, os
 from resources.lib.BeautifulSoup import BeautifulStoneSoup, BeautifulSoup, BeautifulSOAP
-icons = xbmc.translatePath("special://home/addons/plugin.video.iptvxtra-trtv/resources/icons/")
-icon = xbmc.translatePath("special://home/addons/plugin.video.iptvxtra-trtv/icon.png")
+icons = xbmc.translatePath("special://home/addons/plugin.video.cloudtv/resources/icons/")
+icon = xbmc.translatePath("special://home/addons/plugin.video.cloudtv/icon.png")
 plugin_handle = int(sys.argv[1])
 mode = sys.argv[2]
 
@@ -23,15 +23,16 @@ icon = xbmc.translatePath(os.path.join('special://home/addons/' + AddonID, 'icon
 
      
 def categorie():
-    addDir('Lokaal/Regionaal', 'plugin://plugin.video.cloudtv/?xcat3x',icon)
-    addDir('Sport', 'plugin://plugin.video.cloudtv/?xcat4x',icon)
-    addDir('Muziek', 'plugin://plugin.video.cloudtv/?xcat1x',icon)
-    addDir('Film', 'plugin://plugin.video.cloudtv/?xcat5x',icon)
-    addDir('Jeugd', 'plugin://plugin.video.cloudtv/?xcat6x',icon)
-    addDir('Kultuur', 'plugin://plugin.video.cloudtv/?xcat7x',icon)
-    addDir('Entertainment', 'plugin://plugin.video.cloudtv/?xcat8x',icon)
-    addDir('Ongesoorteerd', 'plugin://plugin.video.cloudtv/?xcat2x',icon)
-    addDir('Ongesoorteerd 2', 'plugin://plugin.video.cloudtv/?xcat9x',icon)
+    addDir('TV NL', 'plugin://plugin.video.cloudtv/?xcat9x',icon)
+    addDir('Regionaal NL', 'plugin://plugin.video.cloudtv/?xcat3x',icon)
+    addDir('Lokaal NL', 'plugin://plugin.video.cloudtv/?xcat5x',icon)
+    addDir('Sport INT', 'plugin://plugin.video.cloudtv/?xcat4x',icon)
+    addDir('Muziek INT', 'plugin://plugin.video.cloudtv/?xcat1x',icon)
+    #addDir('Jeugd', 'plugin://plugin.video.cloudtv/?xcat6x',icon)
+    #addDir('Kultuur', 'plugin://plugin.video.cloudtv/?xcat7x',icon)
+    #addDir('Entertainment', 'plugin://plugin.video.cloudtv/?xcat8x',icon)
+    #addDir('Ongesoorteerd', 'plugin://plugin.video.cloudtv/?xcat2x',icon)
+    #addDir('Ongesoorteerd 2', 'plugin://plugin.video.cloudtv/?xcat9x',icon)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))    
 
 
