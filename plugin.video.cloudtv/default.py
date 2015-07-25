@@ -28,7 +28,7 @@ def categorie():
     addDir('Lokaal NL', 'plugin://plugin.video.cloudtv/?xcat5x',icon)
     addDir('Sport INT', 'plugin://plugin.video.cloudtv/?xcat4x',icon)
     addDir('Muziek INT', 'plugin://plugin.video.cloudtv/?xcat1x',icon)
-    #addDir('Jeugd', 'plugin://plugin.video.cloudtv/?xcat6x',icon)
+    addDir('American Channels', 'plugin://plugin.video.cloudtv/?xcat6x',icon)
     #addDir('Kultuur', 'plugin://plugin.video.cloudtv/?xcat7x',icon)
     #addDir('Entertainment', 'plugin://plugin.video.cloudtv/?xcat8x',icon)
     #addDir('Ongesoorteerd', 'plugin://plugin.video.cloudtv/?xcat2x',icon)
@@ -110,7 +110,7 @@ def main():
     elif 'xcat5' in mode: 
         url = "http://pastebin.com/raw.php?i=n1s2VMXd"
     elif 'xcat6' in mode: 
-        url = "http://pastebin.com/raw.php?i=n1s2VMXd"
+        url = "http://pastebin.com/raw.php?i=xfx9Dq2X"
     elif 'xcat7' in mode: 
         url = "http://pastebin.com/raw.php?i=n1s2VMXd"
     elif 'xcat8' in mode: 
