@@ -34,7 +34,7 @@ def addSubMenu(internal, readable):
 
 def mainMenu():
     #addSubMenu('agenda','[COLOR yellow]Wedstrijd Schema[/COLOR]')
-    addSubMenu('stv','STV Streams')
+    #addSubMenu('stv','STV Streams')
     addSubMenu('bvls','BVLS2013')
     addSubMenu('sotd','Stream of the Day')
     addSubMenu('sport1','Sport 1')
