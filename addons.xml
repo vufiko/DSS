@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.video.cloudtv" name="Cloud TV" version="1.5.1" provider-name="CloudTV">
-<requires>
-    <import addon="xbmc.python" version="2.1.0" />
-</requires>
-<extension point="xbmc.python.pluginsource" library="default.py">
-		<provides>video</provides>
-	</extension>
-	<extension  point="xbmc.addon.metadata">
-		<summary lang="nl">Cloud Tv op uw XBMC / Kodi.</summary>
-		<description lang="nl">Met deze plugin is het mogelijk om streams van Cloud TV te kijken.[CR]Een Catogorie beheren laat het weten via facebook.</description>
-		<platform>all</platform>
-		<website></website>
-	</extension>
+<addon id="plugin.video.cloudtv"
+       name="DUTCH CLOUD TV"
+       version="3.0.4"
+       provider-name="DSS">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.t0mm0.common" version="2.0.0"/>
+    <import addon="script.module.beautifulsoup" version="3.2.1"/>
+    <import addon="script.module.simple.downloader" version="0.9.4"/>
+    <import addon="script.module.beautifulsoup4" />
+    <import addon="script.module.simple.downloader" version="0.9.4"/>
+    <import addon="script.module.requests" />
+    <import addon="script.module.httplib2" />
+    <import addon="script.module.youtube.dl" optional="true"/>
+    <import addon="plugin.video.youtube" version="3.0.0"/>
+    <import addon="script.module.urlresolver" optional="true"/>
+    <import addon="script.module.simplejson" />
+    <import addon="script.common.plugin.cache" version="2.5.2"/>
+    <import addon="script.module.metahandler" version="2.5.1"/>
+
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="cloudtv.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">######</summary>
+    <description lang="en">######</description>
+    <platform>all</platform>
+  </extension>
 </addon>
 
 <addon id="plugin.video.dss" name="Dutch Sports Streams" version="3.0.5" provider-name="Dutch Cloud Tv">
