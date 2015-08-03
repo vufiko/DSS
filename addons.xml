@@ -2,7 +2,7 @@
 <addons>
 <addon id="plugin.video.cloudtv"
        name="DUTCH CLOUD TV"
-       version="3.0.5"
+       version="4.0.4"
        provider-name="DSS">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -19,15 +19,14 @@
     <import addon="script.module.simplejson" />
     <import addon="script.common.plugin.cache" version="2.5.2"/>
     <import addon="script.module.metahandler" version="2.5.1"/>
-	<import addon="plugin.video.veetle" version="0.3.1" optional="false"/>
 
   </requires>
   <extension point="xbmc.python.pluginsource" library="cloudtv.py">
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Dutch Cloud TV </summary>
-    <description lang="en">www.dutchsportstreams.com</description>
+    <summary lang="en">######</summary>
+    <description lang="en">######</description>
     <platform>all</platform>
   </extension>
 </addon>
