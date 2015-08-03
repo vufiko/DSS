@@ -737,7 +737,7 @@ def getItems(items,fanart):
                                 sop = 'plugin://plugin.video.p2p-streams/?url='+i.string +'&amp;mode=2&amp;' + 'name='+name 
                                 url.append(sop) 
                             else:
-                                p2p='plugin://plugin.video.p2p-streams/?url='+i.string +'&amp;mode=1&amp;' + 'name='+name 
+                                p2p='plugin://plugin.video.p2p-streams/?url='+i.string +'&mode=1&name=' +name 
                                 url.append(p2p)
                 elif len(item('vaughn')) >0:
                     for i in item('vaughn'):
