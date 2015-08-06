@@ -744,6 +744,11 @@ def getItems(items,fanart):
                         if not i.string == None:
                             vaughn = 'plugin://plugin.stream.vaughnlive.tv/?mode=PlayLiveStream&amp;channel='+i.string
                             url.append(vaughn)
+                elif len(item('veetle')) >0:
+                    for i in item('veetle'):
+                        if not i.string == None:
+                            veetle = 'plugin://plugin.video.veetle/?channel='+i.string
+                            url.append(veetle)
                 elif len(item('ilive')) >0:
                     for i in item('ilive'):
                         if not i.string == None:
@@ -2423,7 +2428,7 @@ try:
 except:
     pass
 
-if int(Mode[-1:]) <> 4:
+if int(Mode[-1:]) <> 5:
    mode=1
 addon_log("Mode: "+str(mode))
 if not url is None:
