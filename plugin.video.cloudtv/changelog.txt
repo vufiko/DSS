@@ -1,3 +1,6 @@
+Version 4.0.6
+some small fixed
+
 Version 4.0.5
 Add Veetle
 <veetle>...</veetle>

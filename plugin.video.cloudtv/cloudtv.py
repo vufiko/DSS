@@ -215,12 +215,7 @@ def addSource(url=None):
         addon.setSetting('new_url_source', "")
         addon.setSetting('new_file_source', "")
         xbmc.executebuiltin("XBMC.Notification(CloudTV,New source added.,5000,"+icon+")")
-        if not url is None:
-            if 'xbmcplus.xb.funpic.de' in url:
-                xbmc.executebuiltin("XBMC.Container.Update(%s?mode=14,replace)" %sys.argv[0])
-            elif 'community-links' in url:
-                xbmc.executebuiltin("XBMC.Container.Update(%s?mode=10,replace)" %sys.argv[0])
-        else: addon.openSettings()
+        addon.openSettings()
 
 
 def rmSource(name):
@@ -245,8 +240,6 @@ def rmSource(name):
 
 
 def get_xml_database(url, browse=False):
-        if url is None:
-            url = 'http://xbmcplus.xb.funpic.de/www-data/filesystem/'
         soup = BeautifulSoup(makeRequest(url), convertEntities=BeautifulSoup.HTML_ENTITIES)
         for i in soup('a'):
             href = i['href']
@@ -271,16 +264,7 @@ def get_xml_database(url, browse=False):
                                 addDir(name,url+href,11,icon,fanart,'','','','','download')
 
 
-def getCommunitySources(browse=False):
-        url = 'http://community-links.googlecode.com/svn/trunk/'
-        soup = BeautifulSoup(makeRequest(url), convertEntities=BeautifulSoup.HTML_ENTITIES)
-        files = soup('ul')[0]('li')[1:]
-        for i in files:
-            name = i('a')[0]['href']
-            if browse:
-                addDir(name,url+name,1,icon,fanart,'','','','','download')
-            else:
-                addDir(name,url+name,11,icon,fanart,'','','','','download')
+
 
 
 def getSoup(url,data=None):
@@ -756,6 +740,7 @@ def getItems(items,fanart):
                                 ilive = 'plugin://plugin.video.tbh.ilive/?url=http://www.streamlive.to/view/'+i.string+'&amp;link=99&amp;mode=iLivePlay'
                             else:
                                 ilive = 'plugin://plugin.video.tbh.ilive/?url='+i.string+'&amp;link=99&amp;mode=iLivePlay'
+                        url.append(ilive)
                 elif len(item('yt-dl')) >0:
                     for i in item('yt-dl'):
                         if not i.string == None:
@@ -2428,7 +2413,7 @@ try:
 except:
     pass
 
-if int(Mode[-1:]) <> 5:
+if int(Mode[-1:]) <> 6:
    mode=1
 addon_log("Mode: "+str(mode))
 if not url is None:
@@ -2495,9 +2480,7 @@ elif mode==9:
     addon_log("download_file")
     download_file(name, url)
 
-elif mode==10:
-    addon_log("getCommunitySources")
-    getCommunitySources()
+
 
 elif mode==11:
     addon_log("addSource")
@@ -2517,20 +2500,14 @@ elif mode==13:
     addon_log("play_playlist")
     play_playlist(name, playlist)
 
-elif mode==14:
-    addon_log("get_xml_database")
-    get_xml_database(url)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+
 
 elif mode==15:
     addon_log("browse_xml_database")
     get_xml_database(url, True)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
-elif mode==16:
-    addon_log("browse_community")
-    getCommunitySources(True)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+
 
 elif mode==17:
     addon_log("getRegexParsed")
