@@ -750,9 +750,10 @@ def getItems(items,fanart):
                 elif len(item('ytlist')) >0:
                     for i in item('ytlist'):
                         thumbnail = item('thumbnail')[0].string
+                        title = item('title')[0].string
                         plugintools.add_item( 
                         #action="", 
-                        title=i.string,
+                        title=title,
                         url="plugin://plugin.video.youtube/user/"+i.string+"/",
                         thumbnail= thumbnail,
                         folder=True )
@@ -2425,7 +2426,7 @@ try:
 except:
     pass
 
-if int(Mode[-1:]) <> 7:
+if int(Mode[-1:]) <> 8:
    mode=1
 addon_log("Mode: "+str(mode))
 if not url is None:
