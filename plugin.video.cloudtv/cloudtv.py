@@ -9,6 +9,7 @@ import xbmcaddon
 import xbmcvfs
 import traceback
 import cookielib
+import plugintools
 from addon.common.net import Net
 from BeautifulSoup import BeautifulStoneSoup, BeautifulSoup, BeautifulSOAP
 try:
@@ -732,7 +733,7 @@ def getItems(items,fanart):
                     for i in item('veetle'):
                         if not i.string == None:
                             veetle = 'plugin://plugin.video.veetle/?channel='+i.string
-                            url.append(veetle)
+                        url.append(veetle)
                 elif len(item('ilive')) >0:
                     for i in item('ilive'):
                         if not i.string == None:
@@ -745,7 +746,16 @@ def getItems(items,fanart):
                     for i in item('yt-dl'):
                         if not i.string == None:
                             ytdl = i.string + '&mode=18'
-                            url.append(ytdl)
+                        url.append(ytdl)
+                elif len(item('ytlist')) >0:
+                    for i in item('ytlist'):
+                        thumbnail = item('thumbnail')[0].string
+                        plugintools.add_item( 
+                        #action="", 
+                        title=i.string,
+                        url="plugin://plugin.video.youtube/user/"+i.string+"/",
+                        thumbnail= thumbnail,
+                        folder=True )
                 elif len(item('utube')) >0:
                     for i in item('utube'):
                         if not i.string == None:
@@ -2349,6 +2359,8 @@ def get_epg(url, regex):
             return
 
 
+
+
 xbmcplugin.setContent(int(sys.argv[1]), 'movies')
 
 try:
@@ -2413,7 +2425,7 @@ try:
 except:
     pass
 
-if int(Mode[-1:]) <> 6:
+if int(Mode[-1:]) <> 7:
    mode=1
 addon_log("Mode: "+str(mode))
 if not url is None:
