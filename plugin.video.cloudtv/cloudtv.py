@@ -3,6 +3,7 @@ import urllib2
 import datetime
 import re
 import os
+import base64
 import xbmcplugin
 import xbmcgui
 import xbmcaddon
@@ -34,7 +35,7 @@ class NoRedirection(urllib2.HTTPErrorProcessor):
        return response
    https_response = http_response
        
-DCTVBase = 'http://pastebin.com/raw.php?i=vJuPZJpK'
+DCTVBase = 'aHR0cDovL3d3dy5kdXRjaGNsb3VkdHYuY29tL3htbC9pbmRleC54bWw='
 
 
 addon = xbmcaddon.Addon('plugin.video.cloudtv')
@@ -87,7 +88,7 @@ def makeRequest(url, headers=None):
 				
 def DCTVIndex():
     addon_log("DCTVIndex")
-    getData(DCTVBase,'')
+    getData(base64.b64decode(DCTVBase),'')
     addDir('Search','Search',40,'http://dutchsportstreams.com/cloudtv/images/Search.png' ,  FANART,'','','','')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 		
@@ -142,6 +143,7 @@ def getSources():
                         getData(sources[0][1].encode('utf-8'),FANART)
                     else:
                         getData(sources[0]['url'], sources[0]['fanart'])
+
 
 
 def addSource(url=None):
@@ -410,9 +412,7 @@ def parse_m3u(data):
             thumbnail = ''
         if 'type' in other:
             mode_type = re_me(other,'type=[\'"](.*?)[\'"]')
-            if mode_type == 'yt-dl':
-                stream_url = stream_url +"&mode=18"
-            elif mode_type == 'regex':
+            if mode_type == 'regex':
                 url = stream_url.split('&regexs=')
                 #print url[0] getSoup(url,data=None)
                 regexs = parse_regex(getSoup('',data=url[1]))
@@ -633,9 +633,7 @@ def Search_m3u(data,Searchkey):
             thumbnail = ''
         if 'type' in other:
             mode_type = re_me(other,'type=[\'"](.*?)[\'"]')
-            if mode_type == 'yt-dl':
-                stream_url = stream_url +"&mode=18"
-            elif mode_type == 'regex':
+            if mode_type == 'regex':
                 url = stream_url.split('&regexs=')
                 #print url[0] getSoup(url,data=None)
                 regexs = parse_regex(getSoup('',data=url[1]))
@@ -684,21 +682,6 @@ def getItems(items,fanart):
 
 
             try:
-                if item('epg'):
-                    if item.epg_url:
-                        addon_log('Get EPG Regex')
-                        epg_url = item.epg_url.string
-                        epg_regex = item.epg_regex.string
-                        epg_name = get_epg(epg_url, epg_regex)
-                        if epg_name:
-                            name += ' - ' + epg_name
-                    elif item('epg')[0].string > 1:
-                        name += getepg(item('epg')[0].string)
-                else:
-                    pass
-            except:
-                addon_log('EPG Error')
-            try:
                 url = []
                 if len(item('link')) >0:
 #                    print 'item link', item('link')
@@ -742,11 +725,6 @@ def getItems(items,fanart):
                             else:
                                 ilive = 'plugin://plugin.video.tbh.ilive/?url='+i.string+'&amp;link=99&amp;mode=iLivePlay'
                         url.append(ilive)
-                elif len(item('yt-dl')) >0:
-                    for i in item('yt-dl'):
-                        if not i.string == None:
-                            ytdl = i.string + '&mode=18'
-                        url.append(ytdl)
                 elif len(item('ytlist')) >0:
                     for i in item('ytlist'):
                         thumbnail = item('thumbnail')[0].string
@@ -1382,39 +1360,10 @@ def get_packed_iphonetv_url(page_data):
 	print s
 	return s
 
-def get_ferrari_url(page_data):
-    print 'get_dag_url2',page_data
-    page_data2=getUrl(page_data);
-    patt='(http.*)'
-    import uuid
-    playback=str(uuid.uuid1()).upper()
-    links=re.compile(patt).findall(page_data2)
-    headers=[('X-Playback-Session-Id',playback)]
-    for l in links:
-        try:
-                page_datatemp=getUrl(l,headers=headers);
-                    
-        except: pass
-    
-    return page_data+'|&X-Playback-Session-Id='+playback
+
 
     
-def get_dag_url(page_data):
-    print 'get_dag_url',page_data
-    if page_data.startswith('http://dag.total-stream.net'):
-        headers=[('User-Agent','Verismo-BlackUI_(2.4.7.5.8.0.34)')]
-        page_data=getUrl(page_data,headers=headers);
 
-    if '127.0.0.1' in page_data:
-        return revist_dag(page_data)
-    elif re_me(page_data, 'wmsAuthSign%3D([^%&]+)') != '':
-        final_url = re_me(page_data, '&ver_t=([^&]+)&') + '?wmsAuthSign=' + re_me(page_data, 'wmsAuthSign%3D([^%&]+)') + '==/mp4:' + re_me(page_data, '\\?y=([^&]+)&')
-    else:
-        final_url = re_me(page_data, 'href="([^"]+)"[^"]+$')
-        if len(final_url)==0:
-            final_url=page_data
-    final_url = final_url.replace(' ', '%20')
-    return final_url
 
 def re_me(data, re_patten):
     match = ''
@@ -1425,85 +1374,10 @@ def re_me(data, re_patten):
         match = ''
     return match
 
-def revist_dag(page_data):
-    final_url = ''
-    if '127.0.0.1' in page_data:
-        final_url = re_me(page_data, '&ver_t=([^&]+)&') + ' live=true timeout=15 playpath=' + re_me(page_data, '\\?y=([a-zA-Z0-9-_\\.@]+)')
-        
-    if re_me(page_data, 'token=([^&]+)&') != '':
-        final_url = final_url + '?token=' + re_me(page_data, 'token=([^&]+)&')
-    elif re_me(page_data, 'wmsAuthSign%3D([^%&]+)') != '':
-        final_url = re_me(page_data, '&ver_t=([^&]+)&') + '?wmsAuthSign=' + re_me(page_data, 'wmsAuthSign%3D([^%&]+)') + '==/mp4:' + re_me(page_data, '\\?y=([^&]+)&')
-    else:
-        final_url = re_me(page_data, 'HREF="([^"]+)"')
-
-    if 'dag1.asx' in final_url:
-        return get_dag_url(final_url)
-
-    if 'devinlivefs.fplive.net' not in final_url:
-        final_url = final_url.replace('devinlive', 'flive')
-    if 'permlivefs.fplive.net' not in final_url:
-        final_url = final_url.replace('permlive', 'flive')
-    return final_url
 
 
-def get_unwise( str_eval):
-    page_value=""
-    try:        
-        ss="w,i,s,e=("+str_eval+')' 
-        exec (ss)
-        page_value=unwise_func(w,i,s,e)
-    except: traceback.print_exc(file=sys.stdout)
-    #print 'unpacked',page_value
-    return page_value
-    
-def unwise_func( w, i, s, e):
-    lIll = 0;
-    ll1I = 0;
-    Il1l = 0;
-    ll1l = [];
-    l1lI = [];
-    while True:
-        if (lIll < 5):
-            l1lI.append(w[lIll])
-        elif (lIll < len(w)):
-            ll1l.append(w[lIll]);
-        lIll+=1;
-        if (ll1I < 5):
-            l1lI.append(i[ll1I])
-        elif (ll1I < len(i)):
-            ll1l.append(i[ll1I])
-        ll1I+=1;
-        if (Il1l < 5):
-            l1lI.append(s[Il1l])
-        elif (Il1l < len(s)):
-            ll1l.append(s[Il1l]);
-        Il1l+=1;
-        if (len(w) + len(i) + len(s) + len(e) == len(ll1l) + len(l1lI) + len(e)):
-            break;
-        
-    lI1l = ''.join(ll1l)#.join('');
-    I1lI = ''.join(l1lI)#.join('');
-    ll1I = 0;
-    l1ll = [];
-    for lIll in range(0,len(ll1l),2):
-        #print 'array i',lIll,len(ll1l)
-        ll11 = -1;
-        if ( ord(I1lI[ll1I]) % 2):
-            ll11 = 1;
-        #print 'val is ', lI1l[lIll: lIll+2]
-        l1ll.append(chr(    int(lI1l[lIll: lIll+2], 36) - ll11));
-        ll1I+=1;
-        if (ll1I >= len(l1lI)):
-            ll1I = 0;
-    ret=''.join(l1ll)
-    if 'eval(function(w,i,s,e)' in ret:
-        print 'STILL GOing'
-        ret=re.compile('eval\(function\(w,i,s,e\).*}\((.*?)\)').findall(ret)[0] 
-        return get_unwise(ret)
-    else:
-        print 'FINISHED'
-        return ret
+
+
     
 def get_unpacked( page_value, regex_for_text='', iterations=1, total_iteration=1):
     try:        
@@ -1865,66 +1739,10 @@ def get_params():
         return param
 
 
-def getFavorites():
-        items = json.loads(open(favorites).read())
-        total = len(items)
-        for i in items:
-            name = i[0]
-            url = i[1]
-            iconimage = i[2]
-            try:
-                fanArt = i[3]
-                if fanArt == None:
-                    raise
-            except:
-                if addon.getSetting('use_thumb') == "true":
-                    fanArt = iconimage
-                else:
-                    fanArt = fanart
-            try: playlist = i[5]
-            except: playlist = None
-            try: regexs = i[6]
-            except: regexs = None
-
-            if i[4] == 0:
-                addLink(url,name,iconimage,fanArt,'','','','fav',playlist,regexs,total)
-            else:
-                addDir(name,url,i[4],iconimage,fanart,'','','','','fav')
 
 
-def addFavorite(name,url,iconimage,fanart,mode,playlist=None,regexs=None):
-        favList = []
-        try:
-            # seems that after 
-            name = name.encode('utf-8', 'ignore')
-        except:
-            pass
-        if os.path.exists(favorites)==False:
-            addon_log('Making Favorites File')
-            favList.append((name,url,iconimage,fanart,mode,playlist,regexs))
-            a = open(favorites, "w")
-            a.write(json.dumps(favList))
-            a.close()
-        else:
-            addon_log('Appending Favorites')
-            a = open(favorites).read()
-            data = json.loads(a)
-            data.append((name,url,iconimage,fanart,mode))
-            b = open(favorites, "w")
-            b.write(json.dumps(data))
-            b.close()
 
 
-def rmFavorite(name):
-        data = json.loads(open(favorites).read())
-        for index in range(len(data)):
-            if data[index][0]==name:
-                del data[index]
-                b = open(favorites, "w")
-                b.write(json.dumps(data))
-                b.close()
-                break
-        xbmc.executebuiltin("XBMC.Container.Refresh")
 
 def urlsolver(url):
     if addon.getSetting('Updatecommonresolvers') == 'true':
@@ -1943,7 +1761,6 @@ def urlsolver(url):
     resolved=genesisresolvers.get(url).result
     if url == resolved or resolved is None:
         #import
-        xbmc.executebuiltin("XBMC.Notification(CloudTV,Using Urlresolver module.. - ,5000)")
         import urlresolver
         host = urlresolver.HostedMediaFile(url)
         if host:
@@ -1964,6 +1781,7 @@ def urlsolver(url):
         else:
             resolver = resolved
     return resolver
+
 def play_playlist(name, mu_playlist):
         import urlparse
         if addon.getSetting('ask_playlist_items') == 'true':
@@ -2023,47 +1841,11 @@ def addDir(name,url,mode,iconimage,fanart,description,genre,date,credits,showcon
         liz.setInfo(type="Video", infoLabels={ "Title": name, "Plot": description, "Genre": genre, "dateadded": date, "credits": credits })
         liz.setProperty("Fanart_Image", fanart)
 
-        if showcontext:
-            contextMenu = []
-            if showcontext == 'source':
-                if name in str(SOURCES):
-                    contextMenu.append(('Remove from Sources','XBMC.RunPlugin(%s?mode=8&name=%s)' %(sys.argv[0], urllib.quote_plus(name))))
-            elif showcontext == 'download':
-                contextMenu.append(('Download','XBMC.RunPlugin(%s?url=%s&mode=9&name=%s)'
-                                    %(sys.argv[0], urllib.quote_plus(url), urllib.quote_plus(name))))
-            elif showcontext == 'fav':
-                contextMenu.append(('Remove from CloudTV Favorites','XBMC.RunPlugin(%s?mode=6&name=%s)'
-                                    %(sys.argv[0], urllib.quote_plus(name))))
-									
-            if not name in FAV:
-                contextMenu.append(('Add to CloudTV Favorites','XBMC.RunPlugin(%s?mode=5&name=%s&url=%s&iconimage=%s&fanart=%s&fav_mode=%s)'
-                         %(sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(iconimage), urllib.quote_plus(fanart), mode)))
-            liz.addContextMenuItems(contextMenu)
+        
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
 
         return ok
-def ytdl_download(url,title,media_type='video'):
-    # play in xbmc while playing go back to contextMenu(c) to "!!Download!!"
-    # Trial yasceen: seperate |User-Agent=
-    import youtubedl
-    if not url == '':
-        if media_type== 'audio':
-            youtubedl.single_YD(url,download=True,audio=True)
-        else:
-            youtubedl.single_YD(url,download=True)   
-    elif xbmc.Player().isPlaying() == True :
-        import YDStreamExtractor
-        if YDStreamExtractor.isDownloading() == True:
 
-            YDStreamExtractor.manageDownloads()
-        else:
-            xbmc_url = xbmc.Player().getPlayingFile()
-
-            xbmc_url = xbmc_url.split('|User-Agent=')[0]
-            info = {'url':xbmc_url,'title':title,'media_type':media_type}
-            youtubedl.single_YD('',download=True,dl_info=info)    
-    else:
-        xbmc.executebuiltin("XBMC.Notification(DOWNLOAD,First Play [COLOR yellow]WHILE playing download[/COLOR] ,10000)")
  
 def search(site_name,search_term=None):
     thumbnail=''
@@ -2233,15 +2015,6 @@ def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlis
           
             contextMenu.append(('[COLOR white]!!Download Currently Playing!![/COLOR]','XBMC.RunPlugin(%s?url=%s&mode=21&name=%s)'
                                     %(sys.argv[0], urllib.quote_plus(url), urllib.quote_plus(name))))           
-        elif url.endswith('&mode=18'):
-            url=url.replace('&mode=18','')
-            mode = '18' 
-          
-            contextMenu.append(('[COLOR white]!!Download!![/COLOR]','XBMC.RunPlugin(%s?url=%s&mode=23&name=%s)'
-                                    %(sys.argv[0], urllib.quote_plus(url), urllib.quote_plus(name)))) 
-            if addon.getSetting('dlaudioonly') == 'true':
-                contextMenu.append(('!!Download [COLOR seablue]Audio!![/COLOR]','XBMC.RunPlugin(%s?url=%s&mode=24&name=%s)'
-                                        %(sys.argv[0], urllib.quote_plus(url), urllib.quote_plus(name))))                                     
         elif url.startswith('magnet:?xt=') or '.torrent' in url:
           
             if '&' in url and not '&amp;' in url :
@@ -2289,24 +2062,7 @@ def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlis
         else:
             addon_log( 'NOT setting isplayable'+url)
        
-        if showcontext:
-            contextMenu = []
-            if showcontext == 'fav':
-                contextMenu.append(
-                    ('Remove from CloudTV Favorites','XBMC.RunPlugin(%s?mode=6&name=%s)'
-                     %(sys.argv[0], urllib.quote_plus(name)))
-                     )
-            elif not name in FAV:
-                fav_params = (
-                    '%s?mode=5&name=%s&url=%s&iconimage=%s&fanart=%s&fav_mode=0'
-                    %(sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(iconimage), urllib.quote_plus(fanart))
-                    )
-                if playlist:
-                    fav_params += 'playlist='+urllib.quote_plus(str(playlist).replace(',','||'))
-                if regexs:
-                    fav_params += "&regexs="+regexs
-                contextMenu.append(('Add to CloudTV Favorites','XBMC.RunPlugin(%s)' %fav_params))
-            liz.addContextMenuItems(contextMenu)
+        
        
         if not playlist is None:
             if addon.getSetting('add_playlist') == "false":
@@ -2333,31 +2089,7 @@ def playsetresolved(url,name,iconimage,setresolved=True):
         xbmc.executebuiltin('XBMC.RunPlugin('+url+')')      
 
 
-## Thanks to daschacka, an epg scraper for http://i.teleboy.ch/programm/station_select.php
-##  http://forum.xbmc.org/post.php?p=936228&postcount=1076
-def getepg(link):
-        url=urllib.urlopen(link)
-        source=url.read()
-        url.close()
-        source2 = source.split("Jetzt")
-        source3 = source2[1].split('programm/detail.php?const_id=')
-        sourceuhrzeit = source3[1].split('<br /><a href="/')
-        nowtime = sourceuhrzeit[0][40:len(sourceuhrzeit[0])]
-        sourcetitle = source3[2].split("</a></p></div>")
-        nowtitle = sourcetitle[0][17:len(sourcetitle[0])]
-        nowtitle = nowtitle.encode('utf-8')
-        return "  - "+nowtitle+" - "+nowtime
 
-
-def get_epg(url, regex):
-        data = makeRequest(url)
-        try:
-            item = re.findall(regex, data)[0]
-            return item
-        except:
-            addon_log('regex failed')
-            addon_log(regex)
-            return
 
 
 
@@ -2426,7 +2158,7 @@ try:
 except:
     pass
 
-if int(Mode[-1:]) <> 8:
+if int(Mode[-1:]) <> 9:
    mode=1
 addon_log("Mode: "+str(mode))
 if not url is None:
@@ -2452,34 +2184,10 @@ elif mode==3:
     getSubChannelItems(name,url,fanart)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
-elif mode==4:
-    addon_log("getFavorites")
-    getFavorites()
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
-elif mode==5:
-    addon_log("addFavorite")
-    try:
-        name = name.split('\\ ')[1]
-    except:
-        pass
-    try:
-        name = name.split('  - ')[0]
-    except:
-        pass
-    addFavorite(name,url,iconimage,fanart,fav_mode)
 
-elif mode==6:
-    addon_log("rmFavorite")
-    try:
-        name = name.split('\\ ')[1]
-    except:
-        pass
-    try:
-        name = name.split('  - ')[0]
-    except:
-        pass
-    rmFavorite(name)
+
+
 
 elif mode==7:
     addon_log("addSource")
@@ -2529,27 +2237,12 @@ elif mode==17:
         playsetresolved(url,name,iconimage,setresolved)
     else:
         xbmc.executebuiltin("XBMC.Notification(CloudTV,Failed to extract regex. - "+"this"+",4000,"+icon+")")
-elif mode==18:
-    addon_log("youtubedl")
-    try:
-        import youtubedl
-    except Exception:
-        xbmc.executebuiltin("XBMC.Notification(CloudTV,Please [COLOR yellow]install Youtube-dl[/COLOR] module ,10000,"")")
-    stream_url=youtubedl.single_YD(url)
-    playsetresolved(stream_url,name,iconimage)
+
 elif mode==19:
 	addon_log("Genesiscommonresolvers")
 	playsetresolved (urlsolver(url),name,iconimage,True)	
 
-elif mode==21:
-    addon_log("download current file using youtube-dl service")
-    ytdl_download('',name,'video')
-elif mode==23:
-    addon_log("get info then download")
-    ytdl_download(url,name,'video') 
-elif mode==24:
-    addon_log("Audio only youtube download")
-    ytdl_download(url,name,'audio')
+
 elif mode==25:
     addon_log("YouTube/DMotion")
     search(url)

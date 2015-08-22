@@ -1,7 +1,4 @@
-Version 4.0.6
-some small fixed
+[B]V4.0.9[/B]
+- cleaning the addon
 
-Version 4.0.5
-Add Veetle
-<veetle>...</veetle>
 
