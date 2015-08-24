@@ -4,6 +4,7 @@ import datetime
 import re
 import os
 import base64
+import xbmc
 import xbmcplugin
 import xbmcgui
 import xbmcaddon
@@ -11,6 +12,9 @@ import xbmcvfs
 import traceback
 import cookielib
 import plugintools
+import urlparse
+import httplib
+import time
 from addon.common.net import Net
 from BeautifulSoup import BeautifulStoneSoup, BeautifulSoup, BeautifulSOAP
 try:
@@ -60,6 +64,75 @@ if os.path.exists(source_file)==True:
     SOURCES = open(source_file).read()
 else: SOURCES = []
 
+
+###
+API_URL = 'http://ida.omroep.nl/aapi/?stream='
+BASE_URL = 'http://livestreams.omroep.nl/'
+#USER_AGENT = 'Mozilla/5.0 (iPad; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53'
+USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10) AppleWebKit/600.1.25 (KHTML, like Gecko) Version/8.0 Safari/600.1.25'
+REF_URL = 'http://www.npo.nl'
+TOKEN_URL = 'http://ida.omroep.nl/npoplayer/i.js'
+
+def collect_token():
+    req = urllib2.Request(TOKEN_URL)
+    req.add_header('User-Agent', USER_AGENT)
+    response = urllib2.urlopen(req)
+    page = response.read()
+    response.close()
+    token = re.search(r'npoplayer.token = "(.*?)"',page).group(1)
+    #xbmc.log("plugin.video.nederland24:: oldtoken: %s" % token)
+    # site change, token invalid, needs to be reordered. Thanks to rieter for figuring this out very quickly.
+    first = -1
+    last = -1
+    for i in range(5, len(token) - 5, 1):
+	#xbmc.log("plugin.video.nederland24:: %s" % token[i])
+        if token[i].isdigit():
+            if first < 0:
+                first = i
+                #xbmc.log("plugin.video.nederland24:: %s" % token[i])
+            elif last < 0:
+                last = i
+                #xbmc.log("plugin.video.nederland24:: %s" % token[i])
+                break
+
+    newtoken = list(token)
+    if first < 0 or last < 0:
+        first = 12
+        last = 13
+    newtoken[first] = token[last]
+    newtoken[last] = token[first]
+    newtoken = ''.join(newtoken)
+    #xbmc.log("plugin.video.nederland24:: newtoken: %s" % newtoken)
+    return newtoken
+
+def resolve_http_redirect(url, depth=0):
+    if depth > 10:
+        raise Exception("Redirected "+depth+" times, giving up.")
+    o = urlparse.urlparse(url,allow_fragments=True)
+    conn = httplib.HTTPConnection(o.netloc)
+    path = o.path
+    if o.query:
+        path +='?'+o.query
+    conn.request("HEAD", path)
+    res = conn.getresponse()
+    headers = dict(res.getheaders())
+    if headers.has_key('location') and headers['location'] != url:
+        return resolve_http_redirect(headers['location'], depth+1)
+    else:
+        return url
+    
+def streamNpo(source):
+    URL=API_URL+BASE_URL+source+"&token=%s" % collect_token()
+    req = urllib2.Request(URL)
+    req.add_header('User-Agent', USER_AGENT)
+    req.add_header('Referer', REF_URL)
+    response = urllib2.urlopen(req)
+    page = response.read()
+    response.close()
+    videopre=re.search(r'http:(.*?)url',page).group()
+    prostream= (videopre.replace('\/', '/'))
+    finalUrl = resolve_http_redirect(prostream)
+    return finalUrl
 
 def addon_log(string):
     if debug == 'true':
@@ -717,6 +790,11 @@ def getItems(items,fanart):
                         if not i.string == None:
                             veetle = 'plugin://plugin.video.veetle/?channel='+i.string
                         url.append(veetle)
+                elif len(item('npo')) >0:
+                    for i in item('npo'):
+                        if not i.string == None:
+                            npo = streamNpo(i.string)
+                    url.append(npo)
                 elif len(item('ilive')) >0:
                     for i in item('ilive'):
                         if not i.string == None:
@@ -990,7 +1068,8 @@ def get_ustream(url):
         return
     except:
         return
-        
+
+
  
 def getRegexParsed(regexs, url,cookieJar=None,forCookieJarOnly=False,recursiveCall=False,cachedPages={}, rawPost=False, cookie_jar_file=None):#0,1,2 = URL, regexOnly, CookieJarOnly
         if not recursiveCall:
@@ -2158,7 +2237,7 @@ try:
 except:
     pass
 
-if int(Mode[-1:]) <> 9:
+if int(Mode[-1:]) <> 0:
    mode=1
 addon_log("Mode: "+str(mode))
 if not url is None:

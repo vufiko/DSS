@@ -1,3 +1,6 @@
+[B]V4.1.0[/B]
+- add NPO streams
+
 [B]V4.0.9[/B]
 - cleaning the addon
 

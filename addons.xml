@@ -2,7 +2,7 @@
 <addons>
 <addon id="plugin.video.cloudtv"
        name="DUTCH CLOUD TV"
-       version="4.0.9"
+       version="4.1.0"
        provider-name="www.dutchcloudtv.com">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
