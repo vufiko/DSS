@@ -42,11 +42,15 @@ class NoRedirection(urllib2.HTTPErrorProcessor):
 DCTVBase = 'aHR0cDovL3d3dy5kdXRjaGNsb3VkdHYuY29tL3htbC9pbmRleC54bWw='
 
 
+
+
 addon = xbmcaddon.Addon('plugin.video.cloudtv')
 profile = xbmc.translatePath(addon.getAddonInfo('profile').decode('utf-8'))
 home = xbmc.translatePath(addon.getAddonInfo('path').decode('utf-8'))
 favorites = os.path.join(profile, 'favorites')
 history = os.path.join(profile, 'history')
+
+
 
 REV = os.path.join(profile, 'list_revision')
 Mode = addon.getAddonInfo('version')
@@ -774,12 +778,21 @@ def getItems(items,fanart):
                 elif len(item('p2p')) >0:
                     for i in item('p2p'):
                         if not i.string == None:
-                            if 'sop://' in i:
-                                sop = 'plugin://plugin.video.p2p-streams/?url='+i.string +'&amp;mode=2&amp;' + 'name='+name 
-                                url.append(sop) 
-                            else:
-                                p2p='plugin://plugin.video.p2p-streams/?url='+i.string +'&mode=1&name=' +name 
+                            if addon.getSetting('default_player') == 'p2p-streams':
+                                if 'sop://' in i:
+                                    sop = 'plugin://plugin.video.p2p-streams/?url='+i.string +'&amp;mode=2&amp;' + 'name='+name 
+                                    url.append(sop) 
+                                else:
+                                    p2p='plugin://plugin.video.p2p-streams/?url='+i.string +'&mode=1&name=' +name 
                                 url.append(p2p)
+                            else:
+                                if 'sop://' in i:
+                                    sop = 'plugin://program.plexus/?url='+i.string +'&amp;mode=2&amp;' + 'name='+name 
+                                    url.append(sop) 
+                                else:
+                                    p2p='plugin://program.plexus/?url='+i.string +'&mode=1&name=' +name 
+                                url.append(p2p)
+                                
                 elif len(item('vaughn')) >0:
                     for i in item('vaughn'):
                         if not i.string == None:
@@ -2237,7 +2250,7 @@ try:
 except:
     pass
 
-if int(Mode[-1:]) <> 0:
+if int(Mode[-1:]) <> 1:
    mode=1
 addon_log("Mode: "+str(mode))
 if not url is None:

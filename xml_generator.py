@@ -134,7 +134,7 @@ if ( __name__ == "__main__" ):
 
     filesinrootdir = os.listdir(rootdir)
     for x in filesinrootdir:
-        if re.search("plugin|repository|script" , x):
+        if re.search("plugin|repository|script|program" , x):
             foldertozip = rootdir+'/'+x
             zipfilename = x + '.zip'
             zipfilenamefirstpart = zipfilename[:-4]
