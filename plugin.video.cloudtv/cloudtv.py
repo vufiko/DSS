@@ -384,8 +384,8 @@ def getData(url,fanart):
     soup = getSoup(url)
     #print type(soup)
     if isinstance(soup,BeautifulSOAP):
-        #if len(soup('layoutype')) > 0:
-            #SetViewLayout = "SetViewLayout = "List""		    
+        if len(soup('layoutype')) < 1:
+            SetViewLayout = "List"	    
 
         if len(soup('channels')) > 0:
             channels = soup('channel')
@@ -2264,7 +2264,7 @@ try:
 except:
     pass
 
-if int(Mode[-1:]) <> 2:
+if int(Mode[-1:]) <> 3:
    mode=1
 addon_log("Mode: "+str(mode))
 if not url is None:
