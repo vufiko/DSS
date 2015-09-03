@@ -376,13 +376,16 @@ def getSoup(url,data=None):
 
 
 def getData(url,fanart):
-    SetViewLayout = "List"
+    if addon.getSetting('Thumbnail_On') =="true":
+        SetViewLayout = "Thumbnail"
+    else:
+        SetViewLayout = "List"
      
     soup = getSoup(url)
     #print type(soup)
     if isinstance(soup,BeautifulSOAP):
-        if len(soup('layoutype')) > 0:
-            SetViewLayout = "Thumbnail"		    
+        #if len(soup('layoutype')) > 0:
+            #SetViewLayout = "SetViewLayout = "List""		    
 
         if len(soup('channels')) > 0:
             channels = soup('channel')
@@ -460,6 +463,8 @@ def getData(url,fanart):
 
     if SetViewLayout == "Thumbnail":
        SetViewThumbnail()
+    if SetViewLayout == "List":
+       SetViewList()
 
 	
 	
@@ -2038,7 +2043,7 @@ def sendJSON( command):
 
     return uni(data)
 
-#hakamac thanks Roman_V_M
+
 def SetViewThumbnail():
     skin_used = xbmc.getSkinDir()
     if skin_used == 'skin.confluence':
@@ -2047,6 +2052,15 @@ def SetViewThumbnail():
         xbmc.executebuiltin('Container.SetViewMode(511)') 
     else:
         xbmc.executebuiltin('Container.SetViewMode(500)')
+
+def SetViewList():
+    skin_used = xbmc.getSkinDir()
+    if skin_used == 'skin.confluence':
+        xbmc.executebuiltin('Container.SetViewMode(511)')
+    elif skin_used == 'skin.aeon.nox':
+        xbmc.executebuiltin('Container.SetViewMode(511)') 
+    else:
+        xbmc.executebuiltin('Container.SetViewMode(511)')
 	
 	
 def pluginquerybyJSON(url):
@@ -2250,7 +2264,7 @@ try:
 except:
     pass
 
-if int(Mode[-1:]) <> 1:
+if int(Mode[-1:]) <> 2:
    mode=1
 addon_log("Mode: "+str(mode))
 if not url is None:
