@@ -1,8 +1,7 @@
 import urllib2, xbmcgui, xbmcplugin, urllib, sys
 import xml.etree.ElementTree as ET
+from lib.utils import xbmcutil
 from datetime import datetime
-
-from lib.utils import *
 
 base_url = sys.argv[0]
 addon_handle = int(sys.argv[1])
@@ -42,24 +41,20 @@ def build_url(query):
     return base_url + '?' + urllib.urlencode(query) 
 
 def getLinkByName(streamname) :
-    compare = streamname[0:3]
-    if compare == 'str' :
+    compare = streamname[0:3].lower()
+    if compare == 'jan' :
         site = 'janlul'
     elif compare == 'daz' :
         site = 'daz'
-    elif compare == 'Pol' :
+    elif compare == 'pol' :
         site = 'bdds'
-    elif compare == 'Dsp' :
+    elif compare == 'dsp' :
         site = 'daz'
     elif compare == 'stv' :
         site = 'stv'
-    elif compare == 'STV' :
-        site = 'stv'
     elif compare == 'bvl' :
         site = 'bvls'
-    elif compare == 'Str' :
-        site = 'sotd'
-    elif compare == 'SOT' :
+    elif compare == 'str' :
         site = 'sotd'
     else :
         site = 'tvguide'
