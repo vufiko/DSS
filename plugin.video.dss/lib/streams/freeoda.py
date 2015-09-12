@@ -8,17 +8,17 @@ def addStreams():
     pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van streams...')
 
 
-    xbmcutil.updateProgressBar(pBar, 9, 'BVLS - Stream 1')
-    addStream('index', 'BVLS - Stream 1')
+    xbmcutil.updateProgressBar(pBar, 9, 'sports.freeoda.com - Stream 1')
+    addStream('index', 'sports.freeoda.com - Stream 1')
     
-    xbmcutil.updateProgressBar(pBar, 18, 'BVLS - Stream 2')
-    addStream('stream2', 'BVLS - Stream 2')
+    xbmcutil.updateProgressBar(pBar, 18, 'sports.freeoda.com - Stream 2')
+    addStream('stream2', 'sports.freeoda.com - Stream 2')
 
-    xbmcutil.updateProgressBar(pBar, 27, 'BVLS - Stream 3')
-    addStream('stream3', 'BVLS - Stream 3')
+    xbmcutil.updateProgressBar(pBar, 27, 'sports.freeoda.com - Stream 3')
+    addStream('stream3', 'sports.freeoda.com - Stream 3')
 
-    xbmcutil.updateProgressBar(pBar, 36, 'BVLS - Stream 4')
-    addStream('stream4', 'BVLS - Stream 4')
+    xbmcutil.updateProgressBar(pBar, 36, 'sports.freeoda.com - Stream 4')
+    addStream('stream4', 'sports.freeoda.com - Stream 4')
 
     xbmcutil.updateProgressBar(pBar, 100,'Gereed!')
     xbmcutil.endOfList()
@@ -27,7 +27,7 @@ def addStream(stream, display) :
     streamUrl = findStream(stream) 
     if streamUrl[-4:] == '.flv' :
         print('Veetle')
-        veetle.addChannel(display, streamUrl, 'BVLS')
+        veetle.addChannel(display, streamUrl, 'freeoda')
     else :
         print('M3U')
         if (xbmcutil.getResponse(streamUrl)) :
@@ -35,7 +35,7 @@ def addStream(stream, display) :
         else :
             streamUrl = ''
             color = 'red'
-        xbmcutil.addMenuItem('[COLOR '+color+']'+display+'[/COLOR]', streamUrl, 'true', 'BVLS','BVLS')
+        xbmcutil.addMenuItem('[COLOR '+color+']'+display+'[/COLOR]', streamUrl, 'true', 'freeoda','freeoda')
 
 def findStream(page) :
     page1 = sourceSite + '/' + page +'.html'

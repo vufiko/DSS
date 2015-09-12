@@ -1,44 +1,22 @@
 from ..utils import bitly, xbmcutil
 from . import veetle, sopcast
 import re
+import base64
 
-
-sourceSite = 'http://stvstreams.com'
+sourceSite = 'http://www.sportstv.me'
+p2pSite = 'http://p2pcast.tv'
+p2p = "http://p2pcast.tv/stream.php?id="
 	
 def addStreams():
     pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van streams...')
 
-    xbmcutil.updateProgressBar(pBar, 12, 'STV Streams - Veetle')
-    addStream('stvveetle', 'STV Streams - Veetle')
-
-    xbmcutil.updateProgressBar(pBar, 24, 'STV Streams - Veetle Extra')
-    addStream('stvveetleextra', 'STV Streams - Veetle Extra')
+    xbmcutil.updateProgressBar(pBar, 50, 'sportstv.me - Stream4')
+    addStream('stream4', 'sportstv.me - Stream4')
+    #xbmcutil.updateProgressBar(pBar, 12, 'sportstv.me - Stream2')
+    #addStream('stream2', 'sportstv.me - Stream2')
     
 
-    xbmcutil.updateProgressBar(pBar, 36, 'STV Streams - Flash 1')
-    addStream('stvflash1', 'STV Streams - Flash 1')
-    
 
-    xbmcutil.updateProgressBar(pBar, 48, 'STV Streams - Flash 2')
-    addStream('stvflash2', 'STV Streams - Flash 2')
-
-
-    xbmcutil.updateProgressBar(pBar, 56, 'STV Streams - Flash 5')
-    addStream('stvflash5', 'STV Streams - Flash 5')
-    
-
-    xbmcutil.updateProgressBar(pBar, 64, 'STV Streams - Flash 6')
-    addStream('stvflash6', 'STV Streams - Flash 6')
-    
-
-    
-    xbmcutil.updateProgressBar(pBar, 84, 'STV Streams - ACE HD')
-    hd1hash = bitly.getAceHash('http://stvstreams.com/flash1/stvacehd.html')
-    sopcast.addAceStream('STV Streams - ACE HD', hd1hash, 'stv')
-    
-    xbmcutil.updateProgressBar(pBar, 96, 'STV Streams - ACE HD 2')
-    hd2hash = bitly.getAceHash('http://stvstreams.com/flash1/stvacehd2.html')
-    sopcast.addAceStream('STV Streams - ACE HD 2',hd2hash, 'stv')
     
     xbmcutil.updateProgressBar(pBar, 100,'Gereed!')
     xbmcutil.endOfList()
@@ -59,28 +37,51 @@ def addStream(stream, display) :
         xbmcutil.addMenuItem('[COLOR '+color+']'+display+'[/COLOR]', streamUrl, 'true', 'stv','stv')
 
     
+
 def findStream(page) :
-    page1 = resolveIframe(sourceSite + '/streams/' + page +'.html')
+    page1 = resolveIframe(sourceSite +  '/'+ page + '.html')
+    print page1
+    if(page1[:4] != 'http') :
+            page1 = sourceSite + '/' + page1
     frameHtml = bitly.getPage(page1, sourceSite, bitly.getUserAgent())
-    b64coded = bitly.getBaseEncodedString(frameHtml)
-    print b64coded
-    streamUrl = bitly.getStreamUrl(b64coded)
-    print streamUrl
+    try :
+        p2pcast = re.compile('<script type=\'text/javascript\'>id=\'(.*?)\'', re.DOTALL)
+        p2pcast = p2pcast.search(frameHtml).group(1)
+        print p2pcast
+        getp2pcast = resolvep2p(p2pcast)
+        streamUrl = getp2pcast
+    except :
+        b64coded = bitly.getBaseEncodedString(frameHtml)
+        streamUrl = bitly.getStreamUrl(b64coded)
+        print streamUrl
     return streamUrl
     
 def resolveIframe(page) :
     try :
         if(page[:4] != 'http') :
-            page = sourceSite + '/' + page
-        userAgent = bitly.getUserAgent()
-        pagecontent = bitly.getPage(page, sourceSite, userAgent)
+            page = sourceSite + '/' + page 
+        pagecontent = bitly.getPage(page, sourceSite, bitly.getUserAgent())
+        #print pagecontent
         regIframe = re.compile('iframe\ src\=\"(.*?)\"\ allowfullscreen\=\"true\"', re.DOTALL)
         iframesrc = regIframe.search(pagecontent).group(1)
         return iframesrc
     except :
         return page
 
-
+def resolvep2p(page) :
+    try :
+        page1 = p2p + page +  '&live=1&p2p=0&stretching=uniform'
+        print page1
+        pagecontent = bitly.getPage(page1,p2pSite, bitly.getUserAgent())
+        print pagecontent
+        regIframe = re.compile('curl = "(.*?)\";', re.DOTALL)
+        iframesrc = regIframe.search(pagecontent).group(1)
+        print 'iframesrc = '+iframesrc
+        url = base64.b64decode(iframesrc)
+        print url
+        return url
+    except :
+        return page
     
     
 
