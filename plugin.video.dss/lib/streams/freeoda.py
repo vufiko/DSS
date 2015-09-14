@@ -9,7 +9,7 @@ def addStreams():
 
 
     xbmcutil.updateProgressBar(pBar, 9, 'sports.freeoda.com - Stream 1')
-    addStream('index', 'sports.freeoda.com - Stream 1')
+    addStream('stream', 'sports.freeoda.com - Stream 1')
     
     xbmcutil.updateProgressBar(pBar, 18, 'sports.freeoda.com - Stream 2')
     addStream('stream2', 'sports.freeoda.com - Stream 2')
