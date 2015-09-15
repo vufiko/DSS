@@ -34,18 +34,12 @@ def addSubMenu(internal, readable):
 
 def mainMenu():
     addDummyItem('[COLOR yellow]www.dutchsportstreams.com[/COLOR]')
-    #addSubMenu('agenda','[COLOR yellow]Wedstrijd Schema[/COLOR]')
-    #addSubMenu('janlul','Janlul')
-    #addSubMenu('daz','DazSports Streams')
-    #addSubMenu('stv','STV Streams')
-    #addSubMenu('13stream','13stream')
     addSubMenu('bvls','bvls2016.sc')
     addSubMenu('freeoda','Sports.freeoda')
     addSubMenu('stv','sportstv.me')
-    #if newFeatures == "true":
-    #addSubMenu('bdds','Polepositionv2')
+    if newFeatures == "true":
+        addSubMenu('streamit','Streamit NL')
     addDummyItem(' ')
-    #addSubMenu('spst','DSS Radio Streams')
     addDummyItem(' ')
     addDummyItem('[COLOR green]Online Stream[/COLOR]')
     addDummyItem('[COLOR red]Offline Stream[/COLOR]')
@@ -99,22 +93,14 @@ else:
     pDialog.create('Dutch Sports Streams', 'Laden van streams...')
     if site == 'agenda':
         agenda.showList()
-    elif site == 'janlul': #Janlul.com
-        janlul.addStreams()
-    elif site == 'daz': #DazSports.org
-        dazsports.addStreams()
+    elif site == 'streamit': #Youtube
+        streamit.addStreams()
     elif site == 'stv': #STV-Streams.com
         stv.addStreams()
     elif site == 'freeoda': #sports.freeoda.com
         freeoda.addStreams()
     elif site == 'bvls': #bvls2013.com
         bvls.addStreams()
-    elif site == 'bdds': #polepositionv2.nl
-        bdds.addStreams()
-    elif site == '13stream':
-        sopcast.add13Stream()
-    elif site == 'spst': #sports-streams.com
-        spst.addStreams()
     else:
         mainMenu()
     
