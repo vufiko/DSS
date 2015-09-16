@@ -35,10 +35,10 @@ def addSubMenu(internal, readable):
 def mainMenu():
     addDummyItem('[COLOR yellow]www.dutchsportstreams.com[/COLOR]')
     addSubMenu('bvls','bvls2016.sc')
-    addSubMenu('freeoda','Sports.freeoda')
+    addSubMenu('freeoda','belgiumanddutch')
     addSubMenu('stv','sportstv.me')
-    if newFeatures == "true":
-        addSubMenu('streamit','Streamit NL')
+    #if newFeatures == "true":
+        #addSubMenu('streamit','Streamit NL')
     addDummyItem(' ')
     addDummyItem(' ')
     addDummyItem('[COLOR green]Online Stream[/COLOR]')

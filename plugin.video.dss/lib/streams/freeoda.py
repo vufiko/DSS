@@ -2,23 +2,23 @@ from ..utils import bitly, xbmcutil
 from . import veetle
 import re
 
-sourceSite = 'http://sports.freeoda.com'
+sourceSite = 'http://belgiumanddutch.gq'
 
 def addStreams():
     pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van streams...')
 
 
-    xbmcutil.updateProgressBar(pBar, 9, 'sports.freeoda.com - Stream 1')
-    addStream('stream', 'sports.freeoda.com - Stream 1')
+    xbmcutil.updateProgressBar(pBar, 9, 'belgiumanddutch - Stream 1')
+    addStream('stream', 'belgiumanddutch - Stream 1')
     
-    xbmcutil.updateProgressBar(pBar, 18, 'sports.freeoda.com - Stream 2')
-    addStream('stream2', 'sports.freeoda.com - Stream 2')
+    xbmcutil.updateProgressBar(pBar, 18, 'belgiumanddutch - Stream 2')
+    addStream('stream2', 'belgiumanddutch - Stream 2')
 
-    xbmcutil.updateProgressBar(pBar, 27, 'sports.freeoda.com - Stream 3')
-    addStream('stream3', 'sports.freeoda.com - Stream 3')
+    xbmcutil.updateProgressBar(pBar, 27, 'belgiumanddutch - Stream 3')
+    addStream('stream3', 'belgiumanddutch - Stream 3')
 
-    xbmcutil.updateProgressBar(pBar, 36, 'sports.freeoda.com - Stream 4')
-    addStream('stream4', 'sports.freeoda.com - Stream 4')
+    xbmcutil.updateProgressBar(pBar, 36, 'belgiumanddutch - Stream 4')
+    addStream('stream4', 'belgiumanddutch - Stream 4')
 
     xbmcutil.updateProgressBar(pBar, 100,'Gereed!')
     xbmcutil.endOfList()
