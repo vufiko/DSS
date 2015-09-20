@@ -32,7 +32,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.dss" name="Dutch Sports Streams" version="4.0.4" provider-name="DSS">
+<addon id="plugin.video.dss" name="Dutch Sports Streams" version="4.0.5" provider-name="DSS">
 	<requires>
 		<import addon="plugin.video.veetle" version="0.3.1" optional="false"/>
 		<import addon="plugin.video.p2p-streams" version="1.1" optional="false"/>
@@ -96,21 +96,6 @@
         <disclaimer lang="en">Does not work for 'HD' streams which require a software download.</disclaimer>
         <platform>all</platform>
     </extension>
-</addon>
-
-<addon id="plugin.video.wisselz" name="wisselz.com" version="1.1" provider-name="DSS">
-	<requires>
-		<import addon="plugin.video.veetle" version="0.3.1" optional="false"/>
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="default.py">
-		<provides>video</provides>
-	</extension>
-	<extension  point="xbmc.addon.metadata">
-		<summary lang="nl">Bekijk de streams van Veetle op uw XBMC / Kodi.</summary>
-		<description lang="nl">Met deze plugin is het mogelijk om streams van Veetle te bekijken.[CR]Let op: Veetle dient te zijn geinstalleerd.</description>
-		<platform>all</platform>
-		<website></website>
-	</extension>
 </addon>
 
 <addon id="program.plexus"

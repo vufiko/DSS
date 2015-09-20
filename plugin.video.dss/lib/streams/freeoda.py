@@ -20,6 +20,15 @@ def addStreams():
     xbmcutil.updateProgressBar(pBar, 36, 'belgiumanddutch - Stream 4')
     addStream('stream4', 'belgiumanddutch - Stream 4')
 
+    xbmcutil.updateProgressBar(pBar, 36, 'belgiumanddutch - Stream 5')
+    addStream('stream5', 'belgiumanddutch - Stream 5')
+
+    xbmcutil.updateProgressBar(pBar, 36, 'belgiumanddutch - Stream 6')
+    addStream('stream6', 'belgiumanddutch - Stream 6')
+
+    xbmcutil.updateProgressBar(pBar, 36, 'belgiumanddutch - Stream 7')
+    addStream('stream7', 'belgiumanddutch - Stream 7')
+
     xbmcutil.updateProgressBar(pBar, 100,'Gereed!')
     xbmcutil.endOfList()
 
@@ -43,12 +52,13 @@ def findStream(page) :
     pagecontent = bitly.getPage(page1, sourceSite, bitly.getUserAgent())
     #print pagecontent
     try :
-        match = re.compile("file: \(\'(.+?)\'").findall(pagecontent)
+        match = re.compile("file:\(\'(.+?)\'").findall(pagecontent)
         print match
         for name in match:
             streamUrl = name
             print streamUrl
             return streamUrl
+        
         else :
             match = re.compile("file: window.atob \(\'(.+?)\'").findall(pagecontent)
             print match
@@ -57,6 +67,8 @@ def findStream(page) :
                 streamUrl = bitly.getStreamUrl(name)
                 print streamUrl
             return streamUrl
+        
+        
     except :
     #iframesrc = regIframe.search(pagecontent).group(1)
     #print 'iframesrc2 = '+ iframesrc

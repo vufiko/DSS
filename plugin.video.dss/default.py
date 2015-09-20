@@ -38,7 +38,7 @@ def mainMenu():
     addSubMenu('freeoda','belgiumanddutch')
     addSubMenu('stv','sportstv.me')
     #if newFeatures == "true":
-        #addSubMenu('streamit','Streamit NL')
+    addSubMenu('streamit','Voetbal HD NL')
     addDummyItem(' ')
     addDummyItem(' ')
     addDummyItem('[COLOR green]Online Stream[/COLOR]')
