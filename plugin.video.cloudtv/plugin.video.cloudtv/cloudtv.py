@@ -2287,7 +2287,7 @@ try:
 except:
     pass
 
-if int(Mode[-1:]) <> 5:
+if int(Mode[-1:]) <> 3:
    mode=1
 addon_log("Mode: "+str(mode))
 if not url is None:
