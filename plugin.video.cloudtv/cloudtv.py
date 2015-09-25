@@ -24,6 +24,7 @@ except:
 import SimpleDownloader as downloader
 import time
 import requests
+from lib.utils import *
 
 
 net = Net(user_agent='Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.72 Safari/537.36')
@@ -161,6 +162,14 @@ def makeRequest(url, headers=None):
                 addon_log('We failed to reach a server.')
                 addon_log('Reason: %s' %e.reason)
                 xbmc.executebuiltin("XBMC.Notification(CloudTV,We failed to reach a server. - "+str(e.reason)+",10000,"+icon+")")
+
+sourceSitebvls = 'http://bvls2016.sc'
+
+def findStream(page) :
+    frameHtml = bitly.OPEN_URL2(page, sourceSitebvls, bitly.getUserAgent())
+    b64coded = bitly.getBaseEncodedString(frameHtml)
+    streamUrl = bitly.getStreamUrl(b64coded)
+    return streamUrl
 
 				
 def DCTVIndex():
@@ -813,6 +822,26 @@ def getItems(items,fanart):
                         if not i.string == None:
                             npo = streamNpo(i.string)
                     url.append(npo)
+
+                elif len(item('bvls')) >0:
+                    for i in item('bvls'):
+                        if not i.string == None:
+                            title = item('title')[0].string 
+                            streamUrl = findStream(i.string)
+                            #print stream
+                            if (bitly.getResponse(streamUrl)) :
+                                color = 'green'
+                                if streamUrl[-4:] == '.flv' :
+                                    streamUrl = bitly.VeetleId(streamUrl)
+                            else :
+                                color = 'red'
+                            name='[COLOR '+color+']' + title + '[/COLOR]'
+                            
+                            
+                            
+                            bvls = streamUrl
+                            url.append(bvls)
+
                 elif len(item('ilive')) >0:
                     for i in item('ilive'):
                         if not i.string == None:
