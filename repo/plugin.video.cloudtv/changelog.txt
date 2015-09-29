@@ -1,4 +1,4 @@
-[B]V4.1.1[/B]
-- defaulte p2p player p2pstreams or Plexus in settings
+[B]V4.1.6[/B]
+- fixed m3u links
 
 

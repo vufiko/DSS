@@ -481,16 +481,16 @@ def getData(url,fanart):
 # This will not go through the getItems functions ( means you must have ready to play url, no regex)
 def parse_m3u(data):
     content = data.rstrip()
-    match = re.compile(r'#EXTINF:(.+?),(.*?)[\n\r]+([^\n]+)').findall(content)
+    match = re.compile(r'#EXTINF:(.+?),(.*?)[\n\r]+([^\r\n]+)').findall(content)
     total = len(match)
-    #print 'total m3u links',total
+    print 'total m3u links',total
     for other,channel_name,stream_url in match:
         if 'tvg-logo' in other:
             thumbnail = re_me(other,'tvg-logo=[\'"](.*?)[\'"]')
             if thumbnail:
                 if thumbnail.startswith('http'):
                     thumbnail = thumbnail
-                
+
                 elif not addon.getSetting('logo-folderPath') == "":
                     logo_url = addon.getSetting('logo-folderPath')
                     thumbnail = logo_url + thumbnail
@@ -498,21 +498,23 @@ def parse_m3u(data):
                 else:
                     thumbnail = thumbnail
             #else:
-            
+
         else:
             thumbnail = ''
         if 'type' in other:
             mode_type = re_me(other,'type=[\'"](.*?)[\'"]')
-            if mode_type == 'regex':
+            if mode_type == 'yt-dl':
+                stream_url = stream_url +"&mode=18"
+            elif mode_type == 'regex':
                 url = stream_url.split('&regexs=')
                 #print url[0] getSoup(url,data=None)
                 regexs = parse_regex(getSoup('',data=url[1]))
-                
+
                 addLink(url[0], channel_name,thumbnail,'','','','','',None,regexs,total)
                 continue
+            elif mode_type == 'ftv':
+                stream_url = 'plugin://plugin.video.F.T.V/?name='+urllib.quote(channel_name) +'&url=' +stream_url +'&mode=125&ch_fanart=na'
         addLink(stream_url, channel_name,thumbnail,'','','','','',None,'',total)
-		
-    xbmc.executebuiltin("Container.SetViewMode(50)")
 	
 def getChannelItems(name,url,fanart):
         soup = getSoup(url)
@@ -2287,8 +2289,7 @@ try:
 except:
     pass
 
-if int(Mode[-1:]) <> 5:
-   mode=1
+
 addon_log("Mode: "+str(mode))
 if not url is None:
     addon_log("URL: "+str(url.encode('utf-8')))
@@ -2296,7 +2297,8 @@ addon_log("Name: "+str(name))
    
 if mode==None:
     addon_log("Index")
-    DCTVIndex()	
+    DCTVIndex()
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 elif mode==1:
     addon_log("getData")
