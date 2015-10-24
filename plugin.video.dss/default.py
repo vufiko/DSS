@@ -33,10 +33,10 @@ def addSubMenu(internal, readable):
     xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li, isFolder=True)
 
 def mainMenu():
-    addDummyItem('[COLOR yellow]www.dutchsportstreams.com[/COLOR]')
+    #addDummyItem('[COLOR yellow]dutchsportstreams[/COLOR]')
     addSubMenu('bvls','bvls2016.sc')
-    addSubMenu('freeoda','belgiumanddutch')
-    addSubMenu('stv','sportstv.me')
+    #addSubMenu('freeoda','belgiumanddutch')
+    #addSubMenu('stv','sportstv.me')
     #if newFeatures == "true":
         #addSubMenu('streamit','Streamit NL')
     addDummyItem(' ')
