@@ -42,7 +42,9 @@ class NoRedirection(urllib2.HTTPErrorProcessor):
 
 
 sourceSitebvls = 'http://bvls2016.sc'      
-DCTVBase = 'aHR0cDovL3d3dy5kdXRjaGNsb3VkdHYuY29tL3htbC9pbmRleC54bWw='
+DCTVBase = 'aHR0cDovL3Bhc3RlYmluLmNvbS9yYXcucGhwP2k9dkp1UFpKcEs='
+
+
 
 
 
@@ -176,7 +178,42 @@ def DCTVIndex():
     addon_log("DCTVIndex")
     getData(base64.b64decode(DCTVBase),'')
     addDir('Search','Search',40,'http://dutchsportstreams.com/cloudtv/images/Search.png' ,  FANART,'','','','')
+    addDir('Privacy Policy','Privacy Policy',45,'http://www.dutchcloudtv.com/weblogo.png' ,  FANART,'','','','')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
+
+def Privacy_Policy():
+	text = ''
+	twit = 'http://www.dutchcloudtv.com/private/private.php'
+	req = urllib2.Request(twit)
+	req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+	response = urllib2.urlopen(req)
+	link=response.read()
+	response.close()
+	match=re.compile("<div class=\"baseHtml\">(.+?)</div>",re.DOTALL).findall(link)
+	for status in match:
+	    try:
+			    status = status.decode('ascii', 'ignore')
+	    except:
+			    status = status.decode('utf-8','ignore')
+	    status = status.replace('&amp;','')
+	    text = status
+	showText('[COLOR blue][B]Privacy Policy[/B][/COLOR]', text)
+
+def showText(heading, text):
+    id = 10147
+    xbmc.executebuiltin('ActivateWindow(%d)' % id)
+    xbmc.sleep(100)
+    win = xbmcgui.Window(id)
+    retry = 50
+    while (retry > 0):
+	try:
+	    xbmc.sleep(10)
+	    retry -= 1
+	    win.getControl(1).setLabel(heading)
+	    win.getControl(5).setText(text)
+	    return
+	except:
+	    pass
 		
 	
 def getSources():
@@ -2394,6 +2431,10 @@ elif mode==40:
     SearchChannels()
     SetViewThumbnail()
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
+
+elif mode==45:
+    Privacy_Policy()
+    
 	
 elif mode==53:
     addon_log("Requesting JSON-RPC Items")
