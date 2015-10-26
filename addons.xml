@@ -2,7 +2,7 @@
 <addons>
 <addon id="plugin.video.cloudtv"
        name="DUTCH CLOUD TV"
-       version="4.1.6"
+       version="4.1.7"
        provider-name="www.dutchcloudtv.com">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -20,14 +20,15 @@
     <import addon="script.common.plugin.cache" version="2.5.2"/>
     <import addon="script.module.metahandler" version="2.5.1"/>
 	<import addon="plugin.video.veetle" version="0.3.1" optional="false"/>
+	<import addon="plugin.video.p2psport" version="0.1.0" optional="false"/>
 
   </requires>
   <extension point="xbmc.python.pluginsource" library="cloudtv.py">
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">www.facebook.com/DutchCloudTV</summary>
-    <description lang="en">www.dutchsportstreams.com/www.dutchcloudtv.com</description>
+    <summary lang="en">www.dutchcloudtv.com</summary>
+    <description lang="en">www.dutchcloudtv.com</description>
     <platform>all</platform>
   </extension>
 </addon>
@@ -176,7 +177,7 @@
   </extension>
 </addon>
 
-<addon id="repository.dss" name="Dutch Sport Streams" version="1.3" provider-name="Dutch Cloud TV">
+<addon id="repository.dss" name="Dutch Sport Streams" version="1.4" provider-name="Dutch Cloud TV">
 	<extension point="xbmc.addon.repository" name="Dutch Sport Streams Repository">
 		<info compressed="true">https://raw.githubusercontent.com/dutchsportstreams/DSS/master/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/dutchsportstreams/DSS/master/addons.xml.md5</checksum>
@@ -184,7 +185,7 @@
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Repository Dutch Sport Streams</summary>
-		<description>Download and install addons from Dutch Sport Streams[CR]http://facebook.com/dutchcloudtv</description>
+		<description>Download and install addons from Dutch Sport Streams[CR]http://www.dutchsporstreams.com</description>
 		<platform>all</platform>
 	</extension>
 </addon>
