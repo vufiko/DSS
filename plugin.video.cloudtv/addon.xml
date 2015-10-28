@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.cloudtv"
        name="DUTCH CLOUD TV"
-       version="4.1.8"
+       version="4.1.9"
        provider-name="www.dutchcloudtv.com">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -18,8 +18,7 @@
     <import addon="script.module.simplejson" /> 
     <import addon="script.common.plugin.cache" version="2.5.2"/>
     <import addon="script.module.metahandler" version="2.5.1"/>
-	<import addon="plugin.video.veetle" version="0.3.1" optional="false"/>
-	<import addon="plugin.video.p2psport" version="0.1.0" optional="false"/>
+
 
   </requires>
   <extension point="xbmc.python.pluginsource" library="cloudtv.py">

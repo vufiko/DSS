@@ -176,27 +176,55 @@ def makeRequest(url, headers=None):
 				
 def DCTVIndex():
     addon_log("DCTVIndex")
+    addDir('Privacy Policy','Privacy Policy',45,'http://www.dutchcloudtv.com/weblogo.png' ,  FANART,'','','','')
+    addDir('Nieuws','Nieuws',46,'http://www.dutchcloudtv.com/weblogo.png' ,  FANART,'','','','')
     getData(base64.b64decode(DCTVBase),'')
     addDir('Search','Search',40,'http://dutchsportstreams.com/cloudtv/images/Search.png' ,  FANART,'','','','')
-    addDir('Privacy Policy','Privacy Policy',45,'http://www.dutchcloudtv.com/weblogo.png' ,  FANART,'','','','')
+    
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
-def Privacy_Policy():
+    
+
+def Nieuws():
 	text = ''
-	twit = 'http://www.dutchcloudtv.com/private/private.php'
+	twit = 'http://pastebin.com/raw.php?i=zanFx8TE'
 	req = urllib2.Request(twit)
 	req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
 	response = urllib2.urlopen(req)
 	link=response.read()
 	response.close()
-	match=re.compile("<div class=\"baseHtml\">(.+?)</div>",re.DOTALL).findall(link)
-	for status in match:
+	match=re.compile("<title>(.+?)</title><pubDate>(.+?)</pubDate>",re.DOTALL).findall(link)
+	for status, dte in match:
 	    try:
 			    status = status.decode('ascii', 'ignore')
 	    except:
 			    status = status.decode('utf-8','ignore')
+	    dte = dte[:-15]
 	    status = status.replace('&amp;','')
-	    text = status
+	    dte = '[COLOR blue][B]'+dte+'[/B][/COLOR]'
+	    text = text+dte+'\n'+status+'\n'+'\n'
+	showText('[COLOR blue][B]Dutch Cloud Tv Laaste Nieuws[/B][/COLOR]', text)
+
+
+
+def Privacy_Policy():
+	text = ''
+	twit = 'http://pastebin.com/raw.php?i=4PsR7xDr'
+	req = urllib2.Request(twit)
+	req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+	response = urllib2.urlopen(req)
+	link=response.read()
+	response.close()
+	match=re.compile("<title>(.+?)</title><pubDate>(.+?)</pubDate>",re.DOTALL).findall(link)
+	for status, dte in match:
+	    try:
+			    status = status.decode('ascii', 'ignore')
+	    except:
+			    status = status.decode('utf-8','ignore')
+	    dte = dte[:-15]
+	    status = status.replace('&amp;','')
+	    dte = '[COLOR blue][B]'+dte+'[/B][/COLOR]'
+	    text = text+dte+'\n'+status+'\n'+'\n'
 	showText('[COLOR blue][B]Privacy Policy[/B][/COLOR]', text)
 
 def showText(heading, text):
@@ -2434,6 +2462,9 @@ elif mode==40:
 
 elif mode==45:
     Privacy_Policy()
+
+elif mode==46:
+    Nieuws()
     
 	
 elif mode==53:
