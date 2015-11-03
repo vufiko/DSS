@@ -110,7 +110,7 @@
 
 <addon
   id="plugin.video.SportsDevil"
-  version="2015.11.01.1"
+  version="2015.11.01.2"
   name="SportsDevil"
   provider-name="MaxMustermann,Al101,Hubbab3,Sattekop">
   <requires>
