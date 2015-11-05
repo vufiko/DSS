@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol always="true">9000</defaultcontrol>
+    <controls>
+        <control type="group">
+            <visible allowhiddenfocus="true">ControlGroup(9000).HasFocus()</visible>
+            <include>Dialog_Top</include>
+            <include>Dialog_Background</include>
+            <include name="Dialog_Top_IconHeader">
+                <param name="label" value="31144" />
+                <param name="icon" value="special://skin/extras/icons/settings.png" />
+            </include>
+            <control type="grouplist" id="9000">
+                <visible>!Window.IsVisible(MusicVisualisation.xml)</visible>
+                <top>90</top>
+                <height>64</height>
+                <align>center</align>
+                <itemgap>side</itemgap>
+                <include>Dialog_Top_GroupList</include>
+                <include>Window_OSD_Controls</include>
+            </control>
+
+        </control>
+        
+    </controls>
+</window>
