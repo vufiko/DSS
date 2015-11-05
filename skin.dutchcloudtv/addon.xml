@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
     id="skin.dutchcloudtv"
-    version="0.9.36"
+    version="1.0"
     name="Dutch Cloud Tv 1.0"
     provider-name="dss">
     <requires>
