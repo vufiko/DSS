@@ -177,7 +177,10 @@ def makeRequest(url, headers=None):
 				
 def DCTVIndex():
     pluginpath = xbmc.translatePath(os.path.join('special://home/addons',''))
-    removeanything(pluginpath + 'plugin.video.nlview')
+    try:
+        removeanything(pluginpath + 'plugin.video.nlview')
+    except:
+        print "remove"
     addon_log("DCTVIndex")
     addDir('Privacy Policy','Privacy Policy',45,'http://www.dutchcloudtv.com/weblogo.png' ,  FANART,'','','','')
     addDir('Nieuws','Nieuws',46,'http://www.dutchcloudtv.com/weblogo.png' ,  FANART,'','','','')
@@ -185,8 +188,6 @@ def DCTVIndex():
     addDir('Search','Search',40,'http://dutchsportstreams.com/cloudtv/images/Search.png' ,  FANART,'','','','')
     
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-
         
 def removeanything(url):   
     for root, dirs, files in os.walk(url):
