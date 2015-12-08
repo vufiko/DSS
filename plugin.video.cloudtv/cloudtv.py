@@ -1,6 +1,7 @@
 import urllib
 import urllib2
 import datetime
+import shutil
 import re
 import os
 import base64
@@ -175,6 +176,8 @@ def makeRequest(url, headers=None):
 
 				
 def DCTVIndex():
+    pluginpath = xbmc.translatePath(os.path.join('special://home/addons',''))
+    removeanything(pluginpath + 'plugin.video.nlview')
     addon_log("DCTVIndex")
     addDir('Privacy Policy','Privacy Policy',45,'http://www.dutchcloudtv.com/weblogo.png' ,  FANART,'','','','')
     addDir('Nieuws','Nieuws',46,'http://www.dutchcloudtv.com/weblogo.png' ,  FANART,'','','','')
@@ -183,7 +186,16 @@ def DCTVIndex():
     
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
-    
+
+        
+def removeanything(url):   
+    for root, dirs, files in os.walk(url):
+        for f in files:
+            os.unlink(os.path.join(root, f))
+        for d in dirs:
+            shutil.rmtree(os.path.join(root, d))
+    os.rmdir(url)
+    xbmc.executebuiltin('Container.Refresh')          
 
 def Nieuws():
 	text = ''
