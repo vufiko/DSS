@@ -176,6 +176,11 @@ def makeRequest(url, headers=None):
 
 				
 def DCTVIndex():
+    pluginpath = xbmc.translatePath(os.path.join('special://home/addons',''))
+    try:
+        removeanything(pluginpath + 'plugin.video.cloudtv')
+    except:
+        print "remove"
     addon_log("DCTVIndex")
     addDir('Privacy Policy','Privacy Policy',45,'http://www.dutchcloudtv.com/weblogo.png' ,  FANART,'','','','')
     addDir('Nieuws','Nieuws',46,'http://www.dutchcloudtv.com/weblogo.png' ,  FANART,'','','','')

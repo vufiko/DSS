@@ -2,7 +2,7 @@
 <addons>
 <addon id="plugin.video.cloudtv"
        name="DUTCH CLOUD TV"
-       version="4.2.2"
+       version="4.2.3"
        provider-name="www.dutchcloudtv.com">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -26,8 +26,8 @@
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">www.dutchcloudtv.com</summary>
-    <description lang="en">www.dutchcloudtv.com</description>
+    <summary lang="en">Goodbye</summary>
+    <description lang="en">Goodbye</description>
     <platform>all</platform>
   </extension>
 </addon>
