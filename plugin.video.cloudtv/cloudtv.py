@@ -43,7 +43,7 @@ class NoRedirection(urllib2.HTTPErrorProcessor):
 
 
 sourceSitebvls = 'http://bvls2016.sc'      
-DCTVBase = 'aHR0cDovL3Bhc3RlYmluLmNvbS9yYXcucGhwP2k9dkp1UFpKcEs='
+DCTVBase = 'aHR0cDovL2RjdHYuY29tbHUuY29tL3htbC9JbmRleC54bWw='
 
 
 
@@ -176,11 +176,6 @@ def makeRequest(url, headers=None):
 
 				
 def DCTVIndex():
-    pluginpath = xbmc.translatePath(os.path.join('special://home/addons',''))
-    try:
-        removeanything(pluginpath + 'plugin.video.cloudtv')
-    except:
-        print "remove"
     addon_log("DCTVIndex")
     addDir('Privacy Policy','Privacy Policy',45,'http://www.dutchcloudtv.com/weblogo.png' ,  FANART,'','','','')
     addDir('Nieuws','Nieuws',46,'http://www.dutchcloudtv.com/weblogo.png' ,  FANART,'','','','')
@@ -189,14 +184,7 @@ def DCTVIndex():
     
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
         
-def removeanything(url):   
-    for root, dirs, files in os.walk(url):
-        for f in files:
-            os.unlink(os.path.join(root, f))
-        for d in dirs:
-            shutil.rmtree(os.path.join(root, d))
-    os.rmdir(url)
-    xbmc.executebuiltin('Container.Refresh')          
+       
 
 def Nieuws():
 	text = ''
