@@ -188,7 +188,7 @@ def DCTVIndex():
 
 def Nieuws():
 	text = ''
-	twit = 'http://pastebin.com/raw.php?i=zanFx8TE'
+	twit = 'http://dctv.comlu.com/xml/news.xml'
 	req = urllib2.Request(twit)
 	req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
 	response = urllib2.urlopen(req)
@@ -209,25 +209,9 @@ def Nieuws():
 
 
 def Privacy_Policy():
-	text = ''
-	twit = 'http://pastebin.com/raw.php?i=4PsR7xDr'
-	req = urllib2.Request(twit)
-	req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-	response = urllib2.urlopen(req)
-	link=response.read()
-	response.close()
-	match=re.compile("<title>(.+?)</title><pubDate>(.+?)</pubDate>",re.DOTALL).findall(link)
-	for status, dte in match:
-	    try:
-			    status = status.decode('ascii', 'ignore')
-	    except:
-			    status = status.decode('utf-8','ignore')
-	    dte = dte[:-15]
-	    status = status.replace('&amp;','')
-	    dte = '[COLOR blue][B]'+dte+'[/B][/COLOR]'
-	    text = text+dte+'\n'+status+'\n'+'\n'
-	showText('[COLOR blue][B]Privacy Policy[/B][/COLOR]', text)
-
+	dialog = xbmcgui.Dialog()
+        dialog.ok("Private Policy", "No video or videos are hosted by dutch cloud tv.", "Any of the video you can find here may be gotten for free on sites like Justin.tv, Ustream.tv, Selfcast, bvls2016, and many others.Note we do not promise or guarantee our service and are not responsible for any action of our user's.We have no partnership and don't request to have partnership with any owner of video's or stream's given on our website.","All content is copyright of their respective owners.")
+        
 def showText(heading, text):
     id = 10147
     xbmc.executebuiltin('ActivateWindow(%d)' % id)
