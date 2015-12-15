@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<shortcuts>
+
+    <shortcut>
+        <label>TV NL</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,&quot;plugin://plugin.video.cloudtv/?mode=1&amp;url=http://dctv.comlu.com/xml/IndexNLTV.xml&quot;,return)</action>
+        <icon>special://skin/extras/icons/dctv.png</icon>
+    </shortcut>
+    <shortcut>
+        <label>TV International</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,&quot;plugin://plugin.video.cloudtv/?mode=1&amp;url=http://dctv.comlu.com/xml/IndexIntTV.xml&quot;,return)</action>
+        <icon>special://skin/extras/icons/dctv.png</icon>
+    </shortcut>
+    
+    <shortcut>
+        <label>NL Youtube Kanalen</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,&quot;plugin://plugin.video.cloudtv/?mode=1&amp;url=http://dctv.comlu.com/xml/Indexytube.xml&quot;,return)</action>
+        <icon>special://skin/extras/icons/dctv.png</icon>
+    </shortcut>
+    <shortcut>
+        <label>Dutch Radio</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,&quot;plugin://plugin.video.cloudtv/?mode=1&amp;url=http://dctv.comlu.com/xml/RadioIndex.xml&quot;,return)</action>
+        <icon>special://skin/extras/icons/dctv.png</icon>
+    </shortcut>
+    
+    <shortcut>
+        <label>Sport Tv</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,&quot;plugin://plugin.video.cloudtv/?mode=1&amp;url=http://dctv.comlu.com/xml/indexsport.xml&quot;,return)</action>
+        <icon>special://skin/extras/icons/dctv.png</icon>
+    </shortcut>
+    <shortcut>
+        <label>Ace Streams</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,&quot;plugin://plugin.video.cloudtv/?mode=1&amp;url=http://dctv.comlu.com/xml/AceStreams.xml&quot;,return)</action>
+        <icon>special://skin/extras/icons/dctv.png</icon>
+    </shortcut>
+    <shortcut>
+        <label>Music TV</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,&quot;plugin://plugin.video.cloudtv/?mode=1&amp;url=http://dctv.comlu.com/xml/musicindex.xml&quot;,return)</action>
+        <icon>special://skin/extras/icons/dctv.png</icon>
+    </shortcut>
+
+    <shortcut>
+        <label>Private Policy</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,&quot;plugin://plugin.video.cloudtv/?mode=45&amp;name=Privacy%20Policy&amp;url=Privacy%20Policy&quot;,return)</action>
+        <icon>special://skin/extras/icons/warning.png</icon>
+    </shortcut>
+    <shortcut>
+        <label>News</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,&quot;plugin://plugin.video.cloudtv/?mode=46&amp;name=Nieuws&amp;url=Nieuws&quot;,return)</action>
+        <icon>special://skin/extras/icons/newspaper.png</icon>
+    </shortcut>
+	<shortcut>
+        <label>Search</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,&quot;plugin://plugin.video.cloudtv/?mode=40&amp;name=Search&amp;url=Search&quot;,return)</action>
+        <icon>special://skin/extras/icons/search.png</icon>
+    </shortcut>
+</shortcuts>

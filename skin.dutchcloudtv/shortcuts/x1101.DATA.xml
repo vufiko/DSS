@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<shortcuts>
+    <shortcut>
+        <label2>Movie Hub Shortcut</label2>
+        <label>20342</label>
+        <action>ActivateWindow(Videos,MovieTitles,return)</action>
+        <icon>special://skin/extras/icons/film.png</icon>
+    </shortcut>
+    <shortcut>
+        <label>Genre</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,&quot;plugin://plugin.video.genesis/?action=movieGenres&quot;,return)</action>
+        <icon>special://skin/extras/icons/genre.png</icon>
+    </shortcut>
+    <shortcut>
+        <label>Jaren</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,"plugin://plugin.video.genesis/?action=movieYears",return)</action>
+        <icon>special://skin/extras/icons/year.png</icon>
+    </shortcut>
+	
+	<shortcut>
+        <label>Acteurs</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,"plugin://plugin.video.genesis/?action=moviePersons",return)</action>
+        <icon>special://skin/extras/icons/actor.png</icon>
+    </shortcut>
+	<shortcut>
+        <label>Kijkwijzer</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,"plugin://plugin.video.genesis/?action=movieCertificates",return)</action>
+        <icon>special://skin/extras/icons/sun.png</icon>
+    </shortcut>
+	
+	
+	<shortcut>
+        <label>Laatste Films</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,&quot;plugin://plugin.video.genesis/?action=movies&amp;url=added&quot;,return)</action>
+        <icon>special://skin/extras/icons/recent.png</icon>
+    </shortcut>
+	
+	
+	<shortcut>
+        <label>In de Boiscoop</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,&quot;plugin://plugin.video.genesis/?action=movies&amp;url=theaters&quot;,return)</action>
+        <icon>special://skin/extras/icons/film.png</icon>
+    </shortcut>
+
+	
+    <shortcut>
+        <label>Zoek Acteur</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,"plugin://plugin.video.genesis/?action=moviePerson",return)</action>
+        <icon>special://skin/extras/icons/search.png</icon>
+    </shortcut>
+    <shortcut>
+        <label>Zoek Film</label>
+        <label2>Movie Hub Shortcut</label2>
+        <action>ActivateWindow(10025,"plugin://plugin.video.genesis/?action=movieSearch",return)</action>
+        <icon>special://skin/extras/icons/search.png</icon>
+    </shortcut> 
+
+</shortcuts>
