@@ -58,9 +58,14 @@ history = os.path.join(profile, 'history')
 
 
 
+fanart = xbmc.translatePath(os.path.join(home, 'fanart.jpg'))
+iconpath = xbmc.translatePath(os.path.join(home, 'resources/icons/'))
+icon = xbmc.translatePath(os.path.join(home, 'resources/icons/icon.png'))
+
+
 REV = os.path.join(profile, 'list_revision')
 Mode = addon.getAddonInfo('version')
-icon = os.path.join(home, 'icon.png')
+##icon = os.path.join(home, 'icon.png')
 FANART = os.path.join(home, 'fanart.jpg')
 source_file = os.path.join(profile, 'source_file')
 functions_dir = profile
@@ -177,10 +182,10 @@ def makeRequest(url, headers=None):
 				
 def DCTVIndex():
     addon_log("DCTVIndex")
-    addDir('Privacy Policy','Privacy Policy',45,'http://www.dutchcloudtv.com/weblogo.png' ,  FANART,'','','','')
-    addDir('Nieuws','Nieuws',46,'http://www.dutchcloudtv.com/weblogo.png' ,  FANART,'','','','')
+    addDir('Privacy Policy','Privacy Policy',45,'%s/p-p.png'% iconpath ,  FANART,'','','','')
+    addDir('Nieuws','Nieuws',46,'%s/news.png'% iconpath ,  FANART,'','','','')
     getData(base64.b64decode(DCTVBase),'')
-    addDir('Search','Search',40,'http://dutchsportstreams.com/cloudtv/images/Search.png' ,  FANART,'','','','')
+    #addDir('Search','Search',40,'http://dutchsportstreams.com/cloudtv/images/Search.png' ,  FANART,'','','','')
     
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
         
