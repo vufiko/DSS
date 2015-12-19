@@ -160,6 +160,15 @@ def addon_log(string):
         xbmc.log("[addon.live.cloudtvr3-%s]: %s" %(string))
 
 
+def Play():
+    paradise = 'http://shoutcast.paradiseradio.org:8390/'
+    pl = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
+    pl.clear()    
+    pl.add(paradise)
+
+    xbmc.Player().play(pl)
+
+
 def makeRequest(url, headers=None):
         try:
             if headers is None:
@@ -186,6 +195,7 @@ def DCTVIndex():
     addDir('Nieuws','Nieuws',46,'%s/news.png'% iconpath ,  FANART,'','','','')
     getData(base64.b64decode(DCTVBase),'')
     #addDir('Search','Search',40,'http://dutchsportstreams.com/cloudtv/images/Search.png' ,  FANART,'','','','')
+    addDir('Listen Paradise Radio','Listen Paradise Radio',4,'%s/paradiseradio.png'% iconpath ,  FANART,'','','','')
     
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
         
@@ -2370,7 +2380,8 @@ elif mode==3:
     getSubChannelItems(name,url,fanart)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
-
+elif mode==4:
+        Play()
 
 
 
