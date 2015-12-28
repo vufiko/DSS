@@ -41,17 +41,17 @@ mode = args.get('mode', None)
 
 my_addon = xbmcaddon.Addon()
 
-   
+
 
 if mode is None:
-    
-    
+
+
     url = build_url({'mode': 'av'})
     li = xbmcgui.ListItem('Arenavision.in',iconImage='http://kodi.altervista.org/wp-content/uploads/2015/07/arenavision.jpg')
     xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,
                                 listitem=li, isFolder=True)
     url = build_url({'mode': 'roja'})
-    li = xbmcgui.ListItem('Rojadirecta.tn.my',iconImage='http://www.rojadirecta.me/static/roja.jpg')
+    li = xbmcgui.ListItem('Rojadirecta.me',iconImage='http://www.rojadirecta.me/static/roja.jpg')
     xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,
                                 listitem=li, isFolder=True)
 
@@ -70,16 +70,13 @@ if mode is None:
     xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,
                                 listitem=li, isFolder=True)
 
-    url = build_url({'mode': 'streamhub'})
-    li = xbmcgui.ListItem('Streamhub.hk',iconImage='http://www.streamhub.hk/img/sports/rugby.png')
-    xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,
-                                listitem=li, isFolder=True)
+
 
     # url = build_url({'mode': 'livefootF1'})
     # li = xbmcgui.ListItem('Livefootballol.com (F1)',iconImage='http://www.livefootballol.com/images/logo.png')
     # xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,
     #                             listitem=li, isFolder=True)
-    
+
     url = build_url({'mode': 'phace'})
     li = xbmcgui.ListItem('Sport Channels 1',iconImage='http://cdn.streamcentral.netdna-cdn.com/images/software/acestreamlogo.jpg')
     xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,
@@ -116,7 +113,7 @@ if mode is None:
     # li = xbmcgui.ListItem('Livesports 24/7',iconImage='http://i.imgur.com/Mv5ySt4.jpg')
     # xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,
     #                             listitem=li, isFolder=True)
-    
+
     xbmcplugin.endOfDirectory(addon_handle)
 
 
@@ -153,12 +150,12 @@ elif mode[0]=='247':
     li = xbmcgui.ListItem('Event schedule',iconImage='http://i.imgur.com/Mv5ySt4.jpg')
     xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,
                                 listitem=li, isFolder=True)
-    
+
     url = build_url({'mode': 'all_247'})
     li = xbmcgui.ListItem('All channels',iconImage='http://i.imgur.com/Mv5ySt4.jpg')
     xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,
                                 listitem=li, isFolder=True)
-    
+
     xbmcplugin.endOfDirectory(addon_handle)
 
 elif mode[0]=='open_247_event':
@@ -205,7 +202,7 @@ elif mode[0]=='roja':
 
 elif mode[0]=='ttv':
     get_ttv()
-    
+
 
 elif mode[0]=='open_ttv_stream':
     url=params['url'][0]
@@ -265,7 +262,7 @@ elif mode[0]=='av_rand':
     except:
         play_arena_sop(url,name)
 elif mode[0]=='open_roja_stream':
-    url='http://rojadirecta.tn.my/'+params['url'][0]
+    url='http://www.rojadirecta.me/'+params['url'][0]
     name=params['name'][0]
     resolve_roja(url,name)
 
@@ -281,7 +278,7 @@ elif mode[0]=='av_open':
         sources+=[title]
     dialog = xbmcgui.Dialog()
     index = dialog.select('Select a channel:', sources)
-        
+
     if index>-1:
         url=sources[index]
         url='http://arenavision.in/'+url.lower()

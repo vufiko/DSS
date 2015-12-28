@@ -45,7 +45,7 @@ def read_url(url):
     net = Net()
 
     html=net.http_GET(url).content
-    
+
     h = HTMLParser.HTMLParser()
     html = h.unescape(html)
     return html
@@ -66,7 +66,7 @@ def get_ttv():
     channels1=soup.find('div',{'id':'hd'}).findAll('a')
     channels2=soup.find('div',{'id':'blue'}).findAll('a')
 
-    
+
     for channel in channels1:
         link=channel['href']
         img=channel.find('img')['src']
@@ -88,7 +88,7 @@ def get_ttv():
 
         xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li)
 
-    
+
     xbmcplugin.endOfDirectory(addon_handle)
 
 def ttv_sport():
@@ -96,7 +96,7 @@ def ttv_sport():
     source = read_url(base_url)
     if source:
         match= re.compile("#EXTINF:-1,Sky Sports News \(.+?\)\n(.*)").findall(source)
-        if match: 
+        if match:
             name='Sky Sports News'
             ace=match[0]
             url='plugin://program.plexus/?mode=1&url=%s&name=%s'%(ace,name.replace(' ','+'))
@@ -118,7 +118,7 @@ def ttv_sport():
             xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li)
     xbmcplugin.endOfDirectory(addon_handle)
 def open_ttv_stream(url,name):
-    
+
     resolve_roja(url,name)
 
 
@@ -152,7 +152,7 @@ def ttv_cats():
                                 pass
     			else:
                 		categorie = russiandictionary(match_cat[i])
-                		
+
                 		if categorie not in dict_torrent.keys():
                 			try:
             					dict_torrent[categorie] = [(channel_name[0],acehash)]
@@ -166,7 +166,7 @@ def ttv_cats():
 		li = xbmcgui.ListItem(cat,iconImage='http://addons.tvaddons.ag/cache/images/bc591d6d5ec442d4ddb43a347a8be6_icon.png')
 		xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,
 				listitem=li, isFolder=True)
-		
+
 
 	xbmcplugin.endOfDirectory(addon_handle)
 
@@ -207,7 +207,7 @@ def play_arena(url,name):
     headers = {
         "Cookie" : "beget=begetok; has_js=1;"
     }
-    
+
     html = requests.get(url,headers=headers).text
     match = re.compile('this.loadPlayer\("(.+?)"').findall(html)[0]
     try:
@@ -220,7 +220,7 @@ def play_arena_sop(url,name):
     headers = {
         "Cookie" : "beget=begetok; has_js=1;"
     }
-    
+
     html = requests.get(url,headers=headers).text
     match = re.compile('sop://(.+?)"').findall(html)[0]
     url='plugin://program.plexus/?mode=2&url=sop://%s&name=%s'%(match,urllib.quote_plus(name))
@@ -239,7 +239,7 @@ def arenavision_schedule():
         for event in match:
             eventmatch = re.compile('(\d+)/(\d+)/(\d+) (.+?):(.+?) CET (.+?)<').findall(event)
             for dia,mes,year,hour,minute,evento in eventmatch:
-                
+
                 import datetime
                 from utils import pytzimp
                 d = pytzimp.timezone(str(pytzimp.timezone('Europe/Madrid'))).localize(datetime.datetime(2000 + int(year), int(mes), int(dia), hour=int(hour), minute=int(minute)))
@@ -249,23 +249,29 @@ def arenavision_schedule():
                 fmt = "%d-%m-%y %H:%M"
                 time=convertido.strftime(fmt)
                 time='[COLOR orange]('+str(time)+')[/COLOR] '
-                
-                
-                index=evento.index(')')
-                event_name = clean(cleanex(evento[:index+1]))
-                evento=evento.replace(event_name,'')
-                
-                
-                
+                try:
+                    index=evento.index(')')
+                    event_name = clean(cleanex(evento[:index+1]))
+                    evento=evento.replace(event_name,'')
+                    channels=re.compile('AV(\d+)').findall(evento)
+                except:
+                    index=evento.index('/AV')
+                    channels=re.compile('AV(\d+)').findall(evento)
+                    event_name = clean(cleanex(evento[:index]))
+                    evento=evento.replace(event_name,'')
 
-                channels=re.compile('AV(\d+)').findall(evento)
-                    
+
+
+
+
+
+
                 url = build_url({'mode': 'av_open','channels': channels, 'name':event_name})
                 li = xbmcgui.ListItem(time + event_name,iconImage='http://kodi.altervista.org/wp-content/uploads/2015/07/arenavision.jpg')
                 xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,
                            listitem=li, isFolder=True)
         xbmcplugin.endOfDirectory(addon_handle)
-                    
+
 #############################################################################################################################################################3
 #############################################################################################################################################################3
 #############################################################################################################################################################3
@@ -274,47 +280,41 @@ def arenavision_schedule():
 def livefootballol():
     url='http://www.livefootballol.com/live-football-streaming.html'
     html=get_page_source(url)
-
     soup=bs(html)
-    tag=soup.find('div',{'id':'maininner'})
-    table=tag.find('div',{'class':'content clearfix'})
-    divs=table.findAll('div')
-    for item in divs:
-        if 'GMT+1' in item.getText():
-            date=item.findAll('span',{'class':'RED'})[0].find('strong').getText()
-            
+    #items=re.compile('<li>\s*<div><img src=".+?" alt=".+?"/> (.+?) [(.+?)] <a href="(.+?)">(.+?)</a></div>\s*</li>')
+    #time,league,link,name
+    daty=soup.findAll('h3')
+    lists=soup.findAll('list')
+    for i in range(6):
+        itel=daty[i]
+        if 'CET' in itel.getText():
+            date=itel.getText()
             index=date.index(',')+2
             date=date[index:]
             dates=date.split('/')
-            day,month,year=dates[0],dates[1],dates[2]
-            
+            day,month,year=dates[0],dates[1],dates[2].replace('CET','').strip()
+            items=re.compile('<li>\s*<div><img src=".+?" alt=".+?"\s*\/>\s*(.+?)\s*\[(.+?)\]\s*<a\s*href="(.+?)"\s*(?:target="_blank"|)\s*>\s*(.+?)<\/a>').findall(str(lists[i]))
+            for tem in items:
+                time,league,link,name = tem[0],tem[1],tem[2],tem[3]
+                time=time.split(':')
+                hour,minute=time[0],time[1]
+                import datetime
+                from utils import pytzimp
+                d = pytzimp.timezone(str(pytzimp.timezone('Europe/Berlin'))).localize(datetime.datetime(2000 + int(year), int(month), int(day), hour=int(hour), minute=int(minute)))
+                timezona= addon.get_setting('timezone_new')
+                my_location=pytzimp.timezone(pytzimp.all_timezones[int(timezona)])
+                convertido=d.astimezone(my_location)
+                fmt = "%d-%m-%y [COLOR green]%H:%M[/COLOR]"
+                time=convertido.strftime(fmt)
+                competition=league
+                match=name
 
-        else:
-            time=item.findAll('span',{'class':'RED'})[0].getText()
-            time=time.split(':')
-            hour,minute=time[0],time[1]
-            link=item.find('a')['href']
-
-            import datetime
-            from utils import pytzimp
-            d = pytzimp.timezone(str(pytzimp.timezone('Europe/Berlin'))).localize(datetime.datetime(2000 + int(year), int(month), int(day), hour=int(hour), minute=int(minute)))
-            timezona= addon.get_setting('timezone_new')
-            my_location=pytzimp.timezone(pytzimp.all_timezones[int(timezona)])
-            convertido=d.astimezone(my_location)
-            fmt = "%d-%m-%y [COLOR green]%H:%M[/COLOR]"
-            time=convertido.strftime(fmt)
-            full=item.getText()
-            indx=full.index(']')
-            indxy=full.index('[')
-            competition=full[indxy:indx+1]
-            match=full[indx+1:]
-            
-            title='([COLOR blue][B]%s[/B][/COLOR]) [B][COLOR orange]%s[/COLOR][/B] %s'%(time,match,competition)
-            if 'streaming/' in link:
-                url = build_url({'mode': 'open_livefoot','url':link,'name':match})
-                li = xbmcgui.ListItem(title,iconImage='')
-                xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,
-                                listitem=li, isFolder=True)
+                title='([COLOR blue][B]%s[/B][/COLOR]) [B][COLOR orange]%s[/COLOR][/B] %s'%(time,match,competition)
+                if 'streaming/' in link:
+                    url = build_url({'mode': 'open_livefoot','url':link,'name':match})
+                    li = xbmcgui.ListItem(title,iconImage='')
+                    xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,
+                                    listitem=li, isFolder=True)
 
 
 
@@ -322,7 +322,7 @@ def livefootballol():
 
 
 
-            
+
 def get_livefoot(url,name):
     names,links=[],[]
     html=read_url(url)
@@ -350,14 +350,14 @@ def get_livefoot(url,name):
     if links!=[]:
         dialog = xbmcgui.Dialog()
         index = dialog.select('Select a channel:', names)
-            
+
         if index>-1:
             name=names[index]
             url=links[index]
-            
+
             play_livefoot(url,name)
     else:
-        xbmcgui.Dialog().ok('No stream','No stream available yet!')   
+        xbmcgui.Dialog().ok('No stream','No stream available yet!')
 
 
 def play_livefoot(url,name):
@@ -380,7 +380,7 @@ def livefootF1():
     soup=bs(html)
     table=soup.find('table',{'id':'customers'})
     trs=table.findAll('tr')
-    
+
     competition=trs[0].findAll('td')[1].getText()
     date=trs[2].findAll('td')[1].getText()
     time=trs[4].findAll('td')[1].getText()
@@ -451,9 +451,9 @@ def livefootballws_events():
                         li = xbmcgui.ListItem(title,iconImage='')
                         xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,
                                 listitem=li, isFolder=True)
-                           
+
                     except:
-                        
+
                         if '<span style="color: #000000;">' not in data_item:
                             data_item=data_item.replace('<strong style="font-size: 10.6666669845581px; text-align: center;">','')
                             title="[B][COLOR green]("+data_item+")[/COLOR][/B] "+teams[0]
@@ -470,7 +470,7 @@ def livefootballws_streams(url):
     links=[]
     try:
         source = read_url(url)
-    except: source = ""; 
+    except: source = "";
     if source:
         items = re.findall('<td style="text-align: center;">(.*?)</tr>', source, re.DOTALL)
         number_of_items = len(items)
@@ -516,32 +516,33 @@ def livefootballws_streams(url):
     if links!=[]:
         dialog = xbmcgui.Dialog()
         index = dialog.select('Select a channel:', names)
-            
+
         if index>-1:
             name=names[index]
             url=links[index]
-            
+
             play_sop(url,name)
     else:
-        xbmcgui.Dialog().ok('No stream','No stream available yet!')   
-            
+        xbmcgui.Dialog().ok('No stream','No stream available yet!')
+
 ############################################################################################################################################################3
 #############################################################################################################################################################3
 #############################################################################################################################################################3
 
 def rojadirecta_events():
-    thumbnail='http://www.rojadirecta.me/static/roja.jpg'
+  thumbnail='http://www.rojadirecta.me/static/roja.jpg'
 
-    url='http://rojadirecta.tn.my'
-    try:
-        source = read_url(url)
+  url='http://www.rojadirecta.me'
+  try:
+   source = read_url(url)
 
-    except: source = ""
-    if source:
-        match = re.findall('<span class="(\d+)".*?<div class="menutitle".*?<span class="t">([^<]+)</span>(.*?)</div>',source,re.DOTALL)
-        for id,time,eventtmp in match:
+  except: source = ""
+  if source:
+    match = re.findall('<span class="(\d+)".*?<div class="menutitle".*?<span class="t">([^<]+)</span>(.*?)</div>',source,re.DOTALL)
+    print match
+    for id,time,eventtmp in match:
             try:
-                
+
                 import datetime
                 from utils import pytzimp
                 d = pytzimp.timezone(str(pytzimp.timezone('Europe/Madrid'))).localize(datetime.datetime(2014, 6, 7, hour=int(time.split(':')[0]), minute=int(time.split(':')[-1])))
@@ -557,13 +558,13 @@ def rojadirecta_events():
                 for spanishtitle in eventnospanish:
                     eventtmp = eventtmp.replace('<span class="es">' + spanishtitle + '</span>','')
             eventclean=eventtmp.replace('<span class="en">','').replace('</span>','').replace(' ()','').replace('</time>','').replace('<span itemprop="name">','')
-            matchdois = re.compile('(.*)<b>\s*(.*?)\s*</b>').findall(eventclean)    
+            matchdois = re.compile('(.*)<b>\s*(.*?)\s*</b>').findall(eventclean)
             for sport,event in matchdois:
                 event=clean(cleanex(event))
 
                 express = '<span class="submenu" id="sub' + id+ '">.*?</span>\s*</span>'
                 streams = re.findall(express,source,re.DOTALL)
-                for streamdata in streams:                  
+                for streamdata in streams:
                     p2pstream = re.compile('<td>P2P</td>\n.+?<td>([^<]*)</td>\n.+?<td>([^<]*)</td>\n.+?<td>([^<]*)</td>\n.+?<td>([^<]*)</td>\n.+?<td><b><a.+?href="(.+?)"').findall(streamdata)
                     already = False
                     for canal,language,tipo,qualidade,urltmp in p2pstream:
@@ -592,7 +593,7 @@ def rojadirecta_events():
                                     li.setProperty('IsPlayable', 'true')
                                     xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li)
 
-        xbmcplugin.endOfDirectory(addon_handle)
+    xbmcplugin.endOfDirectory(addon_handle)
 
 def resolve_roja(url,name):
     if'serbia' in url:
@@ -605,30 +606,30 @@ def resolve_roja(url,name):
                 resolve_roja(url,name)
                 return
 
-    
-    
+
+
     if "sop://" not in url and "acestream://" not in url:
-        if "http://" not in url: 
+        if "http://" not in url:
             url="http://"+url
-            
+
         if 'arenavision' in url:
             headers = {
                 "Cookie" : "beget=begetok; has_js=1;"
             }
-            
+
             source = requests.get(url,headers=headers).text
         else:
             source = get_page_source(url)
         if 'click here..' in source.lower():
             try:
                 url=re.compile('<a href="(.+?)">click here...').findall(source)[0]
-                
+
                 resolve_roja(url,name)
                 return
             except:
             	pass
         elif 'iframe' in source:
-        	
+
         	soup=bs(source)
         	urls=soup.findAll('iframe')
         	for urly in urls:
@@ -650,12 +651,12 @@ def resolve_roja(url,name):
 
 
         matchsop = re.compile('sop://(.+?)"').findall(source)
-        if matchsop: 
+        if matchsop:
             url='plugin://program.plexus/?mode=2&url=sop://%s&name=%s'%(matchsop[0],urllib.quote_plus(name))
             xbmc.Player().play(url)
         else:
             match = re.compile('this.loadPlayer\("(.+?)"').findall(source)
-            if match: 
+            if match:
                 url='plugin://program.plexus/?mode=1&url=%s&name=%s'%(match[0],urllib.quote_plus(name))
                 xbmc.Player().play(url)
             else:
@@ -666,7 +667,7 @@ def resolve_roja(url,name):
     elif "acestream://" in url:
         url='plugin://program.plexus/?mode=1&url=%s&name=%s'%(url,name.replace(' ','+'))
         xbmc.Player().play(url)
-    else: xbmcgui.Dialog().ok('No stream','No stream available!')    
+    else: xbmcgui.Dialog().ok('No stream','No stream available!')
 
 #############################################################################################################################################################3
 #############################################################################################################################################################3
@@ -705,7 +706,7 @@ def open_1ttv_channel(url):
 	html=read_url(url)
 	soup=bs(html)
 	name=soup.find('div',{'id':'cur_name'}).getText()
-	
+
 	play_arena(url,name)
 
 #############################################################################################################################################################3
@@ -774,11 +775,11 @@ def open_247_event(url):
         urls+=[url]
     dialog = xbmcgui.Dialog()
     index = dialog.select('Select a channel:', choice)
-        
+
     if index>-1:
         name=choice[index]
         url=urls[index]
-        
+
         play247(url,name)
 
 
@@ -809,7 +810,7 @@ def serbplus():
     for  tag in tags:
         if 'torrent' in tag['href']:
             link='http://www.serbiaplus.com/' + tag['href']
-            
+
             name=tag.getText().title()
             name=name.encode('ascii','ignore')
             url = build_url({'mode': 'play_serb','name':name,'url':link})
@@ -932,122 +933,14 @@ def open_com_event(name,url):
     if links!=[]:
         dialog = xbmcgui.Dialog()
         index = dialog.select('Select a channel:', names)
-            
+
         if index>-1:
             name=names[index]
             url=links[index]
-            
+
             play_sop(url,name)
     else:
-        xbmcgui.Dialog().ok('No stream','No stream available yet!')   
+        xbmcgui.Dialog().ok('No stream','No stream available yet!')
 #############################################################################################################################################################3
 #############################################################################################################################################################3
 #############################################################################################################################################################3
-def streamhub_cats():
-    cats=[('American Football','http://www.streamhub.hk/americanfootball','http://www.streamhub.hk/img/sports/rugby.png'),
-            ('Football','http://www.streamhub.hk/football' ,'http://www.streamhub.hk/img/sports/soccer.png'),
-            ('Basketball','http://www.streamhub.hk/basketball' , 'http://www.streamhub.hk/img/sports/basketball.png'),
-            ('Baseball','http://www.streamhub.hk/baseball','http://www.streamhub.hk/img/sports/baseball.png'),
-            ('Hockey','http://www.streamhub.hk/hockey','http://www.streamhub.hk/img/sports/hockey.png'),
-            ('Tennis','http://www.streamhub.hk/tennis','http://www.streamhub.hk/img/sports/tennis.png'),
-            ('Fighting','http://www.streamhub.hk/fighting','http://www.streamhub.hk/img/sports/boxing.png'),
-            ('Motorsports','http://www.streamhub.hk/motorsports','http://www.streamhub.hk/img/sports/racing.png'),
-            ('Golf','http://www.streamhub.hk/golf','http://www.streamhub.hk/img/sports/golf.png'),
-            ('Rugby','http://www.streamhub.hk/rugby','http://www.streamhub.hk/img/sports/rugby.png'),
-            ('Other','http://www.streamhub.hk/other','http://www.streamhub.hk/img/sports/other.png')]
-
-    for cat in cats:
-        url = build_url({'mode': 'open_streamhub_cat','url':cat[1]})
-        li = xbmcgui.ListItem(cat[0],iconImage=cat[2])
-        xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,
-                                listitem=li, isFolder=True)
-    xbmcplugin.endOfDirectory(addon_handle)
-def open_streamhub_cat(url):
-    base='http://www.streamhub.hk/'
-    html=read_url(url)
-    soup=bs(html)
-    table=soup.find('table',{'class':'table table-striped table-bordered'})
-    rows=table.findAll('tr')
-    rows.pop(0)
-    for row in rows:
-
-        infos=row.findAll('td')
-        icon=infos[0].find('img')['src']
-        time_start=infos[1].getText().strip()
-        ind=time_start.index('-')
-        time_start=time_start[:ind]
-        timee=time_start.split(':')
-        hour,minute=int(timee[0]),int(timee[1])
-        try:
-            live=infos[1].find('img')['src']
-            if 'live'in live:
-                live=True
-            else:
-                live=False
-        except:
-            live=False
-        link=base+  infos[2].find('a')['href']
-        title=infos[2].getText().strip()
-
-        import datetime
-        i = datetime.datetime.now()
-        day,month,year=i.day, i.month, i.year
-        from utils import pytzimp
-        d = pytzimp.timezone(str(pytzimp.timezone('America/New_York'))).localize(datetime.datetime(2000 + int(year), int(month), int(day), hour=int(hour), minute=int(minute)))
-        timezona= addon.get_setting('timezone_new')
-        my_location=pytzimp.timezone(pytzimp.all_timezones[int(timezona)])
-        convertido=d.astimezone(my_location)
-        fmt = "%d-%m-%y [COLOR green]%H:%M[/COLOR]"
-
-        time=convertido.strftime(fmt)
-
-        if live ==True:
-            title='%s %s [COLOR red]( LIVE ! )[/COLOR]'%(time,title)
-        else:
-            title='%s %s'%(time,title)
-
-        
-
-        url = build_url({'mode': 'open_streamhub_event','url':link})
-        li = xbmcgui.ListItem(title,iconImage=icon)
-        xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,
-                                listitem=li, isFolder=True)
-    xbmcplugin.endOfDirectory(addon_handle)
-
-def open_streamhub_event(url):
-    html=read_url(url)
-    soup=bs(html)
-    name=soup.find('title').getText().replace(' Live Stream - Stream Sports - Watch Sports - StreamHub.hk','')
-    table=soup.find('table',{'class':'table table-striped table-bordered'})
-    try:
-        rows=table.findAll('tr')
-    except:
-        xbmcgui.Dialog().ok('No stream','No P2P stream available!') 
-        return
-    rows.pop(0)
-    sources=[]
-    links=[]
-    for row in rows:
-        infos=row.findAll('td')
-        platform=infos[0].find('img')['src']
-        if 'sopcast' in platform or 'acestream' in platform:
-            title=infos[1].getText().strip()
-            kbps=infos[2].getText().replace('kbps','') + ' kbps'
-            link=infos[4].find('a')['href']
-            if 'sopcast' in platform:
-                title='%s (%s) - Sopcast'%(title,kbps)
-            else:
-                title='%s (%s) - Acestream'%(title,kbps)
-
-            sources+=[title]
-            links+=[link]
-
-    if len(links)!=0:
-        dialog = xbmcgui.Dialog()
-        index = dialog.select('Choose a link:', sources)
-                
-        if index>-1:
-            link=links[index]
-            resolve_roja(link,name)
-    else:
-        xbmcgui.Dialog().ok('No stream','No P2P stream available!') 

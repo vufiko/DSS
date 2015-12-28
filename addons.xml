@@ -83,11 +83,10 @@
 
 <addon id="plugin.video.p2psport"
 	name="P2P Sport"
-	version="0.1.0"
-	provider-name="natko1412">
+	version="0.1.4"
+	provider-name="natko1412,Extracsaba">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="program.plexus" />
     <import addon="script.module.addon.common" version="2.0.0" />
     <import addon="script.module.requests" />
     <import addon="script.module.beautifulsoup" version="3.2.1"/>
@@ -110,9 +109,9 @@
 
 <addon
   id="plugin.video.SportsDevil"
-  version="2015.12.13.1"
+  version="2015.12.27.1"
   name="SportsDevil"
-  provider-name="MaxMustermann,Al101,Hubbab3,Sattekop">
+  provider-name="MaxMustermann">
   <requires>
    <import addon="xbmc.python" version="2.14.0"/>
    <import addon="script.module.requests" />
