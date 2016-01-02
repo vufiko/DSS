@@ -2,7 +2,7 @@
 <addons>
 <addon id="plugin.video.cloudtv"
        name="DUTCH CLOUD TV"
-       version="4.3.4"
+       version="4.3.5"
        provider-name="DutchCloudTv">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -109,9 +109,9 @@
 
 <addon
   id="plugin.video.SportsDevil"
-  version="2015.12.27.1"
+  version="2016.01.02.01"
   name="SportsDevil"
-  provider-name="MaxMustermann">
+  provider-name="MaxMustermann, Al101, Hubbab3, Sattekop">
   <requires>
    <import addon="xbmc.python" version="2.14.0"/>
    <import addon="script.module.requests" />

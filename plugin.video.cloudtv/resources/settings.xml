@@ -1,8 +1,15 @@
 ﻿<settings>
-  <category label="General">
-    <setting id="Updatecommonresolvers" label="Update Resolver" type="bool" default="false"/>
-	<setting label="Enable Auto Play" default="false" type="bool" id="autoplay"/>
-	<setting label="Enable Thumbnail" default="true" type="bool" id="Thumbnail_On"/>
-	<setting id="default_player" type="labelenum" label="Default p2p-player" values="p2p-streams|Plexus" default="p2p-streams"  />
-  </category>
+	<category label="General">
+		<setting id="Updatecommonresolvers" label="Update Resolver" type="bool" default="false"/>
+		<setting label="Enable Auto Play" default="false" type="bool" id="autoplay"/>
+		<setting label="Enable Thumbnail" default="true" type="bool" id="Thumbnail_On"/>
+		<setting id="default_player" type="labelenum" label="Default p2p-player" values="p2p-streams|Plexus" default="p2p-streams"  />
+	</category>
+	<category label="My Own List">
+		<setting label="My Own List" id="MyOwnList" type="text" default="c:\\m3u\myownlist.m3u" />
+	</category>
 </settings>
+
+
+
+

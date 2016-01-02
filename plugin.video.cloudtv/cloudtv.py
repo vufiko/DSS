@@ -80,6 +80,8 @@ if os.path.exists(source_file)==True:
 else: SOURCES = []
 
 
+MyBase = addon.getSetting('MyOwnList')
+
 ###
 API_URL = 'http://ida.omroep.nl/aapi/?stream='
 BASE_URL = 'http://livestreams.omroep.nl/'
@@ -196,6 +198,8 @@ def DCTVIndex():
     getData(base64.b64decode(DCTVBase),'')
     #addDir('Search','Search',40,'http://dutchsportstreams.com/cloudtv/images/Search.png' ,  FANART,'','','','')
     addDir('Listen Paradise Radio','Listen Paradise Radio',4,'%s/paradiseradio.png'% iconpath ,  FANART,'','','','')
+    addDir('My Own List','My Own List',6,icon ,  FANART,'','','','')
+    addDir('Test Url','Test Url',47,icon,  FANART,'','','','')
     
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
         
@@ -225,7 +229,7 @@ def Nieuws():
 
 def Privacy_Policy():
 	dialog = xbmcgui.Dialog()
-        dialog.ok("Private Policy", "No video or videos are hosted by dutch cloud tv.", "Any of the video you can find here may be gotten for free on sites like Justin.tv, Ustream.tv, Selfcast, bvls2016, and many others.Note we do not promise or guarantee our service and are not responsible for any action of our user's.We have no partnership and don't request to have partnership with any owner of video's or stream's given on our website.","All content is copyright of their respective owners.")
+        dialog.ok("Privacy Policy", "No video or videos are hosted by dutch cloud tv.", "Any of the video you can find here may be gotten for free on sites like Justin.tv, Ustream.tv, Selfcast, bvls2016, and many others.Note we do not promise or guarantee our service and are not responsible for any action of our user's.We have no partnership and don't request to have partnership with any owner of video's or stream's given on our website.","All content is copyright of their respective owners.")
         
 def showText(heading, text):
     id = 10147
@@ -2274,6 +2278,17 @@ def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlis
         #print 'added',name
         return ok
 
+def keyboard():
+    keyboard = xbmc.Keyboard('', 'Enter URL:', False)
+    keyboard.doModal()
+    if keyboard.isConfirmed():
+        query = keyboard.getText()
+        url=query
+        #urlsolver(url)
+        xbmc.Player().play(url)
+
+
+
 def playsetresolved(url,name,iconimage,setresolved=True):
     if setresolved:
         liz = xbmcgui.ListItem(name, iconImage=iconimage)
@@ -2383,7 +2398,10 @@ elif mode==3:
 elif mode==4:
         Play()
 
-
+elif mode==6:
+    addon_log("getData")
+    getData(MyBase,fanart)
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 
 elif mode==7:
@@ -2466,6 +2484,9 @@ elif mode==45:
 
 elif mode==46:
     Nieuws()
+
+elif mode==47:
+    keyboard()
     
 	
 elif mode==53:
