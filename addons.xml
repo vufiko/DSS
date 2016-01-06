@@ -2,7 +2,7 @@
 <addons>
 <addon id="plugin.video.cloudtv"
        name="DUTCH CLOUD TV"
-       version="4.3.5"
+       version="4.3.6"
        provider-name="DutchCloudTv">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -177,7 +177,7 @@
   </extension>
 </addon>
 
-<addon id="repository.dss" name="Dutch Sport Streams" version="1.5" provider-name="Dutch Cloud TV">
+<addon id="repository.dss" name="Dutch Sport Streams" version="1.6" provider-name="Dutch Cloud TV">
 	<extension point="xbmc.addon.repository" name="Dutch Sport Streams Repository">
 		<info compressed="true">https://raw.githubusercontent.com/dutchsportstreams/DSS/master/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/dutchsportstreams/DSS/master/addons.xml.md5</checksum>
@@ -220,9 +220,10 @@
     </extension>
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
-        <summary lang="en">Clean, clear, simple, modern.</summary>
-        <disclaimer lang="en">Mouse and Touch device not supported</disclaimer>
-        <description lang="en">Eminence is a skin that aims to be clean, clear, simple and modern.</description>
+        <summary lang="en">dss</summary>
+        <disclaimer lang="en">dss</disclaimer>
+        <description lang="en">dss</description>
+		<platform>all</platform>
     </extension>
 </addon>
 </addons>

@@ -877,7 +877,21 @@ def getItems(items,fanart):
                                 else:
                                     p2p='plugin://program.plexus/?url='+i.string +'&mode=1&name=' +name 
                                 url.append(p2p)
-                                
+                elif len(item('torrent')) >0:
+                    for i in item('torrent'):
+                        if not i.string == None:
+                            title = item('title')[0].string
+                            if addon.getSetting('torrent_player') == 'Pulsar':
+                                torrent = 'plugin://plugin.video.pulsar/play?uri='+i.string
+                            else: #addon.getSetting('torrent_player') == 'KmediaTorrent':
+                                torrent = 'plugin://plugin.video.kmediatorrent/play/'+i.string
+                            #elif addon.getSetting('torrent_player') == 'Torrenter':
+                                #torrent = 'plugin://plugin.video.torrenter/?action=playSTRM&url='+i.string+'&not_download_only=True'
+                            #elif addon.getSetting('torrent_player') == 'YATP':
+                                #torrent = 'plugin://plugin.video.yatp/?action=play&torrent='+i.string
+                            #else :
+                                #torrent = 'plugin.video.xbmctorrent/play/'+i.string
+                            url.append(torrent)
                 elif len(item('vaughn')) >0:
                     for i in item('vaughn'):
                         if not i.string == None:

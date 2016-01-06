@@ -1,4 +1,6 @@
-[B]V4.3.4[/B]
-- Hello
+[B]V4.3.6[/B]
+- Enable to make a torrent playlist
 
-
+[B]V4.3.5[/B]
+- Your Own List
+- Url Test
