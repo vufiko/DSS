@@ -79,8 +79,11 @@ if os.path.exists(source_file)==True:
     SOURCES = open(source_file).read()
 else: SOURCES = []
 
-
-MyBase = addon.getSetting('MyOwnList')
+if addon.getSetting('Pastebin_On') == 'true':
+    MyBase = 'http://pastebin.com/raw/' + addon.getSetting('MyOwnList')
+else:
+    MyBase = addon.getSetting('MyOwnList')
+    
 
 ###
 API_URL = 'http://ida.omroep.nl/aapi/?stream='
@@ -881,10 +884,11 @@ def getItems(items,fanart):
                     for i in item('torrent'):
                         if not i.string == None:
                             title = item('title')[0].string
+                            name = base64.b64decode(title)
                             if addon.getSetting('torrent_player') == 'Pulsar':
-                                torrent = 'plugin://plugin.video.pulsar/play?uri='+i.string
+                                torrent = 'plugin://plugin.video.pulsar/play?uri='+base64.b64decode(i.string)
                             else: #addon.getSetting('torrent_player') == 'KmediaTorrent':
-                                torrent = 'plugin://plugin.video.kmediatorrent/play/'+i.string
+                                torrent = 'plugin://plugin.video.kmediatorrent/play/'+base64.b64decode(i.string)
                             #elif addon.getSetting('torrent_player') == 'Torrenter':
                                 #torrent = 'plugin://plugin.video.torrenter/?action=playSTRM&url='+i.string+'&not_download_only=True'
                             #elif addon.getSetting('torrent_player') == 'YATP':

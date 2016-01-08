@@ -7,6 +7,7 @@
 		<setting id="torrent_player" type="labelenum" label="Default Torrent-player" values="Pulsar|KmediaTorrent" default="Pulsar"  />
 	</category>
 	<category label="My Own List">
+		<setting label="Enable Pastebin" default="false" type="bool" id="Pastebin_On"/>
 		<setting label="My Own List" id="MyOwnList" type="text" default="c:\\m3u\myownlist.m3u" />
 	</category>
 </settings>
