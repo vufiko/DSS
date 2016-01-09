@@ -60,12 +60,12 @@ history = os.path.join(profile, 'history')
 
 fanart = xbmc.translatePath(os.path.join(home, 'fanart.jpg'))
 iconpath = xbmc.translatePath(os.path.join(home, 'resources/icons/'))
-icon = xbmc.translatePath(os.path.join(home, 'resources/icons/icon.png'))
+#icon = xbmc.translatePath(os.path.join(home, 'resources/icons/icon.png'))
 
 
 REV = os.path.join(profile, 'list_revision')
 Mode = addon.getAddonInfo('version')
-##icon = os.path.join(home, 'icon.png')
+icon = os.path.join(home, 'icon.png')
 FANART = os.path.join(home, 'fanart.jpg')
 source_file = os.path.join(profile, 'source_file')
 functions_dir = profile
@@ -79,10 +79,9 @@ if os.path.exists(source_file)==True:
     SOURCES = open(source_file).read()
 else: SOURCES = []
 
-if addon.getSetting('Pastebin_On') == 'true':
-    MyBase = 'http://pastebin.com/raw/' + addon.getSetting('MyOwnList')
-else:
-    MyBase = addon.getSetting('MyOwnList')
+
+
+    
     
 
 ###
@@ -198,11 +197,72 @@ def DCTVIndex():
     addon_log("DCTVIndex")
     addDir('Privacy Policy','Privacy Policy',45,'%s/p-p.png'% iconpath ,  FANART,'','','','')
     addDir('Nieuws','Nieuws',46,'%s/news.png'% iconpath ,  FANART,'','','','')
-    getData(base64.b64decode(DCTVBase),'')
+    try :
+        getData(base64.b64decode(DCTVBase),'')
+    except:
+        pass
     #addDir('Search','Search',40,'http://dutchsportstreams.com/cloudtv/images/Search.png' ,  FANART,'','','','')
     addDir('Listen Paradise Radio','Listen Paradise Radio',4,'%s/paradiseradio.png'% iconpath ,  FANART,'','','','')
-    addDir('My Own List','My Own List',6,icon ,  FANART,'','','','')
+    addDir('My Own List','My Own List',48,icon ,  FANART,'','','','')
     addDir('Test Url','Test Url',47,icon,  FANART,'','','','')
+    
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+
+
+
+def MyIndex():
+    if addon.getSetting('Pastebin_On1') == 'true':
+        MyBase1 = 'http://pastebin.com/raw/' + addon.getSetting('MyOwnListUrl1')
+    else:
+        MyBase1 = addon.getSetting('MyOwnListUrl1')
+    if addon.getSetting('Pastebin_On2') == 'true':
+        MyBase2 = 'http://pastebin.com/raw/' + addon.getSetting('MyOwnListUrl2')
+    else:
+        MyBase2 = addon.getSetting('MyOwnListUrl2')
+    if addon.getSetting('Pastebin_On3') == 'true':
+        MyBase3 = 'http://pastebin.com/raw/' + addon.getSetting('MyOwnListUrl3')
+    else:
+        MyBase3 = addon.getSetting('MyOwnListUrl3')
+    if addon.getSetting('Pastebin_On4') == 'true':
+        MyBase4 = 'http://pastebin.com/raw/' + addon.getSetting('MyOwnListUrl4')
+    else:
+        MyBase4 = addon.getSetting('MyOwnListUrl4')
+    if addon.getSetting('Pastebin_On5') == 'true':
+        MyBase5 = 'http://pastebin.com/raw/' + addon.getSetting('MyOwnListUrl5')
+    else:
+        MyBase5 = addon.getSetting('MyOwnListUrl5')
+    if addon.getSetting('Pastebin_On6') == 'true':
+        MyBase6 = 'http://pastebin.com/raw/' + addon.getSetting('MyOwnListUrl6')
+    else:
+        MyBase6 = addon.getSetting('MyOwnListUrl6')
+    if addon.getSetting('Pastebin_On7') == 'true':
+        MyBase7 = 'http://pastebin.com/raw/' + addon.getSetting('MyOwnListUrl7')
+    else:
+        MyBase7 = addon.getSetting('MyOwnListUrl7')
+    if addon.getSetting('Pastebin_On8') == 'true':
+        MyBase8 = 'http://pastebin.com/raw/' + addon.getSetting('MyOwnListUrl8')
+    else:
+        MyBase8 = addon.getSetting('MyOwnListUrl8')
+    if addon.getSetting('Pastebin_On9') == 'true':
+        MyBase9 = 'http://pastebin.com/raw/' + addon.getSetting('MyOwnListUrl9')
+    else:
+        MyBase9 = addon.getSetting('MyOwnListUrl9')
+    if addon.getSetting('Pastebin_On10') == 'true':
+        MyBase10 = 'http://pastebin.com/raw/' + addon.getSetting('MyOwnListUrl10')
+    else:
+        MyBase10 = addon.getSetting('MyOwnListUrl10')
+    addon_log("DCTVIndex")
+    addDir(addon.getSetting('MyOwnListTitle1'),MyBase1,6,icon ,  FANART,'','','','')
+    addDir(addon.getSetting('MyOwnListTitle2'),MyBase2,6,icon ,  FANART,'','','','')
+    addDir(addon.getSetting('MyOwnListTitle3'),MyBase3,6,icon ,  FANART,'','','','')
+    addDir(addon.getSetting('MyOwnListTitle4'),MyBase4,6,icon ,  FANART,'','','','')
+    addDir(addon.getSetting('MyOwnListTitle5'),MyBase5,6,icon ,  FANART,'','','','')
+    addDir(addon.getSetting('MyOwnListTitle6'),MyBase6,6,icon ,  FANART,'','','','')
+    addDir(addon.getSetting('MyOwnListTitle7'),MyBase7,6,icon ,  FANART,'','','','')
+    addDir(addon.getSetting('MyOwnListTitle8'),MyBase8,6,icon ,  FANART,'','','','')
+    addDir(addon.getSetting('MyOwnListTitle9'),MyBase9,6,icon ,  FANART,'','','','')
+    addDir(addon.getSetting('MyOwnListTitle10'),MyBase10,6,icon ,  FANART,'','','','')
+    
     
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
         
@@ -485,7 +545,7 @@ def getData(url,fanart):
                 name = channel('name')[0].string
                 thumbnail = channel('thumbnail')[0].string
                 if thumbnail == None:
-                    thumbnail = ''
+                    thumbnail = icon
 
                 try:
                     if not channel('fanart'):
@@ -540,7 +600,11 @@ def getData(url,fanart):
             addon_log('No Channels: getItems')
             getItems(soup('item'),fanart)
     else:
-        parse_m3u(soup)
+        try:
+            parse_m3u(soup)
+        except:
+            pass
+            
 
     if SetViewLayout == "Thumbnail":
        SetViewThumbnail()
@@ -572,7 +636,7 @@ def parse_m3u(data):
             #else:
 
         else:
-            thumbnail = ''
+            thumbnail = icon
         if 'type' in other:
             mode_type = re_me(other,'type=[\'"](.*?)[\'"]')
             if mode_type == 'yt-dl':
@@ -605,7 +669,7 @@ def getChannelItems(name,url,fanart):
                 if thumbnail == None:
                     raise
             except:
-                thumbnail = ''
+                thumbnail = icon
             try:
                 if not channel('fanart'):
                     if addon.getSetting('use_thumb') == "true":
@@ -2418,7 +2482,7 @@ elif mode==4:
 
 elif mode==6:
     addon_log("getData")
-    getData(MyBase,fanart)
+    getData(url,fanart)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 
@@ -2505,6 +2569,9 @@ elif mode==46:
 
 elif mode==47:
     keyboard()
+
+elif mode==48:
+    MyIndex()
     
 	
 elif mode==53:
