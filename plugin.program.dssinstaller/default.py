@@ -21,16 +21,17 @@ U = ADDON.getSetting('User')
 FANART = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id , 'fanart.jpg'))
 ICON = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id, 'icon.png'))
 ART = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id + '/resources/art/'))
-VERSION = "2016.01.18.01"
+VERSION = "1.0.1"
 DBPATH = xbmc.translatePath('special://database')
 TNPATH = xbmc.translatePath('special://thumbnails');
 PATH = "DSS Installer"            
 BASEURL = "http://www.dutchsportstreams.com"
 H = 'http://'
-EXCLUDES = ['plugin.program.dssinstaller','script.module.addon.common','repository.build']
+EXCLUDES = ['plugin.program.dssinstaller','script.module.addon.common','repository.dss']
 
 def INDEX():
     addDir('DSS Installatie',BASEURL,2,ART+'icon.png',FANART,'')
+    addDir('Schone Installatie (Fabrieksinstellingen)','url',6,ART+'icon.png',FANART,'')
     setView('movies', 'MAIN')
 
 def BUILDMENU():
@@ -65,13 +66,13 @@ def TextBoxes(heading,announce):
   TextBox()
 
 def facebook():
-    TextBoxes('DSS Installer', '[COLOR=red]DSS [/COLOR]')
+    TextBoxes('DSS Install', '[COLOR=red]DSS - Home Entertainment Redefined[/COLOR] - voor meer informatie kijk op www.dutchsportsreams.com')
         
 
 def WIZARD(name,url,description):
     path = xbmc.translatePath(os.path.join('special://home/addons','packages'))
     dp = xbmcgui.DialogProgress()
-    dp.create("DSS Installer","Downloaden ",'', 'Even geduld A.U.B.')
+    dp.create("DSS Install","Downloaden ",'', 'Even geduld A.U.B.')
     lib=os.path.join(path, name+'.zip')
     try:
        os.remove(lib)
@@ -86,7 +87,7 @@ def WIZARD(name,url,description):
     print '======================================='
     extract.all(lib,addonfolder,dp)
     dialog = xbmcgui.Dialog()
-    dialog.ok("DSS Installer", "Om alle instellingen goed te installeren moet Kodi worden gesloten (force close). Klik op OK om Kodi te sluiten.")
+    dialog.ok("DSS Install", "Om alle instellingen goed te installeren moet Kodi worden gesloten (force close). Klik op OK om Kodi te sluiten.")
     killxbmc()
 
  
@@ -204,7 +205,7 @@ def FRESHSTART(params):
                     except:
                         if name not in ["Database","userdata"]: failed=True
                         plugintools.log("Error removing "+root+" "+name)
-            if not failed: plugintools.log("freshstart.main_list All user files removed, you now have a clean install"); plugintools.message(AddonTitle,"Schone Installatie is klaar, je hebt nu een verse Kodi configuratie met KAOSbox Install. Herstart nu je box!")
+            if not failed: plugintools.log("freshstart.main_list All user files removed, you now have a clean install"); plugintools.message(AddonTitle,"Schone Installatie is klaar, je hebt nu een verse Kodi configuratie met DSS Install. Herstart nu je box!")
             else: plugintools.log("freshstart.main_list User files partially removed"); plugintools.message(AddonTitle,"Schone Installatie is klaar, je hebt nu een verse Kodi configuratie met DSS Install. Herstart nu je box!")
         except: plugintools.message(AddonTitle,"Problem found","Your settings has not been changed"); import traceback; plugintools.log(traceback.format_exc()); plugintools.log("freshstart.main_list NOT removed")
         plugintools.add_item(action="",title="Kodi Sluiten",folder=False)
