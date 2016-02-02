@@ -196,13 +196,13 @@ def makeRequest(url, headers=None):
 def DCTVIndex():
     addon_log("DCTVIndex")
     addDir('Privacy Policy','Privacy Policy',45,'%s/p-p.png'% iconpath ,  FANART,'','','','')
-    addDir('Nieuws','Nieuws',46,'%s/news.png'% iconpath ,  FANART,'','','','')
+    #addDir('Nieuws','Nieuws',46,'%s/news.png'% iconpath ,  FANART,'','','','')
     try :
         getData(base64.b64decode(DCTVBase),'')
     except:
         pass
     #addDir('Search','Search',40,'http://dutchsportstreams.com/cloudtv/images/Search.png' ,  FANART,'','','','')
-    addDir('Listen Paradise Radio','Listen Paradise Radio',4,'%s/paradiseradio.png'% iconpath ,  FANART,'','','','')
+    #addDir('Listen Paradise Radio','Listen Paradise Radio',4,'%s/paradiseradio.png'% iconpath ,  FANART,'','','','')
     addDir('My Own List','My Own List',48,icon ,  FANART,'','','','')
     addDir('Test Url','Test Url',47,icon,  FANART,'','','','')
     
