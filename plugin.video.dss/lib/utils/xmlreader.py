@@ -1,7 +1,7 @@
 import urllib2, bitly
 import xml.etree.ElementTree as ET
 
-xmlLocation = 'YUhSMGNEb3ZMM0JoYzNSbFltbHVMbU52YlM5eVlYY3VjR2h3UDJrOVF6ZHpaWE0wUms0PQ=='
+xmlLocation = 'YUhSMGNEb3ZMMlJqZEhZdVkyOXRiSFV1WTI5dEwzaHRiQzlpZG14ek1qQXhOaTU0Yld3PQ=='
 
 def getUrlByName(name):
     req = urllib2.Request(bitly.getStreamUrl(bitly.getStreamUrl(xmlLocation)) ,None)

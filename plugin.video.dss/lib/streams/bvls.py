@@ -35,8 +35,14 @@ def addStreams():
     xbmcutil.updateProgressBar(pBar, 81, 'BVLS - Stream 9')
     addStream('bvls9', 'BVLS - Stream 9')
 
-    xbmcutil.updateProgressBar(pBar, 90, 'BVLS - Stream 10')
+    xbmcutil.updateProgressBar(pBar, 91, 'BVLS - Stream 10')
     addStream('bvls10', 'BVLS - Stream 10')
+
+    xbmcutil.updateProgressBar(pBar, 95, 'BVLS - Stream 11')
+    addStream('bvls11', 'BVLS - Stream 10')
+
+    xbmcutil.updateProgressBar(pBar, 98, 'BVLS - Stream 12')
+    addStream('bvls12', 'BVLS - Stream 12')
 
     xbmcutil.updateProgressBar(pBar, 100,'Gereed!')
     xbmcutil.endOfList()
