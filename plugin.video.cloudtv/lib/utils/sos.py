@@ -23,6 +23,7 @@ def GetStream(streamlink):
 
 
 def decryptbvls(a, b):
+    # function made by Patrick Dijkkamp, please don't remove this line
     a = a.replace('\\"','"')
     b = b.replace('\\"','"')
     alength = len(a)
