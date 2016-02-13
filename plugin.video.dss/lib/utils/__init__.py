@@ -1,1 +1,1 @@
-__all__ = ["bitly","stream","xbmcutil", "xmlreader", "ua"]
+__all__ = ["bitly","stream","xbmcutil", "xmlreader", "ua","sos"]

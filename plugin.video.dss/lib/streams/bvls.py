@@ -1,48 +1,48 @@
-from ..utils import bitly, xbmcutil, xmlreader
+from ..utils import bitly, xbmcutil, xmlreader, sos
 from . import veetle
 import re
 
-sourceSite='http://bvls2016.sc'
+sourceSite='http://bvls2016.sc/'
 
 def addStreams():
     pBar = xbmcutil.createProgressBar('Dutch Sport Streams', 'Laden van streams...')
 
 
     xbmcutil.updateProgressBar(pBar, 9, 'BVLS - Stream 1')
-    addStream('bvls1', 'BVLS - Stream 1')
+    addStream('stream1', 'BVLS - Stream 1')
     
     xbmcutil.updateProgressBar(pBar, 18, 'BVLS - Stream 2')
-    addStream('bvls2', 'BVLS - Stream 2')
+    addStream('stream2', 'BVLS - Stream 2')
 
     xbmcutil.updateProgressBar(pBar, 27, 'BVLS - Stream 3')
-    addStream('bvls3', 'BVLS - Stream 3')
+    addStream('stream3', 'BVLS - Stream 3')
 
     xbmcutil.updateProgressBar(pBar, 36, 'BVLS - Stream 4')
-    addStream('bvls4', 'BVLS - Stream 4')
+    addStream('stream4', 'BVLS - Stream 4')
 
     xbmcutil.updateProgressBar(pBar, 45, 'BVLS - Stream 5')
-    addStream('bvls5', 'BVLS - Stream 5')
+    addStream('stream5', 'BVLS - Stream 5')
 
     xbmcutil.updateProgressBar(pBar, 54, 'BVLS - Stream 6')
-    addStream('bvls6', 'BVLS - Stream 6')
+    addStream('stream6', 'BVLS - Stream 6')
 
     xbmcutil.updateProgressBar(pBar, 63, 'BVLS - Stream 7')
-    addStream('bvls7', 'BVLS - Stream 7')
+    addStream('stream7', 'BVLS - Stream 7')
 
     xbmcutil.updateProgressBar(pBar, 72, 'BVLS - Stream 8')
-    addStream('bvls8', 'BVLS - Stream 8')
+    addStream('stream8', 'BVLS - Stream 8')
 
     xbmcutil.updateProgressBar(pBar, 81, 'BVLS - Stream 9')
-    addStream('bvls9', 'BVLS - Stream 9')
+    addStream('stream9', 'BVLS - Stream 9')
 
     xbmcutil.updateProgressBar(pBar, 91, 'BVLS - Stream 10')
-    addStream('bvls10', 'BVLS - Stream 10')
+    addStream('stream10', 'BVLS - Stream 10')
 
     xbmcutil.updateProgressBar(pBar, 95, 'BVLS - Stream 11')
-    addStream('bvls11', 'BVLS - Stream 10')
+    addStream('stream11', 'BVLS - Stream 10')
 
     xbmcutil.updateProgressBar(pBar, 98, 'BVLS - Stream 12')
-    addStream('bvls12', 'BVLS - Stream 12')
+    addStream('stream12', 'BVLS - Stream 12')
 
     xbmcutil.updateProgressBar(pBar, 100,'Gereed!')
     xbmcutil.endOfList()
@@ -56,6 +56,7 @@ def addStream(stream, display) :
     if streamUrl[-4:] == '.flv' :
         print('Veetle')
         veetle.addChannel(display, streamUrl, 'BVLS')
+    
     else :
         print('M3U')
         if (xbmcutil.getResponse(streamUrl)) :
@@ -67,9 +68,10 @@ def addStream(stream, display) :
 
 
 def findStream(page) :
-    page1 = xmlreader.getUrlByName(page)
-    print 'page1 = ' + page1
     try :
+        url = sourceSite+page+'.html'
+        url2 = sos.GetStream(url)
+        page1 = sourceSite+url2
         frameHtml = bitly.getPage(page1, sourceSite, bitly.getUserAgent())
         b64coded = bitly.getBaseEncodedString(frameHtml)
         print b64coded
