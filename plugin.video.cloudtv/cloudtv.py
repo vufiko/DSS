@@ -978,12 +978,17 @@ def getItems(items,fanart):
                 elif len(item('bvls')) >0:
                     for i in item('bvls'):
                         if not i.string == None:
-                            title = item('title')[0].string 
-                            streamUrl = findStream(i.string)
+                            title = item('title')[0].string
+                            bvlsstream = sos.GetStream(i.string)
+                            print bvlsstream
+                            streamUrl = findStream('http://bvls2016.sc/'+bvlsstream)
                             if (bitly.getResponse(streamUrl)) :
                                 color = 'green'
                                 if streamUrl[-4:] == '.flv' :
                                     streamUrl = bitly.VeetleId(streamUrl)
+                                if 'youtube' in streamUrl:
+                                    streamUrl=streamUrl.replace('https://www.youtube.com/watch?v=', 'plugin://plugin.video.youtube/play/?video_id=').strip()
+  
                             else :
                                 color = 'red'
                             name='[COLOR '+color+']' + title + '[/COLOR]' 
