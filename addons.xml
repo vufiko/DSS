@@ -2,7 +2,7 @@
 <addons>
 <addon id="plugin.program.dssinstaller" name="DSS Installer" version="1.0.1" provider-name="DSS">
   <requires>
-    	<import addon="xbmc.python" version="2.1.0"/>
+    	<import addon="xbmDc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
 	<import addon="repository.dss" />
   </requires>
